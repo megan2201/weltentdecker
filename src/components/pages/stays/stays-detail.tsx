@@ -209,7 +209,7 @@ export default function StaysDetail() {
           {/* Gallery thumbnails */}
           <div className="hidden grid-cols-2 gap-2 md:grid">
             {stay.images.slice(1, 5).map((image, index) => (
-              <button
+              <div
                 key={image}
                 onClick={() => {
                   if (index != 3) setSelectedImage(index + 1);
@@ -229,7 +229,7 @@ export default function StaysDetail() {
                     </Button>
                   </div>
                 )}
-              </button>
+              </div>
             ))}
           </div>
         </div>
@@ -446,7 +446,7 @@ export default function StaysDetail() {
                 <div className="grid grid-cols-2 divide-x">
                   <Popover open={isCheckInOpen} onOpenChange={setIsCheckInOpen}>
                     <PopoverTrigger>
-                      <button className="p-4 text-left">
+                      <div className="p-4 text-left">
                         <p className="text-[10px] font-bold uppercase tracking-wider">
                           Check-in
                         </p>
@@ -456,7 +456,7 @@ export default function StaysDetail() {
                             ? trip.checkIn.toLocaleDateString("de-DE")
                             : "Datum auswählen"}
                         </p>
-                      </button>
+                      </div>
                     </PopoverTrigger>
 
                     <PopoverContent className="w-auto p-0">
@@ -481,7 +481,7 @@ export default function StaysDetail() {
                     onOpenChange={setIsCheckOutOpen}
                   >
                     <PopoverTrigger>
-                      <button className="p-4 text-left">
+                      <div className="p-4 text-left">
                         <p className="text-[10px] font-bold uppercase tracking-wider">
                           Check-out
                         </p>
@@ -491,7 +491,7 @@ export default function StaysDetail() {
                             ? trip.checkOut.toLocaleDateString("de-DE")
                             : "Datum auswählen"}
                         </p>
-                      </button>
+                      </div>
                     </PopoverTrigger>
 
                     <PopoverContent className="w-auto p-0">

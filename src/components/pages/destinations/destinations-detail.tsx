@@ -213,7 +213,7 @@ export default function DestinationDetail() {
               <div className="grid grid-cols-2 divide-x">
                 <Popover open={isCheckInOpen} onOpenChange={setIsCheckInOpen}>
                   <PopoverTrigger>
-                    <button className="p-4 text-left">
+                    <div className="p-4 text-left">
                       <p className="text-[10px] font-bold uppercase tracking-wider">
                         Check-in
                       </p>
@@ -223,7 +223,7 @@ export default function DestinationDetail() {
                           ? trip.checkIn.toLocaleDateString("de-DE")
                           : "Datum auswählen"}
                       </p>
-                    </button>
+                    </div>
                   </PopoverTrigger>
 
                   <PopoverContent className="w-auto p-0">
@@ -245,7 +245,7 @@ export default function DestinationDetail() {
 
                 <Popover open={isCheckOutOpen} onOpenChange={setIsCheckOutOpen}>
                   <PopoverTrigger>
-                    <button className="p-4 text-left">
+                    <div className="p-4 text-left">
                       <p className="text-[10px] font-bold uppercase tracking-wider">
                         Check-out
                       </p>
@@ -255,7 +255,7 @@ export default function DestinationDetail() {
                           ? trip.checkOut.toLocaleDateString("de-DE")
                           : "Datum auswählen"}
                       </p>
-                    </button>
+                    </div>
                   </PopoverTrigger>
 
                   <PopoverContent className="w-auto p-0">
