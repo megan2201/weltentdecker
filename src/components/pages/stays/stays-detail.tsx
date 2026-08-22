@@ -19,7 +19,7 @@ import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getStayById } from "@/assets/data/stays";
-import Home from "../home";
+import Home from "@/components/pages/home";
 import { useTrip } from "@/components/context/TripContext";
 
 function calculateNights(checkIn?: Date, checkOut?: Date) {

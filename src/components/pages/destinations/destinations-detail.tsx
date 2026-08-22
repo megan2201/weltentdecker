@@ -25,7 +25,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import Home from "../home";
+import Home from "@/components/pages/home";
 
 export default function DestinationDetail() {
   const { slug } = useParams<{ slug: string }>();
