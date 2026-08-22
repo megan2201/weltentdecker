@@ -1,6 +1,5 @@
 import {
   ArrowRight,
-  CalendarDays,
   Check,
   ChevronRight,
   Clock3,
@@ -11,7 +10,6 @@ import {
   Sparkles,
   Star,
   Sun,
-  Users,
   Waves,
   Wind,
 } from "lucide-react";
@@ -20,7 +18,6 @@ import { Button } from "@/components/ui/button";
 import { Link, useParams } from "react-router-dom";
 import { destinations } from "@/assets/data/destinations";
 import { useMemo, useState } from "react";
-import Home from "../home";
 import { useTrip } from "@/components/context/TripContext";
 import {
   Popover,
@@ -28,6 +25,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
+import Home from "../home";
 
 export default function DestinationDetail() {
   const { slug } = useParams<{ slug: string }>();

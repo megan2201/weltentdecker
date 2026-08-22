@@ -1,14 +1,10 @@
 import {
   ArrowRight,
-  Bath,
-  BedDouble,
   Check,
   ChevronLeft,
   ChevronRight,
   MapPin,
   Star,
-  Users,
-  Wifi,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";

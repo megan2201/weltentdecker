@@ -1,16 +1,10 @@
 import {
   Bath,
   BedDouble,
-  Car,
-  Coffee,
-  Dumbbell,
-  Heart,
   Home,
   ParkingCircle,
   Snowflake,
   Sparkles,
-  Tv,
-  Utensils,
   Waves,
   Wifi,
 } from "lucide-react"
