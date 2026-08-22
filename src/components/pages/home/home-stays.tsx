@@ -33,7 +33,7 @@ const stays = [
   },
 ]
 
-export default function Stays() {
+export default function HomeStays() {
     return (
         <section
         id="stays"

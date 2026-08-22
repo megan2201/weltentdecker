@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-export default function Newsletter() {
+export default function HomeNewsletter() {
     return (
         <section className="px-6 pb-20 lg:px-8 lg:pb-28">
         <div

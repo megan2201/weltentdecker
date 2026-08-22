@@ -4,7 +4,7 @@ import {
   Sparkles
 } from "lucide-react"
 
-export default function Inspiration() {
+export default function HomeInspiration() {
     return (
         <section className="bg-[#f5f7f5] py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -27,11 +27,6 @@ export default function Inspiration() {
                 ein Ort auf der Landkarte. Entdecke besondere Unterkünfte,
                 lokale Erlebnisse und Momente, die bleiben.
               </p>
-
-              <Button className="mt-8 rounded-xl bg-gray-900 px-6 hover:bg-gray-800">
-                Inspiration entdecken
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
             </div>
 
             <div className="relative">

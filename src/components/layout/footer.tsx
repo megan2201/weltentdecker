@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
     return (
         <footer
@@ -7,35 +9,40 @@ export default function Footer() {
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 md:grid-cols-4">
             <div className="md:col-span-2">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="text-2xl font-bold tracking-tight"
               >
                 welt<span className="text-emerald-600">entdecken</span>
-              </a>
+              </Link>
 
               <p className="mt-4 max-w-sm text-sm leading-6 text-gray-500">
                 Wir machen es einfacher, besondere Orte zu entdecken und
                 Reisen zu buchen, die du nie vergessen wirst.
               </p>
+
+              <div className="flex items-center gap-2 text-sm text-gray-400 mt-4">
+                Made for travelers
+                <span className="text-emerald-600">♥</span>
+              </div>
             </div>
 
             <div>
               <h3 className="font-semibold">Entdecken</h3>
 
               <div className="mt-4 space-y-3 text-sm text-gray-500">
-                <a href="#destinations" className="block hover:text-gray-900">
+                <Link to="/destinations" className="block hover:text-gray-900">
                   Reiseziele
-                </a>
-                <a href="#stays" className="block hover:text-gray-900">
+                </Link>
+                <Link to="/stays" className="block hover:text-gray-900">
                   Unterkünfte
-                </a>
-                <a href="#experiences" className="block hover:text-gray-900">
+                </Link>
+                <Link to="/experiences" className="block hover:text-gray-900">
                   Erlebnisse
-                </a>
-                <a href="#" className="block hover:text-gray-900">
+                </Link>
+                <Link to="/inspirations" className="block hover:text-gray-900">
                   Reiseinspiration
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -56,15 +63,6 @@ export default function Footer() {
                   Datenschutz
                 </a>
               </div>
-            </div>
-          </div>
-
-          <div className="mt-14 flex flex-col justify-between gap-4 border-t pt-6 text-sm text-gray-400 sm:flex-row">
-            <p>© 2026 weltentdecken. Alle Rechte vorbehalten.</p>
-
-            <div className="flex items-center gap-2">
-              Made for travelers
-              <span className="text-emerald-600">♥</span>
             </div>
           </div>
         </div>

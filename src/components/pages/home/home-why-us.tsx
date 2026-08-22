@@ -4,7 +4,7 @@ import {
   Sparkles
 } from "lucide-react"
 
-export default function WhyUs() {
+export default function HomeWhyUs() {
     return (
         <section className="bg-gray-950 py-20 text-white lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

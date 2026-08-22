@@ -28,7 +28,7 @@ const destinations = [
   },
 ]
 
-export default function Destinations() {
+export default function HomeDestinations() {
     return (
         <section
         id="destinations"

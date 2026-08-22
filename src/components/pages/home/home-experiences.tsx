@@ -21,7 +21,7 @@ const experiences = [
   },
 ]
 
-export default function Experiences() {
+export default function HomeExperiences() {
     return (
         <section
         id="experiences"
