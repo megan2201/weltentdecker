@@ -1,13 +1,16 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
-import { TripProvider } from './components/context/TripContext.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { TripProvider } from "./components/context/trip-context.tsx";
+import { UserProvider } from "./components/context/user-context.tsx";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <TripProvider>
-      <App />
-    </TripProvider>
+    <UserProvider>
+      <TripProvider>
+        <App />
+      </TripProvider>
+    </UserProvider>
   </StrictMode>,
-)
+);

@@ -9,12 +9,14 @@ import {
 type TripSearch = {
   checkIn: Date | undefined
   checkOut: Date | undefined
+  date: Date | undefined
   guests: number
 }
 
 type StoredTrip = {
   checkIn: string | null
   checkOut: string | null
+  date: string | null
   guests: number
 }
 
@@ -23,6 +25,7 @@ type TripContextType = {
 
   setCheckIn: (value: Date | undefined) => void
   setCheckOut: (value: Date | undefined) => void
+  setDate: (value: Date | undefined) => void
   setGuests: (value: number) => void
 
   updateTrip: (
@@ -35,6 +38,7 @@ type TripContextType = {
 const defaultTrip: TripSearch = {
   checkIn: undefined,
   checkOut: undefined,
+  date: undefined,
   guests: 2,
 }
 
@@ -71,6 +75,10 @@ export function TripProvider({
           checkOut: parsed.checkOut
             ? new Date(parsed.checkOut)
             : undefined,
+          
+          date: parsed.date
+            ? new Date(parsed.date)
+            : undefined,
 
           guests: parsed.guests ?? 2,
         }
@@ -87,6 +95,10 @@ export function TripProvider({
 
       checkOut: trip.checkOut
         ? trip.checkOut.toISOString()
+        : null,
+      
+      date: trip.date
+        ? trip.date.toISOString()
         : null,
 
       guests: trip.guests,
@@ -123,6 +135,14 @@ export function TripProvider({
     })
   }
 
+  function setDate(
+    value: Date | undefined,
+  ) {
+    updateTrip({
+      date: value,
+    })
+  }
+
   function setGuests(value: number) {
     updateTrip({
       guests: value,
@@ -143,6 +163,7 @@ export function TripProvider({
         trip,
         setCheckIn,
         setCheckOut,
+        setDate,
         setGuests,
         updateTrip,
         clearTrip,

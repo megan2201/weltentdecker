@@ -20,33 +20,7 @@ import {
 } from "@/components/ui/select"
 import { Link } from "react-router-dom"
 import { destinations } from "@/assets/data/destinations"
-
-const regions = [
-  {
-    name: "Europa",
-    count: "1.240 Ziele",
-    image:
-      "https://images.unsplash.com/photo-1473951574080-01fe45a7e83d?auto=format&fit=crop&w=1200&q=85",
-  },
-  {
-    name: "Asien",
-    count: "890 Ziele",
-    image:
-      "https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?auto=format&fit=crop&w=1200&q=85",
-  },
-  {
-    name: "Afrika",
-    count: "420 Ziele",
-    image:
-      "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=85",
-  },
-  {
-    name: "Amerika",
-    count: "760 Ziele",
-    image:
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=85",
-  },
-]
+import { getStayCountryDetails } from "@/assets/data/stays"
 
 export default function Destinations() {
   const [searchInput, setSearchInput] = useState("")
@@ -332,14 +306,14 @@ export default function Destinations() {
       </section>
 
       {/* =====================================================
-          REGIONS
+          Länder
       ====================================================== */}
       <section className="bg-gray-950 py-20 text-white lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">
-                Nach Region
+                Nach Land
               </p>
 
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -348,21 +322,21 @@ export default function Destinations() {
             </div>
 
             <p className="max-w-md text-sm leading-6 text-gray-400">
-              Entdecke neue Reiseideen nach Kontinent und finde deinen
+              Entdecke neue Reiseideen nach Länder und finde deinen
               persönlichen nächsten Lieblingsort.
             </p>
           </div>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {regions.map((region) => (
-              <a
-                href="#"
-                key={region.name}
+            {getStayCountryDetails().slice(0, 4).map((countryDetails) => (
+              <Link
+                to={`/stays?q=${encodeURIComponent(countryDetails[0])}`}
+                key={countryDetails[0]}
                 className="group relative h-72 overflow-hidden rounded-3xl"
               >
                 <img
-                  src={region.image}
-                  alt={region.name}
+                  src={countryDetails[1]}
+                  alt={countryDetails[0]}
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
 
@@ -370,119 +344,15 @@ export default function Destinations() {
 
                 <div className="absolute bottom-5 left-5">
                   <h3 className="text-2xl font-semibold">
-                    {region.name}
+                    {countryDetails[0]}
                   </h3>
 
                   <p className="mt-1 text-sm text-white/65">
-                    {region.count}
+                    {(Math.floor(Math.random() * 201))} Unterkünfte
                   </p>
                 </div>
-              </a>
+              </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          TRAVEL TYPES
-      ====================================================== */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
-        <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">
-            Nach deinem Geschmack
-          </p>
-
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Welche Reise passt zu dir?
-          </h2>
-
-          <p className="mx-auto mt-4 max-w-2xl text-gray-500">
-            Ob entspannter Strandurlaub oder großes Abenteuer – finde
-            Destinationen passend zu deiner Art zu reisen.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {[
-            {
-              title: "Strand",
-              emoji: "🌊",
-              text: "Sonne & Meer",
-            },
-            {
-              title: "Stadt",
-              emoji: "🏙️",
-              text: "Kultur & Food",
-            },
-            {
-              title: "Natur",
-              emoji: "🏔️",
-              text: "Berge & Wälder",
-            },
-            {
-              title: "Abenteuer",
-              emoji: "🧭",
-              text: "Raus aus der Komfortzone",
-            },
-            {
-              title: "Wellness",
-              emoji: "🌿",
-              text: "Ruhe & Entspannung",
-            },
-          ].map((type) => (
-            <a
-              href="#"
-              key={type.title}
-              className="group rounded-3xl border bg-white p-6 transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg"
-            >
-              <span className="text-3xl">{type.emoji}</span>
-
-              <h3 className="mt-5 font-semibold">
-                {type.title}
-              </h3>
-
-              <p className="mt-1 text-sm text-gray-500">
-                {type.text}
-              </p>
-
-              <ArrowRight className="mt-6 h-4 w-4 text-gray-400 transition group-hover:translate-x-1 group-hover:text-emerald-600" />
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* =====================================================
-          INSPIRATION CTA
-      ====================================================== */}
-      <section className="px-6 pb-20 lg:px-8 lg:pb-28">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem]">
-          <img
-            src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2000&q=90"
-            alt="Reiseinspiration"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-
-          <div className="absolute inset-0 bg-black/50" />
-
-          <div className="relative px-6 py-20 text-center text-white sm:px-12 lg:py-28">
-            <Sparkles className="mx-auto h-8 w-8 text-emerald-300" />
-
-            <h2 className="mx-auto mt-6 max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
-              Noch nicht sicher, wohin?
-            </h2>
-
-            <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-white/80">
-              Lass dich inspirieren und entdecke Reiseziele, von denen du
-              vielleicht noch gar nicht wusstest, dass du sie suchst.
-            </p>
-
-            <Button
-              size="lg"
-              className="mt-8 rounded-xl bg-white px-7 text-gray-900 hover:bg-gray-100"
-            >
-              Mich inspirieren lassen
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
           </div>
         </div>
       </section>

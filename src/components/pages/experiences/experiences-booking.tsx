@@ -1,173 +1,165 @@
-import { useState, type SyntheticEvent } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useState, type SyntheticEvent } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
+  CalendarDays,
   Check,
+  Clock3,
   CreditCard,
+  Globe2,
   Lock,
+  MapPin,
   ShieldCheck,
   Star,
-} from "lucide-react"
+  Users,
+} from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
-import { Checkbox } from "@/components/ui/checkbox"
-import { useTrip } from "@/components/context/trip-context"
-import { getStayById, type Stay } from "@/assets/data/stays"
-import Home from "../home"
-import { useUser } from "@/components/context/user-context"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
 
-function formatDate(date: Date) {
+import { useTrip } from "@/components/context/trip-context";
+import { getExperienceById, type Experience } from "@/assets/data/experiences";
+import Home from "../home";
+import { useUser } from "@/components/context/user-context";
+
+function formatDate(date?: Date) {
+  if (!date) return "—";
+
   return date.toLocaleDateString("de-DE", {
     day: "2-digit",
     month: "short",
     year: "numeric",
-  })
+  });
 }
 
-export default function StaysBooking() {
-  const navigate = useNavigate()
+export default function ExperiencesBooking() {
+  const navigate = useNavigate();
   const { trip } = useTrip();
-  const { addStayBooking } = useUser()
+  const { addExperienceBooking } = useUser()
   const { id } = useParams();
-  const stay = id ? getStayById(id) : undefined;
-  if (!stay) {
+
+  const experience = id ? getExperienceById(id) : undefined;
+
+  if (!experience) {
     return <Home />;
   }
 
-  const [step, setStep] = useState(1)
-  const [loading, setLoading] = useState(false)
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const [cardNumber, setCardNumber] = useState("")
-  const [expiry, setExpiry] = useState("")
-  const [cvc, setCvc] = useState("")
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiry, setExpiry] = useState("");
+  const [cvc, setCvc] = useState("");
 
-  const [acceptTerms, setAcceptTerms] = useState(false)
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
-  const cleaningFee = 35
-  const serviceFee = 42
+  /*
+   * Für Erlebnisse:
+   * Preis = Preis pro Person × Anzahl Teilnehmer
+   */
+  const experiencePrice = experience.price * trip.guests;
 
-  const nights =
-    trip.checkIn && trip.checkOut
-      ? Math.max(
-          1,
-          Math.ceil(
-            (trip.checkOut.getTime() -
-              trip.checkIn.getTime()) /
-              (1000 * 60 * 60 * 24),
-          ),
-        )
-      : 0
+  /*
+   * Optional kann später noch eine Servicegebühr
+   * aus deiner API kommen.
+   */
+  const serviceFee = Math.round(experiencePrice * 0.05);
 
-  const accommodationPrice =
-    stay.pricePerNight * nights
+  const total = experiencePrice + serviceFee;
 
-  const total =
-    accommodationPrice +
-    cleaningFee +
-    serviceFee
+  const validGuests = trip.guests >= 1 && trip.guests <= experience.maxGuests;
 
-  function handleGuestSubmit(
-    event: SyntheticEvent,
-  ) {
-    event.preventDefault()
+  const validDate = Boolean(trip.date);
 
-    if (
-      !firstName ||
-      !lastName ||
-      !email
-    ) {
-      return
+  function handleGuestSubmit(event: SyntheticEvent) {
+    event.preventDefault();
+
+    if (!firstName || !lastName || !email || !validGuests || !validDate) {
+      return;
     }
 
-    setStep(2)
+    setStep(2);
   }
 
-  async function handlePayment(
-    event: SyntheticEvent, stay: Stay, checkIn: Date, checkOut: Date, guests: number
-  ) {
-    event.preventDefault()
+  async function handlePayment(event: SyntheticEvent, experience: Experience, date: Date, guests: number) {
+    event.preventDefault();
 
-    if (
-      !cardNumber ||
-      !expiry ||
-      !cvc ||
-      !acceptTerms
-    ) {
-      return
+    if (!cardNumber || !expiry || !cvc || !acceptTerms) {
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
-    addStayBooking({
+    addExperienceBooking({
       uid: crypto.randomUUID().toString(),
-      stay: stay,
-      checkIn: checkIn,
-      checkOut: checkOut,
+      experience: experience,
+      date: date,
       guests: guests,
-      totalPrice: total
-    })
+      totalPrice: total,
+    });
 
-    // Hier später deine Payment-API / Stripe-Integration.
-    await new Promise((resolve) =>
-      setTimeout(resolve, 1500),
-    )
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    setLoading(false)
-
-    setStep(3)
+    setLoading(false);
+    setStep(3);
   }
 
-  if (!trip.checkIn || !trip.checkOut || nights <= 0) {
+  /*
+   * Kein Datum ausgewählt
+   */
+  if (!validDate) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-gray-50 px-6">
         <div className="max-w-md text-center">
-          <h1 className="text-2xl font-semibold">
-            Buchung nicht möglich
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
+            <CalendarDays className="h-7 w-7 text-emerald-600" />
+          </div>
+
+          <h1 className="mt-6 text-2xl font-semibold">
+            Kein Termin ausgewählt
           </h1>
 
           <p className="mt-3 text-gray-500">
-            Bitte wähle zuerst einen gültigen
-            Reisezeitraum aus.
+            Bitte wähle zuerst einen Termin für dieses Erlebnis aus.
           </p>
 
           <Button
-            className="mt-6"
+            className="mt-6 rounded-xl bg-emerald-600 hover:bg-emerald-700"
             onClick={() => navigate(-1)}
           >
-            Zur Unterkunft
+            Zurück zum Erlebnis
           </Button>
         </div>
       </main>
-    )
+    );
   }
 
   return (
     <main className="min-h-screen bg-[#f8faf9]">
-      {/* Progress */}
+      {/* =====================================================
+          PROGRESS
+      ====================================================== */}
+
       <div className="mt-20 border-b bg-white">
         <div className="mx-auto max-w-3xl px-6 py-6">
           <div className="flex items-center justify-center">
             {[
-              ["1", "Gastdaten"],
+              ["1", "Teilnehmerdaten"],
               ["2", "Zahlung"],
               ["3", "Bestätigung"],
             ].map(([number, label], index) => {
-              const active =
-                Number(number) <= step
+              const active = Number(number) <= step;
 
               return (
-                <div
-                  key={number}
-                  className="flex items-center"
-                >
+                <div key={number} className="flex items-center">
                   <div className="flex items-center gap-2">
                     <div
                       className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ${
@@ -185,9 +177,7 @@ export default function StaysBooking() {
 
                     <span
                       className={`hidden text-sm font-medium sm:block ${
-                        active
-                          ? "text-gray-900"
-                          : "text-gray-400"
+                        active ? "text-gray-900" : "text-gray-400"
                       }`}
                     >
                       {label}
@@ -196,46 +186,51 @@ export default function StaysBooking() {
 
                   {index < 2 && (
                     <div
-                      className={`mx-4 h-px w-12 sm:w-20 ${
-                        Number(number) < step
-                          ? "bg-emerald-600"
-                          : "bg-gray-200"
+                      className={`mx-4 h-px w-10 sm:w-20 ${
+                        Number(number) < step ? "bg-emerald-600" : "bg-gray-200"
                       }`}
                     />
                   )}
                 </div>
-              )
+              );
             })}
           </div>
         </div>
       </div>
 
-      {/* Content */}
+      {/* =====================================================
+          CONTENT
+      ====================================================== */}
+
       <div className="mx-auto max-w-6xl px-6 py-10 lg:px-8">
         {step < 3 ? (
           <div className="grid gap-10 lg:grid-cols-[1fr_380px]">
-            {/* Main */}
+            {/* =================================================
+                MAIN
+            ================================================== */}
+
             <div>
+              {/* ===============================================
+                  STEP 1
+              ================================================ */}
+
               {step === 1 && (
                 <>
                   <div className="mb-8">
                     <button
-                      onClick={() =>
-                        navigate(-1)
-                      }
-                      className="flex items-center cursor-pointer gap-2 text-sm text-gray-500 hover:text-gray-900"
+                      onClick={() => navigate(-1)}
+                      className="flex cursor-pointer items-center gap-2 text-sm text-gray-500 hover:text-gray-900"
                     >
                       <ArrowLeft className="h-4 w-4" />
-                      Zurück zur Unterkunft
+                      Zurück zum Erlebnis
                     </button>
 
                     <h1 className="mt-6 text-3xl font-semibold tracking-tight">
-                      Deine Buchung
+                      Dein Erlebnis
                     </h1>
 
                     <p className="mt-2 text-gray-500">
-                      Gib deine Kontaktdaten ein, um
-                      fortzufahren.
+                      Gib deine Kontaktdaten ein, um die Buchung abzuschließen.
                     </p>
                   </div>
 
@@ -243,46 +238,38 @@ export default function StaysBooking() {
                     onSubmit={handleGuestSubmit}
                     className="rounded-3xl border bg-white p-6 shadow-sm sm:p-8"
                   >
-                    <h2 className="text-xl font-semibold">
-                      Deine Daten
-                    </h2>
+                    <h2 className="text-xl font-semibold">Deine Daten</h2>
 
                     <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                      {/* Vorname */}
+
                       <div>
-                        <label className="text-sm font-medium">
-                          Vorname
-                        </label>
+                        <label className="text-sm font-medium">Vorname</label>
 
                         <Input
                           value={firstName}
-                          onChange={(e) =>
-                            setFirstName(
-                              e.target.value,
-                            )
-                          }
+                          onChange={(e) => setFirstName(e.target.value)}
                           placeholder="Max"
                           className="mt-2 h-12 rounded-xl"
                           required
                         />
                       </div>
 
+                      {/* Nachname */}
+
                       <div>
-                        <label className="text-sm font-medium">
-                          Nachname
-                        </label>
+                        <label className="text-sm font-medium">Nachname</label>
 
                         <Input
                           value={lastName}
-                          onChange={(e) =>
-                            setLastName(
-                              e.target.value,
-                            )
-                          }
+                          onChange={(e) => setLastName(e.target.value)}
                           placeholder="Mustermann"
                           className="mt-2 h-12 rounded-xl"
                           required
                         />
                       </div>
+
+                      {/* E-Mail */}
 
                       <div>
                         <label className="text-sm font-medium">
@@ -292,16 +279,14 @@ export default function StaysBooking() {
                         <Input
                           type="email"
                           value={email}
-                          onChange={(e) =>
-                            setEmail(
-                              e.target.value,
-                            )
-                          }
+                          onChange={(e) => setEmail(e.target.value)}
                           placeholder="max@example.com"
                           className="mt-2 h-12 rounded-xl"
                           required
                         />
                       </div>
+
+                      {/* Telefon */}
 
                       <div>
                         <label className="text-sm font-medium">
@@ -310,16 +295,14 @@ export default function StaysBooking() {
 
                         <Input
                           value={phone}
-                          onChange={(e) =>
-                            setPhone(
-                              e.target.value,
-                            )
-                          }
+                          onChange={(e) => setPhone(e.target.value)}
                           placeholder="+49 170 1234567"
                           className="mt-2 h-12 rounded-xl"
                         />
                       </div>
                     </div>
+
+                    {/* Datenschutz */}
 
                     <div className="mt-8 rounded-2xl bg-emerald-50 p-4">
                       <div className="flex gap-3">
@@ -331,8 +314,7 @@ export default function StaysBooking() {
                           </p>
 
                           <p className="mt-1 text-xs leading-5 text-gray-500">
-                            Wir verwenden deine Daten
-                            ausschließlich zur
+                            Wir verwenden deine Daten ausschließlich zur
                             Bearbeitung deiner Buchung.
                           </p>
                         </div>
@@ -350,6 +332,10 @@ export default function StaysBooking() {
                 </>
               )}
 
+              {/* ===============================================
+                  STEP 2
+              ================================================ */}
+
               {step === 2 && (
                 <>
                   <div className="mb-8">
@@ -366,22 +352,21 @@ export default function StaysBooking() {
                     </h1>
 
                     <p className="mt-2 text-gray-500">
-                      Deine Zahlung wird sicher
-                      verarbeitet.
+                      Deine Zahlung wird sicher verarbeitet.
                     </p>
                   </div>
 
                   <form
-                    onSubmit={(e) => handlePayment(e, stay, trip.checkIn!, trip.checkOut!, trip.guests)}
+                    onSubmit={(e) => handlePayment(e, experience, trip.date!, trip.guests)}
                     className="rounded-3xl border bg-white p-6 shadow-sm sm:p-8"
                   >
                     <div className="flex items-center justify-between">
-                      <h2 className="text-xl font-semibold">
-                        Zahlungsmethode
-                      </h2>
+                      <h2 className="text-xl font-semibold">Zahlungsmethode</h2>
 
                       <CreditCard className="h-6 w-6 text-gray-400" />
                     </div>
+
+                    {/* Karteninhaber */}
 
                     <div className="mt-6">
                       <label className="text-sm font-medium">
@@ -394,6 +379,8 @@ export default function StaysBooking() {
                       />
                     </div>
 
+                    {/* Karte */}
+
                     <div className="mt-5">
                       <label className="text-sm font-medium">
                         Kartennummer
@@ -401,17 +388,15 @@ export default function StaysBooking() {
 
                       <Input
                         value={cardNumber}
-                        onChange={(e) =>
-                          setCardNumber(
-                            e.target.value,
-                          )
-                        }
+                        onChange={(e) => setCardNumber(e.target.value)}
                         placeholder="4242 4242 4242 4242"
                         className="mt-2 h-12 rounded-xl"
                         inputMode="numeric"
                         required
                       />
                     </div>
+
+                    {/* Ablauf / CVC */}
 
                     <div className="mt-5 grid grid-cols-2 gap-4">
                       <div>
@@ -421,11 +406,7 @@ export default function StaysBooking() {
 
                         <Input
                           value={expiry}
-                          onChange={(e) =>
-                            setExpiry(
-                              e.target.value,
-                            )
-                          }
+                          onChange={(e) => setExpiry(e.target.value)}
                           placeholder="MM / JJ"
                           className="mt-2 h-12 rounded-xl"
                           required
@@ -433,15 +414,11 @@ export default function StaysBooking() {
                       </div>
 
                       <div>
-                        <label className="text-sm font-medium">
-                          CVC
-                        </label>
+                        <label className="text-sm font-medium">CVC</label>
 
                         <Input
                           value={cvc}
-                          onChange={(e) =>
-                            setCvc(e.target.value)
-                          }
+                          onChange={(e) => setCvc(e.target.value)}
                           placeholder="123"
                           className="mt-2 h-12 rounded-xl"
                           required
@@ -449,13 +426,13 @@ export default function StaysBooking() {
                       </div>
                     </div>
 
+                    {/* Bedingungen */}
+
                     <div className="mt-7 flex items-start gap-3">
                       <Checkbox
                         checked={acceptTerms}
                         onCheckedChange={(value) =>
-                          setAcceptTerms(
-                            value === true,
-                          )
+                          setAcceptTerms(value === true)
                         }
                       />
 
@@ -474,122 +451,129 @@ export default function StaysBooking() {
 
                     <Button
                       type="submit"
-                      disabled={
-                        loading || !acceptTerms
-                      }
+                      disabled={loading || !acceptTerms}
                       className="mt-8 h-13 w-full rounded-xl bg-emerald-600 hover:bg-emerald-700"
                     >
                       {loading
                         ? "Zahlung wird verarbeitet..."
                         : `Jetzt ${total} € bezahlen`}
-                      {!loading && (
-                        <Lock className="ml-2 h-4 w-4" />
-                      )}
+
+                      {!loading && <Lock className="ml-2 h-4 w-4" />}
                     </Button>
 
                     <p className="mt-4 text-center text-xs text-gray-400">
-                      Deine Zahlungsdaten werden
-                      verschlüsselt übertragen.
+                      Deine Zahlungsdaten werden verschlüsselt übertragen.
                     </p>
                   </form>
                 </>
               )}
             </div>
 
-            {/* Summary */}
+            {/* =================================================
+                SUMMARY
+            ================================================== */}
+
             <aside>
               <div className="sticky top-8 rounded-3xl border bg-white p-6 shadow-sm">
+                {/* Experience */}
+
                 <div className="flex gap-4">
                   <img
-                    src={stay.images[0]}
-                    alt={stay.name}
+                    src={experience.images[0]}
+                    alt={experience.title}
                     className="h-24 w-24 rounded-2xl object-cover"
                   />
 
-                  <div>
-                    <h2 className="font-semibold">
-                      {stay.name}
-                    </h2>
+                  <div className="min-w-0">
+                    <h2 className="font-semibold">{experience.title}</h2>
 
-                    <p className="mt-1 text-sm text-gray-500">
-                      {stay.location}, {stay.country}
+                    <p className="mt-1 flex items-center gap-1 text-sm text-gray-500">
+                      <MapPin className="h-3.5 w-3.5" />
+                      {experience.location}, {experience.country}
                     </p>
 
                     <div className="mt-2 flex items-center gap-1 text-sm">
                       <Star className="h-4 w-4 fill-current" />
-                      {stay.rating}
+
+                      {experience.rating}
+
+                      <span className="text-gray-400">
+                        · {experience.reviews}
+                      </span>
                     </div>
                   </div>
                 </div>
 
                 <Separator className="my-6" />
 
-                <h3 className="font-semibold">
-                  Deine Reise
-                </h3>
+                {/* Reise */}
+
+                <h3 className="font-semibold">Deine Reise</h3>
 
                 <div className="mt-5 space-y-4 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">
-                      Check-in
+                  {/* Datum */}
+
+                  <div className="flex justify-between gap-4">
+                    <span className="flex items-center gap-2 text-gray-500">
+                      <CalendarDays className="h-4 w-4" />
+                      Termin
                     </span>
 
-                    <span className="font-medium">
-                      {formatDate(trip.checkIn)}
-                    </span>
+                    <span className="font-medium">{formatDate(trip.date)}</span>
                   </div>
 
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">
-                      Check-out
+                  {/* Dauer */}
+
+                  <div className="flex justify-between gap-4">
+                    <span className="flex items-center gap-2 text-gray-500">
+                      <Clock3 className="h-4 w-4" />
+                      Dauer
                     </span>
 
-                    <span className="font-medium">
-                      {formatDate(trip.checkOut)}
-                    </span>
+                    <span className="font-medium">{experience.duration}</span>
                   </div>
 
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">
-                      Reisende
+                  {/* Teilnehmer */}
+
+                  <div className="flex justify-between gap-4">
+                    <span className="flex items-center gap-2 text-gray-500">
+                      <Users className="h-4 w-4" />
+                      Teilnehmer
                     </span>
 
-                    <span className="font-medium">
-                      {trip.guests}
-                    </span>
+                    <span className="font-medium">{trip.guests}</span>
                   </div>
 
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">
-                      Nächte
+                  {/* Sprache */}
+
+                  <div className="flex justify-between gap-4">
+                    <span className="flex items-center gap-2 text-gray-500">
+                      <Globe2 className="h-4 w-4" />
+                      Sprache
                     </span>
 
-                    <span className="font-medium">
-                      {nights}
+                    <span className="text-right font-medium">
+                      {experience.languages.join(", ")}
                     </span>
                   </div>
                 </div>
 
                 <Separator className="my-6" />
 
+                {/* Preis */}
+
                 <div className="space-y-4 text-sm">
                   <div className="flex justify-between">
                     <span>
-                      {stay.pricePerNight} € × {nights}
+                      {experience.price} € × {trip.guests} Personen
                     </span>
 
-                    <span>
-                      {accommodationPrice} €
-                    </span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span>Endreinigung</span>
-                    <span>{cleaningFee} €</span>
+                    <span>{experiencePrice} €</span>
                   </div>
 
                   <div className="flex justify-between">
                     <span>Servicegebühr</span>
+
                     <span>{serviceFee} €</span>
                   </div>
                 </div>
@@ -597,21 +581,18 @@ export default function StaysBooking() {
                 <Separator className="my-6" />
 
                 <div className="flex justify-between">
-                  <span className="font-semibold">
-                    Gesamt
-                  </span>
+                  <span className="font-semibold">Gesamt</span>
 
-                  <span className="text-xl font-semibold">
-                    {total} €
-                  </span>
+                  <span className="text-xl font-semibold">{total} €</span>
                 </div>
 
+                {/* Sicherheit */}
+
                 <div className="mt-6 flex gap-3 rounded-2xl bg-gray-50 p-4">
-                  <Check className="h-5 w-5 shrink-0 text-emerald-600" />
+                  <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-600" />
 
                   <p className="text-xs leading-5 text-gray-500">
-                    Kostenlose Stornierung bis 7 Tage
-                    vor Anreise.
+                    Sichere Buchung und verschlüsselte Zahlung.
                   </p>
                 </div>
               </div>
@@ -621,6 +602,7 @@ export default function StaysBooking() {
           /* =================================================
              SUCCESS
           ================================================== */
+
           <div className="mx-auto max-w-2xl py-10 text-center">
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100">
               <Check className="h-10 w-10 text-emerald-600" />
@@ -631,35 +613,36 @@ export default function StaysBooking() {
             </p>
 
             <h1 className="mt-3 text-4xl font-semibold tracking-tight">
-              Deine Reise ist gebucht!
+              Dein Erlebnis ist gebucht!
             </h1>
 
             <p className="mx-auto mt-5 max-w-lg text-lg leading-8 text-gray-500">
-              Danke, {firstName}. Wir haben deine
-              Buchung für {stay.name} erfolgreich
-              bestätigt.
+              Danke, {firstName}. Deine Buchung für {experience.title} wurde
+              erfolgreich bestätigt.
             </p>
+
+            {/* Confirmation card */}
 
             <div className="mt-10 rounded-3xl border bg-white p-6 text-left shadow-sm">
               <div className="flex gap-4">
                 <img
-                  src={stay.images[0]}
-                  alt={stay.name}
+                  src={experience.images[0]}
+                  alt={experience.title}
                   className="h-24 w-24 rounded-2xl object-cover"
                 />
 
-                <div>
-                  <h2 className="font-semibold">
-                    {stay.name}
-                  </h2>
+                <div className="min-w-0">
+                  <h2 className="font-semibold">{experience.title}</h2>
 
-                  <p className="mt-1 text-sm text-gray-500">
-                    {stay.location}, {stay.country}
+                  <p className="mt-1 flex items-center gap-1 text-sm text-gray-500">
+                    <MapPin className="h-3.5 w-3.5" />
+                    {experience.location}, {experience.country}
                   </p>
 
                   <div className="mt-2 flex items-center gap-1 text-sm">
                     <Star className="h-4 w-4 fill-current" />
-                    {stay.rating}
+
+                    {experience.rating}
                   </div>
                 </div>
               </div>
@@ -668,48 +651,34 @@ export default function StaysBooking() {
 
               <div className="grid gap-5 sm:grid-cols-3">
                 <div>
-                  <p className="text-xs uppercase text-gray-400">
-                    Check-in
-                  </p>
+                  <p className="text-xs uppercase text-gray-400">Termin</p>
 
-                  <p className="mt-1 font-medium">
-                    {formatDate(trip.checkIn)}
-                  </p>
+                  <p className="mt-1 font-medium">{formatDate(trip.date)}</p>
                 </div>
 
                 <div>
-                  <p className="text-xs uppercase text-gray-400">
-                    Check-out
-                  </p>
+                  <p className="text-xs uppercase text-gray-400">Dauer</p>
 
-                  <p className="mt-1 font-medium">
-                    {formatDate(trip.checkOut)}
-                  </p>
+                  <p className="mt-1 font-medium">{experience.duration}</p>
                 </div>
 
                 <div>
-                  <p className="text-xs uppercase text-gray-400">
-                    Reisende
-                  </p>
+                  <p className="text-xs uppercase text-gray-400">Teilnehmer</p>
 
-                  <p className="mt-1 font-medium">
-                    {trip.guests}
-                  </p>
+                  <p className="mt-1 font-medium">{trip.guests}</p>
                 </div>
               </div>
 
               <Separator className="my-6" />
 
               <div className="flex items-center justify-between">
-                <span className="font-semibold">
-                  Bezahlt
-                </span>
+                <span className="font-semibold">Bezahlt</span>
 
-                <span className="text-xl font-semibold">
-                  {total} €
-                </span>
+                <span className="text-xl font-semibold">{total} €</span>
               </div>
             </div>
+
+            {/* Actions */}
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
               <Button
@@ -736,5 +705,5 @@ export default function StaysBooking() {
         )}
       </div>
     </main>
-  )
+  );
 }

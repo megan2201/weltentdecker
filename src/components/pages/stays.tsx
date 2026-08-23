@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import {
+  ArrowRight,
   ArrowUpDown,
   Bath,
   BedDouble,
@@ -31,7 +32,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   getStayFacilities,
   getStayTypeCount,
@@ -40,7 +41,7 @@ import {
 } from "@/assets/data/stays";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Calendar } from "../ui/calendar";
-import { useTrip } from "../context/TripContext";
+import { useTrip } from "../context/trip-context";
 
 type SortOption =
   | "Empfohlen"
@@ -50,9 +51,10 @@ type SortOption =
 
 export default function Stays() {
   const { trip, setCheckIn, setCheckOut, setGuests } = useTrip();
+  const [searchParams] = useSearchParams();
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [search, setSearch] = useState("");
-  const [searchInput, setSearchInput] = useState("");
+  const [search, setSearch] = useState(searchParams.get("q") || "");
+  const [searchInput, setSearchInput] = useState(searchParams.get("q") || "");
   const [isCheckInOpen, setIsCheckInOpen] = useState(false);
   const [isCheckOutOpen, setIsCheckOutOpen] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 500]);
@@ -136,7 +138,14 @@ export default function Stays() {
           return b.rating - a.rating;
       }
     });
-  }, [search, trip.guests, priceRange, selectedTypes, selectedFacilities, sort]);
+  }, [
+    search,
+    trip.guests,
+    priceRange,
+    selectedTypes,
+    selectedFacilities,
+    sort,
+  ]);
 
   const activeFilterCount =
     selectedTypes.length +
@@ -240,7 +249,8 @@ export default function Stays() {
                   onSelect={(date) => {
                     if (date) {
                       setCheckIn(date);
-                      if (trip.checkOut && date > trip.checkOut) setCheckOut(undefined);
+                      if (trip.checkOut && date > trip.checkOut)
+                        setCheckOut(undefined);
                       setIsCheckInOpen(false);
                     }
                   }}
@@ -283,7 +293,9 @@ export default function Stays() {
                     const isPast = date < today;
 
                     // 2. Tage deaktivieren, die nach/ab dem Check-Out-Datum liegen (falls Check-Out gesetzt ist)
-                    const isAfterCheckIn = trip.checkIn ? date < trip.checkIn : false;
+                    const isAfterCheckIn = trip.checkIn
+                      ? date < trip.checkIn
+                      : false;
 
                     return isPast || isAfterCheckIn;
                   }}
@@ -296,8 +308,12 @@ export default function Stays() {
               <PopoverTrigger>
                 <div className="flex items-center gap-3 rounded-xl bg-white px-5 py-3 text-left lg:min-w-48">
                   <div>
-                    <p className="text-xs font-semibold text-gray-500">Reisende</p>
-                    <p className="mt-0.5 text-sm font-medium">{trip.guests} Personen</p>
+                    <p className="text-xs font-semibold text-gray-500">
+                      Reisende
+                    </p>
+                    <p className="mt-0.5 text-sm font-medium">
+                      {trip.guests} Personen
+                    </p>
                   </div>
 
                   <Users className="ml-auto h-5 w-5 text-gray-400" />
@@ -573,10 +589,10 @@ export default function Stays() {
 
                       <Link
                         to={`/stays/${stay.id}`}
-                        className="text-sm font-semibold text-emerald-600 hover:text-emerald-700"
+                        className="mt-4 flex items-center text-sm font-medium text-emerald-700"
                       >
-                        Details
-                        <ArrowRightIcon />
+                        Entdecken
+                        <ArrowRight className="ml-2 h-4 w-4 transition group-hover:translate-x-1" />
                       </Link>
                     </div>
                   </div>
@@ -742,8 +758,4 @@ function FilterContent({
       </div>
     </div>
   );
-}
-
-function ArrowRightIcon() {
-  return <span className="ml-1 inline-block">→</span>;
 }

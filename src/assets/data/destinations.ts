@@ -13,20 +13,6 @@ export type Destination = {
   seaTemperature: string
   flightTime: string
   highlights: string[]
-  hotels: {
-    name: string
-    type: string
-    rating: string
-    reviews: string
-    price: string
-    image: string
-  }[]
-  experiences: {
-    title: string
-    duration: string
-    price: string
-    image: string
-  }[]
   nearby: {
     name: string
     distance: string
@@ -66,60 +52,6 @@ export const destinations: Destination[] = [
       "Wanderrouten",
       "Bootsausflüge",
       "Italienisches Dolce Vita",
-    ],
-
-    hotels: [
-      {
-        name: "Casa Mare",
-        type: "Boutique Hotel",
-        rating: "4.9",
-        reviews: "284",
-        price: "189 €",
-        image:
-          "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        name: "Villa Aurora",
-        type: "Villa",
-        rating: "4.8",
-        reviews: "172",
-        price: "245 €",
-        image:
-          "https://images.unsplash.com/photo-1601918774946-25832a4be0d6?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        name: "La Terrazza",
-        type: "Luxury Stay",
-        rating: "4.9",
-        reviews: "98",
-        price: "310 €",
-        image:
-          "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1000&q=85",
-      },
-    ],
-
-    experiences: [
-      {
-        title: "Bootsfahrt entlang der Küste",
-        duration: "4 Stunden",
-        price: "ab 65 €",
-        image:
-          "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        title: "Pasta & Limoncello Workshop",
-        duration: "3 Stunden",
-        price: "ab 79 €",
-        image:
-          "https://images.unsplash.com/photo-1556761223-4c4282c73f77?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        title: "Wanderung auf dem Sentiero",
-        duration: "5 Stunden",
-        price: "ab 55 €",
-        image:
-          "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1000&q=85",
-      },
     ],
 
     nearby: [
@@ -172,60 +104,6 @@ export const destinations: Destination[] = [
       "Katamaran-Touren",
     ],
 
-    hotels: [
-      {
-        name: "Aegean Blue",
-        type: "Boutique Hotel",
-        rating: "4.8",
-        reviews: "421",
-        price: "245 €",
-        image:
-          "https://images.unsplash.com/photo-1601918774946-25832a4be0d6?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        name: "Oia Horizon",
-        type: "Luxury Hotel",
-        rating: "4.9",
-        reviews: "306",
-        price: "329 €",
-        image:
-          "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        name: "Caldera House",
-        type: "Villa",
-        rating: "4.9",
-        reviews: "117",
-        price: "390 €",
-        image:
-          "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1000&q=85",
-      },
-    ],
-
-    experiences: [
-      {
-        title: "Katamaran bei Sonnenuntergang",
-        duration: "5 Stunden",
-        price: "ab 95 €",
-        image:
-          "https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        title: "Santorini Weinverkostung",
-        duration: "3 Stunden",
-        price: "ab 70 €",
-        image:
-          "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        title: "Vulkan & heiße Quellen",
-        duration: "6 Stunden",
-        price: "ab 59 €",
-        image:
-          "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=1000&q=85",
-      },
-    ],
-
     nearby: [
       {
         name: "Oia",
@@ -274,60 +152,6 @@ export const destinations: Destination[] = [
       "Surfing",
       "Dschungel",
       "Yoga & Wellness",
-    ],
-
-    hotels: [
-      {
-        name: "Jungle House",
-        type: "Jungle Villa",
-        rating: "4.9",
-        reviews: "382",
-        price: "129 €",
-        image:
-          "https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        name: "Ubud Sanctuary",
-        type: "Resort",
-        rating: "4.8",
-        reviews: "251",
-        price: "165 €",
-        image:
-          "https://images.unsplash.com/photo-1582610116397-edb318620f90?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        name: "Ocean Soul",
-        type: "Beach Resort",
-        rating: "4.9",
-        reviews: "189",
-        price: "210 €",
-        image:
-          "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1000&q=85",
-      },
-    ],
-
-    experiences: [
-      {
-        title: "Ubud Reisterrassen Tour",
-        duration: "6 Stunden",
-        price: "ab 45 €",
-        image:
-          "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        title: "Balinesischer Kochkurs",
-        duration: "4 Stunden",
-        price: "ab 39 €",
-        image:
-          "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=85",
-      },
-      {
-        title: "Sunrise am Mount Batur",
-        duration: "8 Stunden",
-        price: "ab 55 €",
-        image:
-          "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1000&q=85",
-      },
     ],
 
     nearby: [

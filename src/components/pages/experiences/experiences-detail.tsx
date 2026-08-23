@@ -3,147 +3,159 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
+  Clock3,
+  Languages,
   MapPin,
   Star,
+  Users,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { Separator } from "@/components/ui/separator";
+
+import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
+import { getExperienceById } from "@/assets/data/experiences";
+
+import { useTrip } from "@/components/context/trip-context";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
-
-import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { getStayById } from "@/assets/data/stays";
-import Home from "@/components/pages/home";
-import { useTrip } from "@/components/context/trip-context";
-
-function calculateNights(checkIn?: Date, checkOut?: Date) {
-  if (!checkIn || !checkOut) return 0;
-
-  const start = new Date(checkIn);
-  const end = new Date(checkOut);
-
-  start.setHours(0, 0, 0, 0);
-  end.setHours(0, 0, 0, 0);
-
-  const difference = end.getTime() - start.getTime();
-
-  return Math.max(0, Math.ceil(difference / (1000 * 60 * 60 * 24)));
-}
+import { Calendar } from "@/components/ui/calendar";
 
 const reviews = [
   {
     name: "Sophie M.",
     date: "August 2026",
     rating: 5,
-    text: "Eine wunderschöne Unterkunft mit einem unglaublichen Blick über das Meer. Das Personal war herzlich und das Frühstück fantastisch.",
+    text: "Ein unglaublich schönes Erlebnis. Unser Guide war super freundlich und hat uns viele besondere Orte gezeigt.",
     avatar: "https://i.pravatar.cc/100?img=47",
   },
   {
     name: "Daniel K.",
     date: "Juli 2026",
     rating: 5,
-    text: "Perfekt für unseren Urlaub an der Amalfiküste. Die Lage ist traumhaft und die Zimmer waren sehr sauber.",
+    text: "Alles war perfekt organisiert. Die Gruppe war klein und wir hatten trotzdem genügend Zeit, alles zu genießen.",
     avatar: "https://i.pravatar.cc/100?img=12",
   },
   {
     name: "Anna R.",
     date: "Juni 2026",
     rating: 4,
-    text: "Sehr schönes Hotel und tolle Gastgeber. Besonders der Pool und die Aussicht haben uns gefallen.",
+    text: "Sehr schönes Erlebnis und ein wirklich sympathischer Guide. Würde ich jederzeit wieder buchen.",
     avatar: "https://i.pravatar.cc/100?img=32",
   },
 ];
 
-export default function StaysDetail() {
+export default function ExperiencesDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const experience = id ? getExperienceById(id) : undefined;
+  const { trip, setDate, setGuests } = useTrip();
+  const [isDateOpen, setIsDateOpen] = useState(false);
 
-  const stay = id ? getStayById(id) : undefined;
-  if (!stay) {
-    return <Home />;
+  if (!experience) {
+    return (
+      <main className="min-h-screen bg-white pt-32">
+        <div className="mx-auto max-w-7xl px-6 text-center">
+          <h1 className="text-3xl font-semibold">Erlebnis nicht gefunden</h1>
+
+          <p className="mt-3 text-gray-500">
+            Dieses Erlebnis existiert nicht oder wurde entfernt.
+          </p>
+
+          <Link
+            to="/experiences"
+            className="mt-6 inline-flex items-center text-emerald-700"
+          >
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Zurück zu den Erlebnissen
+          </Link>
+        </div>
+      </main>
+    );
   }
 
-  const { trip, setCheckIn, setCheckOut, setGuests } = useTrip();
   const [selectedImage, setSelectedImage] = useState(0);
-  const [isCheckInOpen, setIsCheckInOpen] = useState(false);
-  const [isCheckOutOpen, setIsCheckOutOpen] = useState(false);
 
-  const cleaningFee = 35;
-  const serviceFee = 42;
+  const canBook = trip.guests > 0 && trip.guests <= experience.maxGuests && trip.date;
 
-  const nights = calculateNights(trip.checkIn, trip.checkOut);
-
-  const accommodationPrice = stay.pricePerNight * nights;
-  const total = stay.pricePerNight * nights + cleaningFee + serviceFee;
-  const canBook =
-    !!trip.checkIn && !!trip.checkOut && nights > 0 && trip.guests > 0;
+  const total = experience.price * trip.guests;
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
-      {/* =====================================================
-          PAGE
-      ====================================================== */}
-      <div className="mt-20 mx-auto max-w-7xl px-6 py-8 lg:px-8">
-        {/* Breadcrumb */}
-        <div className="mb-6 flex items-center gap-2 text-sm text-gray-500">
+      <div className="mx-auto mt-20 max-w-7xl px-6 py-8 lg:px-8">
+        {/* =====================================================
+            BREADCRUMB
+        ====================================================== */}
+
+        <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-gray-500">
           <Link to="/" className="hover:text-gray-900">
             Home
           </Link>
 
           <span>/</span>
 
-          <Link to="/stays" className="hover:text-gray-900">
-            Unterkünfte
+          <Link to="/experiences" className="hover:text-gray-900">
+            Erlebnisse
           </Link>
 
           <span>/</span>
 
-          <span className="text-gray-900">{stay.name}</span>
+          <span className="text-gray-900">{experience.title}</span>
         </div>
 
         {/* =====================================================
             TITLE
         ====================================================== */}
+
         <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
-            <div className="mb-3 flex items-center gap-2">
-              <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
-                Beliebt
-              </span>
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              {experience.featured && (
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                  Beliebt
+                </span>
+              )}
+
+              {experience.instantBooking && (
+                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium">
+                  Sofort buchbar
+                </span>
+              )}
 
               <span className="flex items-center gap-1 text-sm font-medium">
                 <Star className="h-4 w-4 fill-current" />
-                {stay.rating}
+                {experience.rating}
               </span>
 
               <span className="text-sm text-gray-500">
-                · {stay.reviews} Bewertungen
+                · {experience.reviews} Bewertungen
               </span>
             </div>
 
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              {stay.name}
+              {experience.title}
             </h1>
 
             <p className="mt-2 flex items-center gap-1 text-sm text-gray-500">
               <MapPin className="h-4 w-4" />
-              {stay.location}, {stay.country}
+              {experience.location}, {experience.country}
             </p>
           </div>
 
-          <div className="hidden items-center gap-2 md:flex">
-            <span className="rounded-full bg-gray-100 px-3 py-2 text-sm">
-              Boutique-Hotel
+          <div className="hidden flex-wrap items-center gap-2 md:flex">
+            <span className="flex items-center gap-2 rounded-full bg-gray-100 px-3 py-2 text-sm">
+              <Clock3 className="h-4 w-4" />
+              {experience.duration}
             </span>
 
-            <span className="rounded-full bg-gray-100 px-3 py-2 text-sm">
-              Meerblick
+            <span className="flex items-center gap-2 rounded-full bg-gray-100 px-3 py-2 text-sm">
+              <Users className="h-4 w-4" />
+              Bis zu {experience.maxGuests}
             </span>
           </div>
         </div>
@@ -151,12 +163,13 @@ export default function StaysDetail() {
         {/* =====================================================
             IMAGE GALLERY
         ====================================================== */}
+
         <div className="mt-8 grid h-[500px] grid-cols-1 gap-2 overflow-hidden rounded-3xl md:grid-cols-2">
-          {/* Main image */}
+          {/* Main */}
           <div className="relative overflow-hidden">
             <img
-              src={stay.images[selectedImage]}
-              alt={stay.name}
+              src={experience.images[selectedImage]}
+              alt={experience.title}
               className="h-full w-full object-cover"
             />
 
@@ -164,7 +177,7 @@ export default function StaysDetail() {
               onClick={() =>
                 setSelectedImage(
                   selectedImage === 0
-                    ? stay.images.length - 1
+                    ? experience.images.length - 1
                     : selectedImage - 1,
                 )
               }
@@ -176,7 +189,7 @@ export default function StaysDetail() {
             <button
               onClick={() =>
                 setSelectedImage(
-                  selectedImage === stay.images.length - 1
+                  selectedImage === experience.images.length - 1
                     ? 0
                     : selectedImage + 1,
                 )
@@ -187,23 +200,21 @@ export default function StaysDetail() {
             </button>
 
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-4 py-2 text-xs text-white backdrop-blur">
-              {selectedImage + 1} / {stay.images.length}
+              {selectedImage + 1} / {experience.images.length}
             </div>
           </div>
 
-          {/* Gallery thumbnails */}
+          {/* Thumbnails */}
           <div className="hidden grid-cols-2 gap-2 md:grid">
-            {stay.images.slice(1, 5).map((image, index) => (
+            {experience.images.slice(1, 5).map((image, index) => (
               <div
                 key={image}
-                onClick={() => {
-                  if (index != 3) setSelectedImage(index + 1);
-                }}
+                onClick={() => setSelectedImage(index + 1)}
                 className="relative overflow-hidden"
               >
                 <img
                   src={image}
-                  alt={`Casa Mare ${index + 2}`}
+                  alt={`${experience.title} ${index + 2}`}
                   className="h-full w-full object-cover transition duration-300 hover:scale-105"
                 />
 
@@ -222,23 +233,38 @@ export default function StaysDetail() {
         {/* =====================================================
             MAIN CONTENT + BOOKING
         ====================================================== */}
+
         <div className="mt-12 grid gap-14 lg:grid-cols-[1fr_390px]">
-          {/* LEFT */}
+          {/* ===================================================
+              LEFT
+          ==================================================== */}
+
           <div>
             {/* Intro */}
+
             <section>
-              <div className="flex items-center justify-between">
+              <div className="flex items-start justify-between">
                 <div>
                   <h2 className="text-2xl font-semibold">
-                    {stay.type} in {stay.location}
+                    {experience.type} in {experience.location}
                   </h2>
 
-                  <p className="mt-2 text-gray-500">
-                    {stay.guests} Gäste · {stay.bedrooms}{" "}
-                    {stay.bedrooms === 1 ? "Schlafzimmer" : "Schlafzimmer"} ·{" "}
-                    {stay.bathrooms}{" "}
-                    {stay.bathrooms === 1 ? "Badezimmer" : "Badezimmer"}
-                  </p>
+                  <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-gray-500">
+                    <span className="flex items-center gap-2">
+                      <Clock3 className="h-4 w-4" />
+                      {experience.duration}
+                    </span>
+
+                    <span className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      Bis zu {experience.maxGuests} Personen
+                    </span>
+
+                    <span className="flex items-center gap-2">
+                      <Languages className="h-4 w-4" />
+                      {experience.languages.join(", ")}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="hidden h-12 w-12 items-center justify-center rounded-full bg-emerald-100 sm:flex">
@@ -247,28 +273,31 @@ export default function StaysDetail() {
               </div>
 
               <p className="mt-6 max-w-3xl text-[16px] leading-8 text-gray-600">
-                {stay.longDescription}
+                {experience.longDescription}
               </p>
             </section>
 
             <Separator className="my-10" />
 
-            {/* Features */}
+            {/* =================================================
+                HIGHLIGHTS
+            ================================================== */}
+
             <section>
               <h2 className="text-2xl font-semibold">Das erwartet dich</h2>
 
               <div className="mt-7 grid gap-7 sm:grid-cols-2">
-                {stay.amenities.map((item) => (
-                  <div key={item.title} className="flex gap-4">
+                {experience.tags.slice(0, 6).map((tag) => (
+                  <div key={tag} className="flex gap-4">
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-100">
-                      <item.icon className="h-5 w-5" />
+                      <SparkleIcon />
                     </div>
 
                     <div>
-                      <h3 className="font-medium">{item.title}</h3>
+                      <h3 className="font-medium">{tag}</h3>
 
                       <p className="mt-1 text-sm text-gray-500">
-                        {item.description}
+                        Ein besonderer Bestandteil dieses Erlebnisses.
                       </p>
                     </div>
                   </div>
@@ -278,42 +307,65 @@ export default function StaysDetail() {
 
             <Separator className="my-10" />
 
-            {/* Facilities */}
-            <section>
-              <h2 className="text-2xl font-semibold">Ausstattung</h2>
+            {/* =================================================
+                INCLUDED
+            ================================================== */}
 
-              <div className="mt-7 grid grid-cols-1 gap-x-10 gap-y-4 sm:grid-cols-2">
-                {stay.facilities.map((facility) => (
-                  <div
-                    key={facility}
-                    className="flex items-center gap-3 text-sm"
-                  >
-                    <Check className="h-4 w-4 text-emerald-600" />
-                    {facility}
+            <section>
+              <h2 className="text-2xl font-semibold">Im Preis enthalten</h2>
+
+              <div className="mt-7 grid gap-x-10 gap-y-4 sm:grid-cols-2">
+                {experience.included.map((item) => (
+                  <div key={item} className="flex items-center gap-3 text-sm">
+                    <Check className="h-4 w-4 shrink-0 text-emerald-600" />
+                    {item}
                   </div>
                 ))}
               </div>
-
-              <Button variant="outline" className="mt-8 rounded-xl">
-                Alle Ausstattungsmerkmale anzeigen
-              </Button>
             </section>
+
+            {/* Nicht enthalten */}
+
+            {experience.notIncluded?.length &&
+              experience.notIncluded?.length > 0 && (
+                <>
+                  <div className="mt-6">
+                    <h3 className="font-medium">Nicht enthalten</h3>
+
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                      {experience.notIncluded.map((item) => (
+                        <div
+                          key={item}
+                          className="flex items-center gap-3 text-sm text-gray-500"
+                        >
+                          <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
 
             <Separator className="my-10" />
 
-            {/* Location */}
+            {/* =================================================
+                MEETING POINT
+            ================================================== */}
+
             <section>
-              <h2 className="text-2xl font-semibold">Lage</h2>
+              <h2 className="text-2xl font-semibold">Treffpunkt</h2>
 
               <p className="mt-2 flex items-center gap-2 text-sm text-gray-500">
                 <MapPin className="h-4 w-4" />
-                {stay.location}, {stay.country}
+
+                {experience.meetingPoint}
               </p>
 
               <div className="relative mt-6 h-[360px] overflow-hidden rounded-3xl bg-gray-200">
                 <img
-                  src="https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?auto=format&fit=crop&w=1400&q=85"
-                  alt="Amalfiküste"
+                  src={experience.meetingPointImage}
+                  alt={experience.meetingPoint}
                   className="h-full w-full object-cover"
                 />
 
@@ -322,46 +374,35 @@ export default function StaysDetail() {
                 </div>
 
                 <div className="absolute bottom-4 left-4 rounded-xl bg-white px-4 py-3 shadow-lg">
-                  <p className="text-sm font-semibold">{stay.name}</p>
+                  <p className="text-sm font-semibold">Treffpunkt</p>
 
                   <p className="mt-1 text-xs text-gray-500">
-                    84011 Amalfi, Italien
+                    {experience.meetingPoint}
                   </p>
-                </div>
-              </div>
-
-              <div className="mt-6 grid gap-4 text-sm sm:grid-cols-3">
-                <div className="rounded-xl bg-gray-50 p-4">
-                  <p className="font-medium">Amalfi Zentrum</p>
-                  <p className="mt-1 text-gray-500">8 Min. mit dem Auto</p>
-                </div>
-
-                <div className="rounded-xl bg-gray-50 p-4">
-                  <p className="font-medium">Strand</p>
-                  <p className="mt-1 text-gray-500">5 Min. zu Fuß</p>
-                </div>
-
-                <div className="rounded-xl bg-gray-50 p-4">
-                  <p className="font-medium">Flughafen Neapel</p>
-                  <p className="mt-1 text-gray-500">1 Std. 20 Min.</p>
                 </div>
               </div>
             </section>
 
             <Separator className="my-10" />
 
-            {/* Reviews */}
+            {/* =================================================
+                REVIEWS
+            ================================================== */}
+
             <section>
               <div className="flex flex-wrap items-center gap-3">
                 <h2 className="text-2xl font-semibold">Bewertungen</h2>
 
                 <div className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1.5">
                   <Star className="h-4 w-4 fill-current" />
-                  <span className="text-sm font-semibold">{stay.rating}</span>
+
+                  <span className="text-sm font-semibold">
+                    {experience.rating}
+                  </span>
                 </div>
 
                 <span className="text-sm text-gray-500">
-                  {stay.reviews} Bewertungen
+                  {experience.reviews} Bewertungen
                 </span>
               </div>
 
@@ -401,44 +442,51 @@ export default function StaysDetail() {
               </div>
 
               <Button variant="outline" className="mt-8 rounded-xl">
-                Alle {stay.reviews} Bewertungen anzeigen
+                Alle {experience.reviews} Bewertungen anzeigen
               </Button>
             </section>
           </div>
 
-          {/* =====================================================
+          {/* ===================================================
               BOOKING CARD
-          ====================================================== */}
+          ==================================================== */}
+
           <aside>
             <div className="sticky top-28 rounded-3xl border bg-white p-6 shadow-xl shadow-gray-200/50">
+              {/* Price */}
+
               <div className="flex items-end justify-between">
                 <div>
                   <span className="text-2xl font-semibold">
-                    {stay.pricePerNight} €
+                    {experience.price} €
                   </span>
 
-                  <span className="text-sm text-gray-500"> / Nacht</span>
+                  <span className="text-sm text-gray-500"> / Person</span>
                 </div>
 
                 <div className="flex items-center gap-1 text-sm">
                   <Star className="h-4 w-4 fill-current" />
-                  4.9
+
+                  {experience.rating}
                 </div>
               </div>
 
-              {/* Dates */}
+              {/* Experience info */}
+
               <div className="mt-6 overflow-hidden rounded-2xl border">
-                <div className="grid grid-cols-2 divide-x">
-                  <Popover open={isCheckInOpen} onOpenChange={setIsCheckInOpen}>
+                {/* date */}
+
+                <div className="grid border-b grid-cols-2 divide-x">
+                  <Popover open={isDateOpen} onOpenChange={setIsDateOpen}>
                     <PopoverTrigger>
                       <div className="p-4 text-left">
                         <p className="text-[10px] font-bold uppercase tracking-wider">
-                          Check-in
+                          Datum
                         </p>
 
                         <p className="mt-1 text-sm">
-                          {trip.checkIn
-                            ? trip.checkIn.toLocaleDateString("de-DE")
+                          {trip.date
+                            ? trip.date.toLocaleDateString("de-DE")
                             : "Datum auswählen"}
                         </p>
                       </div>
@@ -447,13 +495,11 @@ export default function StaysDetail() {
                     <PopoverContent className="w-auto p-0">
                       <Calendar
                         mode="single"
-                        selected={trip.checkIn}
+                        selected={trip.date}
                         onSelect={(date) => {
                           if (date) {
-                            setCheckIn(date);
-                            if (trip.checkOut && date > trip.checkOut)
-                              setCheckOut(undefined);
-                            setIsCheckInOpen(false);
+                            setDate(date);
+                            setIsDateOpen(false);
                           }
                         }}
                         disabled={(date) => date < new Date()}
@@ -461,65 +507,30 @@ export default function StaysDetail() {
                     </PopoverContent>
                   </Popover>
 
-                  <Popover
-                    open={isCheckOutOpen}
-                    onOpenChange={setIsCheckOutOpen}
-                  >
-                    <PopoverTrigger>
-                      <div className="p-4 text-left">
-                        <p className="text-[10px] font-bold uppercase tracking-wider">
-                          Check-out
-                        </p>
+                  <div className="p-4">
+                    <p className="text-[10px] font-bold uppercase tracking-wider">
+                      Dauer
+                    </p>
 
-                        <p className="mt-1 text-sm">
-                          {trip.checkOut
-                            ? trip.checkOut.toLocaleDateString("de-DE")
-                            : "Datum auswählen"}
-                        </p>
-                      </div>
-                    </PopoverTrigger>
-
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={trip.checkOut}
-                        onSelect={(date) => {
-                          setCheckOut(date);
-                          setIsCheckOutOpen(false);
-                        }}
-                        disabled={(date) => {
-                          const today = new Date();
-                          today.setHours(0, 0, 0, 0);
-
-                          const isPast = date < today;
-
-                          // 2. Tage deaktivieren, die nach/ab dem Check-Out-Datum liegen (falls Check-Out gesetzt ist)
-                          const isAfterCheckIn = trip.checkIn
-                            ? date < trip.checkIn
-                            : false;
-
-                          return isPast || isAfterCheckIn;
-                        }}
-                      />
-                    </PopoverContent>
-                  </Popover>
+                    <p className="mt-1 text-sm">{experience.duration}</p>
+                  </div>
                 </div>
 
                 {/* Guests */}
-                <div className="border-t p-4">
+                <div className="p-4">
                   <p className="text-[10px] font-bold uppercase tracking-wider">
-                    Gäste
+                    Teilnehmer
                   </p>
 
                   <div className="mt-2 flex items-center justify-between">
                     <span className="text-sm">
-                      {trip.guests} {trip.guests === 1 ? "Gast" : "Gäste"}
+                      {trip.guests} {trip.guests === 1 ? "Person" : "Personen"}
                     </span>
 
                     <div className="flex items-center gap-3">
                       <button
                         onClick={() => setGuests(Math.max(1, trip.guests - 1))}
-                        className="flex h-7 w-7 items-center justify-center rounded-full border"
+                        className="flex h-7 w-7 items-center cursor-pointer justify-center rounded-full border"
                       >
                         −
                       </button>
@@ -528,9 +539,11 @@ export default function StaysDetail() {
 
                       <button
                         onClick={() =>
-                          setGuests(Math.min(trip.guests + 1, stay.guests))
+                          setGuests(
+                            Math.min(trip.guests + 1, experience.maxGuests),
+                          )
                         }
-                        className="flex h-7 w-7 items-center justify-center rounded-full border"
+                        className="flex h-7 w-7 items-center justify-center cursor-pointer rounded-full border"
                       >
                         +
                       </button>
@@ -540,41 +553,24 @@ export default function StaysDetail() {
               </div>
 
               {/* Price */}
-              {nights > 0 ? (
-                <div className="mt-6 space-y-4 text-sm">
-                  <div className="flex justify-between">
-                    <span className="underline">
-                      {stay.pricePerNight} € × {nights} Nächte
-                    </span>
 
-                    <span>{accommodationPrice} €</span>
-                  </div>
+              <div className="mt-6 space-y-4 text-sm">
+                <div className="flex justify-between">
+                  <span className="underline">
+                    {experience.price} € × {trip.guests} Personen
+                  </span>
 
-                  <div className="flex justify-between">
-                    <span className="underline">Endreinigung</span>
-
-                    <span>{cleaningFee} €</span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="underline">Servicegebühr</span>
-
-                    <span>{serviceFee} €</span>
-                  </div>
-
-                  <Separator />
-
-                  <div className="flex justify-between text-base">
-                    <span className="font-semibold">Gesamt</span>
-
-                    <span className="font-semibold">{total} €</span>
-                  </div>
+                  <span>{total} €</span>
                 </div>
-              ) : (
-                <div className="mt-6 rounded-xl bg-gray-50 p-4 text-center text-sm text-gray-500">
-                  Wähle deinen Reisezeitraum, um den Gesamtpreis zu sehen.
+
+                <Separator />
+
+                <div className="flex justify-between text-base">
+                  <span className="font-semibold">Gesamt</span>
+
+                  <span className="font-semibold">{total} €</span>
                 </div>
-              )}
+              </div>
 
               <Button
                 size="lg"
@@ -582,24 +578,29 @@ export default function StaysDetail() {
                 onClick={() => {
                   if (!canBook) return;
 
-                  navigate(`/stays/${stay.id}/booking`);
+                  navigate(`/experiences/${experience.id}/booking`);
                 }}
                 className="mt-6 h-14 w-full rounded-xl bg-emerald-600 text-base font-semibold hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Verfügbarkeit prüfen
+                Erlebnis buchen
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
 
-              {canBook && (
-                <p className="mt-3 text-center text-xs text-gray-500">
-                  {nights} {nights === 1 ? "Nacht" : "Nächte"} · {trip.guests}{" "}
-                  {trip.guests === 1 ? "Gast" : "Gäste"}
-                </p>
-              )}
+              <p className="mt-3 text-center text-xs text-gray-500">
+                {experience.duration} · {trip.guests}{" "}
+                {trip.guests === 1 ? "Person" : "Personen"}
+              </p>
 
-              <div className="mt-5 flex items-center justify-center gap-2 text-xs text-gray-400">
-                <Check className="h-3.5 w-3.5 text-emerald-600" />
-                Kostenlose Stornierung
+              <div className="mt-5 space-y-2">
+                <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
+                  <Check className="h-3.5 w-3.5 text-emerald-600" />
+                  Sofortige Buchungsbestätigung
+                </div>
+
+                <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
+                  <Check className="h-3.5 w-3.5 text-emerald-600" />
+                  Sichere Zahlung
+                </div>
               </div>
             </div>
           </aside>

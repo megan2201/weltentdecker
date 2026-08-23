@@ -7,36 +7,37 @@ import {
   Sparkles,
   Waves,
   Wifi,
-} from "lucide-react"
+} from "lucide-react";
 
 export type StayAmenity = {
-  icon: any
-  title: string
-  description: string
-}
+  icon: any;
+  title: string;
+  description: string;
+};
 
 export type Stay = {
-  id: string
-  name: string
-  type: string
-  location: string
-  country: string
-  description: string
-  longDescription: string
-  pricePerNight: number
-  rating: number
-  reviews: number
-  guests: number
-  bedrooms: number
-  bathrooms: number
-  host: string
-  hostImage: string
-  images: string[]
-  amenities: StayAmenity[]
-  facilities: string[]
-  tags: string[]
-  featured?: boolean
-}
+  id: string;
+  name: string;
+  type: string;
+  location: string;
+  country: string;
+  countryImage: string;
+  description: string;
+  longDescription: string;
+  pricePerNight: number;
+  rating: number;
+  reviews: number;
+  guests: number;
+  bedrooms: number;
+  bathrooms: number;
+  host: string;
+  hostImage: string;
+  images: string[];
+  amenities: StayAmenity[];
+  facilities: string[];
+  tags: string[];
+  featured?: boolean;
+};
 
 export const stays: Stay[] = [
   {
@@ -45,6 +46,8 @@ export const stays: Stay[] = [
     type: "Boutique-Hotel",
     location: "Amalfiküste",
     country: "Italien",
+    countryImage:
+      "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?q=80&w=1167&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Mediterranes Boutique-Hotel mit traumhaftem Blick auf das Mittelmeer.",
     longDescription:
@@ -69,26 +72,22 @@ export const stays: Stay[] = [
       {
         icon: Wifi,
         title: "Kostenloses WLAN",
-        description:
-          "Schnelles WLAN in der gesamten Unterkunft",
+        description: "Schnelles WLAN in der gesamten Unterkunft",
       },
       {
         icon: Bath,
         title: "Eigenes Badezimmer",
-        description:
-          "Modernes Badezimmer mit Dusche",
+        description: "Modernes Badezimmer mit Dusche",
       },
       {
         icon: BedDouble,
         title: "Kingsize-Bett",
-        description:
-          "Hochwertige Bettwäsche inklusive",
+        description: "Hochwertige Bettwäsche inklusive",
       },
       {
         icon: Waves,
         title: "Meerblick",
-        description:
-          "Panoramablick über das Mittelmeer",
+        description: "Panoramablick über das Mittelmeer",
       },
     ],
     facilities: [
@@ -115,6 +114,8 @@ export const stays: Stay[] = [
     type: "Villa",
     location: "Santorini",
     country: "Griechenland",
+    countryImage:
+      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Private Villa mit Infinity-Pool und spektakulärem Sonnenuntergang.",
     longDescription:
@@ -139,26 +140,22 @@ export const stays: Stay[] = [
       {
         icon: Waves,
         title: "Infinity-Pool",
-        description:
-          "Privater Pool mit Blick auf die Ägäis",
+        description: "Privater Pool mit Blick auf die Ägäis",
       },
       {
         icon: Wifi,
         title: "Kostenloses WLAN",
-        description:
-          "High-Speed-WLAN inklusive",
+        description: "High-Speed-WLAN inklusive",
       },
       {
         icon: Snowflake,
         title: "Klimaanlage",
-        description:
-          "Individuell regulierbare Klimaanlage",
+        description: "Individuell regulierbare Klimaanlage",
       },
       {
         icon: BedDouble,
         title: "3 Schlafzimmer",
-        description:
-          "Platz für bis zu sechs Gäste",
+        description: "Platz für bis zu sechs Gäste",
       },
     ],
     facilities: [
@@ -185,8 +182,9 @@ export const stays: Stay[] = [
     type: "Eco-Lodge",
     location: "Ubud",
     country: "Indonesien",
-    description:
-      "Tropische Eco-Lodge mitten im Dschungel von Bali.",
+    countryImage:
+      "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    description: "Tropische Eco-Lodge mitten im Dschungel von Bali.",
     longDescription:
       "Jungle House ist ein besonderer Rückzugsort mitten in der tropischen Landschaft von Ubud. Nachhaltiges Design, natürliche Materialien und die Geräusche des Dschungels machen diese Unterkunft zu einem einzigartigen Erlebnis.",
     pricePerNight: 142,
@@ -209,26 +207,22 @@ export const stays: Stay[] = [
       {
         icon: Home,
         title: "Eco-Lodge",
-        description:
-          "Nachhaltig gebaut mit natürlichen Materialien",
+        description: "Nachhaltig gebaut mit natürlichen Materialien",
       },
       {
         icon: Waves,
         title: "Dschungel-Pool",
-        description:
-          "Infinity-Pool mitten im Grünen",
+        description: "Infinity-Pool mitten im Grünen",
       },
       {
         icon: Wifi,
         title: "WLAN",
-        description:
-          "Kostenloses WLAN verfügbar",
+        description: "Kostenloses WLAN verfügbar",
       },
       {
         icon: Sparkles,
         title: "Wellness",
-        description:
-          "Yoga und Wellnessangebote",
+        description: "Yoga und Wellnessangebote",
       },
     ],
     facilities: [
@@ -255,8 +249,9 @@ export const stays: Stay[] = [
     type: "Chalet",
     location: "Tirol",
     country: "Österreich",
-    description:
-      "Modernes Bergchalet mit Sauna und Panoramablick.",
+    countryImage:
+      "https://images.unsplash.com/photo-1597086831879-756db15e81d3?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    description: "Modernes Bergchalet mit Sauna und Panoramablick.",
     longDescription:
       "Das Alpine Retreat liegt ruhig oberhalb eines kleinen Tiroler Bergdorfs. Nach einem Tag auf der Skipiste oder einer Wanderung kannst du dich in der privaten Sauna entspannen und den Blick auf die umliegenden Gipfel genießen.",
     pricePerNight: 225,
@@ -279,26 +274,22 @@ export const stays: Stay[] = [
       {
         icon: Waves,
         title: "Private Sauna",
-        description:
-          "Entspannung mit Bergblick",
+        description: "Entspannung mit Bergblick",
       },
       {
         icon: BedDouble,
         title: "2 Schlafzimmer",
-        description:
-          "Platz für bis zu fünf Gäste",
+        description: "Platz für bis zu fünf Gäste",
       },
       {
         icon: Wifi,
         title: "WLAN",
-        description:
-          "Kostenloses High-Speed-WLAN",
+        description: "Kostenloses High-Speed-WLAN",
       },
       {
         icon: ParkingCircle,
         title: "Parkplatz",
-        description:
-          "Privater Parkplatz direkt am Chalet",
+        description: "Privater Parkplatz direkt am Chalet",
       },
     ],
     facilities: [
@@ -317,20 +308,44 @@ export const stays: Stay[] = [
     ],
     tags: ["Berge", "Sauna", "Chalet"],
   },
-]
+];
 
 export function getStayById(id: string): Stay | undefined {
-  return stays.find((stay) => stay.id === id)
+  return stays.find((stay) => stay.id === id);
 }
 
 export function getStayTypes(): string[] {
-  return stays.map(stay => stay.type)
+  return [...new Set(stays.map((stay) => stay.type))];
 }
 
 export function getStayTypeCount(type: string): number {
-  return stays.filter(stay => stay.type === type).length
+  return [...new Set(stays.filter((stay) => stay.type === type))].length;
 }
 
 export function getStayFacilities(): string[] {
-  return [...new Set(stays.flatMap(stay => stay.facilities))]
+  return [...new Set(stays.flatMap((stay) => stay.facilities))];
+}
+
+export function getStayCountryDetails(): [string, string][] {
+  const uniqueCountries = stays.filter(
+    (stay, index, self) =>
+      index === self.findIndex((s) => s.country === stay.country),
+  );
+
+  // Mappt die gefilterten Unterkünfte zu einem Array von Tupeln [country, countryImage]
+  return uniqueCountries.map((stay) => [stay.country, stay.countryImage]);
+}
+
+export function getStaysAtDestination(destination: string): Stay[] {
+  return [...new Set(stays.filter((stay) => stay.location.includes(destination) || destination.includes(stay.location)))];
+}
+
+export function getMinPriceOfStaysAtDestination(destination: string): number {
+  const stays = getStaysAtDestination(destination);
+
+  // Falls keine Unterkünfte gefunden wurden
+  if (stays.length === 0) return 0;
+
+  // Extrahiert alle Preise und findet das Minimum
+  return Math.min(...stays.map((stay) => stay.pricePerNight));
 }

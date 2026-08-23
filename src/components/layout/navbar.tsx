@@ -1,35 +1,35 @@
-import { Menu } from "lucide-react"
-import { Link, NavLink } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { CircleUser, Menu } from "lucide-react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
+import { useUser } from "../context/user-context";
 
 type NavbarProps = {
-  transparent?: boolean
-}
+  transparent?: boolean;
+};
 
-export default function Navbar({
-  transparent = false,
-}: NavbarProps) {
-  const [scrolled, setScrolled] = useState(false)
+export default function Navbar({ transparent = false }: NavbarProps) {
+  const { user } = useUser();
+  const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!transparent) return
-
+    if (!transparent) return;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40)
-    }
+      setScrolled(window.scrollY > 40);
+    };
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll);
 
-    handleScroll()
+    handleScroll();
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [transparent])
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [transparent]);
 
-  const isTransparent = transparent && !scrolled
+  const isTransparent = transparent && !scrolled;
 
   const navItems = [
     {
@@ -44,11 +44,7 @@ export default function Navbar({
       label: "Erlebnisse",
       href: "/experiences",
     },
-    {
-      label: "Über uns",
-      href: "/about",
-    },
-  ]
+  ];
 
   return (
     <header
@@ -72,11 +68,7 @@ export default function Navbar({
         >
           welt
           <span
-            className={
-              isTransparent
-                ? "text-emerald-300"
-                : "text-emerald-600"
-            }
+            className={isTransparent ? "text-emerald-300" : "text-emerald-600"}
           >
             entdecken
           </span>
@@ -106,31 +98,63 @@ export default function Navbar({
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            className={
-              isTransparent
-                ? "border-white/40 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-gray-900"
-                : ""
-            }
-          >
-            Anmelden
-          </Button>
+        {user.isLoggedIn ? (
+          <div className="flex items-center gap-4">
+            <div className="hidden text-right sm:block">
+              <NavLink
+                key={"/profile"}
+                to="/profile"
+                className={({isActive}) =>
+                  isActive
+                    ? isTransparent
+                      ? "text-sm font-semibold text-emerald-300"
+                      : "text-sm font-semibold text-emerald-600"
+                    : isTransparent
+                      ? "text-sm font-semibold text-white/90 hover:text-white"
+                      : "text-sm font-semibold text-gray-600 hover:text-gray-900"
+                }
+              >
+                {user.firstName} {user.lastName}
+              </NavLink>
+            </div>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className={
-              isTransparent
-                ? "text-white hover:bg-white/10 hover:text-white md:hidden"
-                : "md:hidden"
-            }
-          >
-            <Menu className="h-5 w-5" />
-          </Button>
-        </div>
+            <Link
+              to="/profile"
+              className={
+                isTransparent ? "text-emerald-300" : "text-emerald-600"
+              }
+            >
+              <CircleUser className="h-7 w-7" />
+            </Link>
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <Button
+              onClick={() => navigate("/login")}
+              variant="outline"
+              className={
+                isTransparent
+                  ? "border-white/40 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-gray-900"
+                  : ""
+              }
+            >
+              Anmelden
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className={
+                isTransparent
+                  ? "text-white hover:bg-white/10 hover:text-white md:hidden"
+                  : "md:hidden"
+              }
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          </div>
+        )}
       </nav>
     </header>
-  )
+  );
 }

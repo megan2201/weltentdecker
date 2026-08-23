@@ -15,10 +15,10 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { destinations } from "@/assets/data/destinations";
 import { useMemo, useState } from "react";
-import { useTrip } from "@/components/context/TripContext";
+import { useTrip } from "@/components/context/trip-context";
 import {
   Popover,
   PopoverContent,
@@ -26,8 +26,14 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import Home from "@/components/pages/home";
+import {
+  getMinPriceOfStaysAtDestination,
+  getStaysAtDestination,
+} from "@/assets/data/stays";
+import { getExperiencesAtDestination } from "@/assets/data/experiences";
 
 export default function DestinationDetail() {
+  const navigate = useNavigate();
   const { slug } = useParams<{ slug: string }>();
   const destination = useMemo(
     () => destinations.find((item) => item.slug === slug),
@@ -40,6 +46,8 @@ export default function DestinationDetail() {
   if (!destination) {
     return <Home />;
   }
+
+  const minPrice = getMinPriceOfStaysAtDestination(destination.name);
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
@@ -321,14 +329,19 @@ export default function DestinationDetail() {
                 <p className="text-xs text-gray-500">Unterkünfte</p>
 
                 <p className="mt-1 text-2xl font-semibold">
-                  ab {destination.price}
+                  {minPrice > 0 ? "ab " + minPrice + " €" : "-"}
                 </p>
               </div>
 
               <p className="text-sm text-gray-500">/ Nacht</p>
             </div>
 
-            <Button className="mt-6 h-13 w-full rounded-xl bg-emerald-600 text-base hover:bg-emerald-700">
+            <Button
+              onClick={() => {
+                navigate(`/stays?q=${encodeURIComponent(destination.name)}`);
+              }}
+              className="mt-6 h-13 w-full rounded-xl bg-emerald-600 text-base hover:bg-emerald-700"
+            >
               Reise planen
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -355,20 +368,15 @@ export default function DestinationDetail() {
                 Bleib in {destination.name}.
               </h2>
             </div>
-
-            <Button variant="ghost">
-              Alle Unterkünfte
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
           </div>
 
           <div className="mt-10 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-            {destination.hotels.map((hotel) => (
-              <a href="#" key={hotel.name} className="group">
+            {getStaysAtDestination(destination.name).map((stay) => (
+              <Link to={"/destinations/" + 5} key={stay.name} className="group">
                 <div className="relative overflow-hidden rounded-3xl">
                   <img
-                    src={hotel.image}
-                    alt={hotel.name}
+                    src={stay.images[0]}
+                    alt={stay.name}
                     className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105"
                   />
 
@@ -380,24 +388,24 @@ export default function DestinationDetail() {
                 <div className="mt-5">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="text-xl font-semibold">{hotel.name}</h3>
+                      <h3 className="text-xl font-semibold">{stay.name}</h3>
 
-                      <p className="mt-1 text-sm text-gray-500">{hotel.type}</p>
+                      <p className="mt-1 text-sm text-gray-500">{stay.type}</p>
                     </div>
 
                     <div className="flex items-center gap-1 text-sm font-medium">
                       <Star className="h-4 w-4 fill-current" />
-                      {hotel.rating}
+                      {stay.rating}
                     </div>
                   </div>
 
                   <div className="mt-4 flex items-baseline gap-1">
-                    <span className="font-semibold">{hotel.price}</span>
+                    <span className="font-semibold">{stay.pricePerNight}</span>
 
                     <span className="text-sm text-gray-500">/ Nacht</span>
                   </div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -429,7 +437,7 @@ export default function DestinationDetail() {
           </div>
 
           <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {destination.experiences.map((experience) => (
+            {getExperiencesAtDestination(destination.name).map((experience) => (
               <a
                 href="#"
                 key={experience.title}
@@ -437,7 +445,7 @@ export default function DestinationDetail() {
               >
                 <div className="overflow-hidden">
                   <img
-                    src={experience.image}
+                    src={experience.images[0]}
                     alt={experience.title}
                     className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105"
                   />

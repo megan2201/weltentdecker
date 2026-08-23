@@ -10,10 +10,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { useTrip } from "@/components/context/TripContext";
+import { useTrip } from "@/components/context/trip-context";
+import { useNavigate } from "react-router-dom";
 
 export default function HomeHero() {
+  const navigate = useNavigate();
   const { trip, setCheckIn, setCheckOut, setGuests } = useTrip();
+  const [searchInput, setSearchInput] = useState("");
   const [isCheckInOpen, setIsCheckInOpen] = useState(false);
   const [isCheckOutOpen, setIsCheckOutOpen] = useState(false);
 
@@ -68,6 +71,19 @@ export default function HomeHero() {
                   </label>
 
                   <Input
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        if (searchInput.trim()) {
+                          navigate(
+                            `/stays?q=${encodeURIComponent(searchInput.trim())}`,
+                          );
+                        } else {
+                          navigate("/stays");
+                        }
+                      }
+                    }}
                     placeholder="Wohin möchtest du?"
                     className="mt-1 h-auto border-0 p-0 text-sm font-medium shadow-none focus-visible:ring-0"
                   />
@@ -85,7 +101,7 @@ export default function HomeHero() {
                   </p>
 
                   <Popover open={isCheckInOpen} onOpenChange={setIsCheckInOpen}>
-                    <PopoverTrigger className="mt-1 flex items-center gap-2 text-sm font-medium">
+                    <PopoverTrigger className="mt-1 cursor-pointer flex items-center gap-2 text-sm font-medium">
                       {trip.checkIn
                         ? trip.checkIn.toLocaleDateString("de-DE")
                         : "Datum auswählen"}
@@ -125,7 +141,7 @@ export default function HomeHero() {
                     open={isCheckOutOpen}
                     onOpenChange={setIsCheckOutOpen}
                   >
-                    <PopoverTrigger className="mt-1 flex items-center gap-2 text-sm font-medium">
+                    <PopoverTrigger className="mt-1 cursor-pointer flex items-center gap-2 text-sm font-medium">
                       {trip.checkOut
                         ? trip.checkOut.toLocaleDateString("de-DE")
                         : "Datum auswählen"}
@@ -172,7 +188,7 @@ export default function HomeHero() {
                   <div className="mt-1 flex items-center gap-3">
                     <button
                       onClick={() => setGuests(Math.max(1, trip.guests - 1))}
-                      className="flex h-6 w-6 items-center justify-center rounded-full border hover:bg-gray-100"
+                      className="flex cursor-pointer h-6 w-6 items-center justify-center rounded-full border hover:bg-gray-100"
                     >
                       −
                     </button>
@@ -183,7 +199,7 @@ export default function HomeHero() {
 
                     <button
                       onClick={() => setGuests(trip.guests + 1)}
-                      className="flex h-6 w-6 items-center justify-center rounded-full border hover:bg-gray-100"
+                      className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border hover:bg-gray-100"
                     >
                       +
                     </button>
@@ -193,8 +209,17 @@ export default function HomeHero() {
 
               <div className="flex items-center justify-end p-2">
                 <Button
+                  onClick={() => {
+                    if (searchInput.trim()) {
+                      navigate(
+                        `/stays?q=${encodeURIComponent(searchInput.trim())}`,
+                      );
+                    } else {
+                      navigate("/stays");
+                    }
+                  }}
                   size="lg"
-                  className="h-14 w-full rounded-2xl bg-emerald-600 px-6 text-white hover:bg-emerald-700 md:w-auto"
+                  className="h-14 w-full cursor-pointer rounded-2xl bg-emerald-600 px-6 text-white hover:bg-emerald-700 md:w-auto"
                 >
                   <Search className="mr-2 h-5 w-5" />
                   Suchen

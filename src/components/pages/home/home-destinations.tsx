@@ -1,34 +1,11 @@
+import { destinations } from "@/assets/data/destinations"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
-
-const destinations = [
-  {
-    name: "Amalfi",
-    country: "Italien",
-    image:
-      "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1000&q=85",
-  },
-  {
-    name: "Santorini",
-    country: "Griechenland",
-    image:
-      "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1000&q=85",
-  },
-  {
-    name: "Bali",
-    country: "Indonesien",
-    image:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1000&q=85",
-  },
-  {
-    name: "Lissabon",
-    country: "Portugal",
-    image:
-      "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1000&q=85",
-  },
-]
+import { Link, useNavigate } from "react-router-dom"
 
 export default function HomeDestinations() {
+  const navigate = useNavigate()
+
     return (
         <section
         id="destinations"
@@ -45,21 +22,21 @@ export default function HomeDestinations() {
             </h2>
           </div>
 
-          <Button variant="ghost" className="w-fit">
+          <Button onClick={() => navigate("/destinations")} variant="ghost" className="w-fit cursor-pointer">
             Alle Reiseziele
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {destinations.map((destination) => (
-            <a
-              href="#"
+          {destinations.slice(0, 4).map((destination) => (
+            <Link
+              to={`/destinations/${destination.slug}`}
               key={destination.name}
               className="group relative h-72 overflow-hidden rounded-3xl"
             >
               <img
-                src={destination.image}
+                src={destination.heroImage}
                 alt={destination.name}
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
               />
@@ -72,7 +49,7 @@ export default function HomeDestinations() {
                   {destination.country}
                 </p>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
