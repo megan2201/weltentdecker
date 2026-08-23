@@ -30,6 +30,7 @@ function formatDate(date: Date) {
 export default function StaysBooking() {
   const navigate = useNavigate()
   const { trip } = useTrip();
+  const {user} = useUser()
   const { addStayBooking } = useUser()
   const { id } = useParams();
   const stay = id ? getStayById(id) : undefined;
@@ -40,10 +41,9 @@ export default function StaysBooking() {
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
 
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
+  const [firstName, setFirstName] = useState(user.firstName)
+  const [lastName, setLastName] = useState(user.lastName)
+  const [email, setEmail] = useState(user.email)
 
   const [cardNumber, setCardNumber] = useState("")
   const [expiry, setExpiry] = useState("")
@@ -283,8 +283,9 @@ export default function StaysBooking() {
                           required
                         />
                       </div>
+                    </div>
 
-                      <div>
+                    <div className="mt-5">
                         <label className="text-sm font-medium">
                           E-Mail-Adresse
                         </label>
@@ -302,24 +303,6 @@ export default function StaysBooking() {
                           required
                         />
                       </div>
-
-                      <div>
-                        <label className="text-sm font-medium">
-                          Telefonnummer
-                        </label>
-
-                        <Input
-                          value={phone}
-                          onChange={(e) =>
-                            setPhone(
-                              e.target.value,
-                            )
-                          }
-                          placeholder="+49 170 1234567"
-                          className="mt-2 h-12 rounded-xl"
-                        />
-                      </div>
-                    </div>
 
                     <div className="mt-8 rounded-2xl bg-emerald-50 p-4">
                       <div className="flex gap-3">
