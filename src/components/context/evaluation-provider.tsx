@@ -2,6 +2,7 @@ import {
   evaluationTasks,
   type EvaluationTask,
 } from "@/assets/data/evaluation-tasks";
+import { createClient } from "@/lib/client";
 import {
   createContext,
   useContext,
@@ -10,7 +11,6 @@ import {
   type ReactNode,
 } from "react";
 
-const EVALUATION_CODE = "EVAL-2026";
 const STORAGE_KEY = "evaluation-state";
 
 export type EvaluationPhase =
@@ -27,7 +27,7 @@ type SavedEvaluationState = {
   currentTaskIndex: number;
   countdown: number;
   sessionId: string | null;
-  taskStartedAt: number | null;
+  sessionToken: string | null;
 };
 
 function getInitialEvaluationState(): SavedEvaluationState {
@@ -35,7 +35,15 @@ function getInitialEvaluationState(): SavedEvaluationState {
 
   if (saved) {
     try {
-      return JSON.parse(saved);
+      const parsed = JSON.parse(saved);
+
+      return {
+        phase: parsed.phase ?? "access",
+        currentTaskIndex: parsed.currentTaskIndex ?? 0,
+        countdown: parsed.countdown ?? 3,
+        sessionId: parsed.sessionId ?? null,
+        sessionToken: parsed.sessionToken ?? null,
+      };
     } catch {
       localStorage.removeItem(STORAGE_KEY);
     }
@@ -46,7 +54,7 @@ function getInitialEvaluationState(): SavedEvaluationState {
     currentTaskIndex: 0,
     countdown: 3,
     sessionId: null,
-    taskStartedAt: null,
+    sessionToken: null,
   };
 }
 
@@ -57,12 +65,11 @@ type EvaluationContextType = {
   currentTask: EvaluationTask;
   countdown: number;
   sessionId: string | null;
-
-  verifyEvaluationCode: (code: string) => boolean;
-  startIntro: () => void;
+  sessionToken: string | null;
+  verifyEvaluationCode: (code: string) => Promise<boolean>;
   startEvaluation: () => void;
   startTask: () => void;
-  completeTask: () => void;
+  completeTask: () => Promise<void>;
   nextTask: () => void;
 };
 
@@ -72,37 +79,56 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
   const initialState = getInitialEvaluationState();
 
   const [phase, setPhase] = useState<EvaluationPhase>(initialState.phase);
-  const [currentTaskIndex, setCurrentTaskIndex] = useState(initialState.currentTaskIndex);
+  const [currentTaskIndex, setCurrentTaskIndex] = useState(
+    initialState.currentTaskIndex,
+  );
   const [countdown, setCountdown] = useState(initialState.countdown);
-  const [sessionId, setSessionId] = useState<string | null>(initialState.sessionId);
-  const [taskStartedAt, setTaskStartedAt] = useState<number | null>(initialState.taskStartedAt);
+  const [sessionId, setSessionId] = useState<string | null>(
+    initialState.sessionId,
+  );
+  const [sessionToken, setSessionToken] = useState<string | null>(
+    initialState.sessionToken,
+  );
 
   const currentTask = evaluationTasks[currentTaskIndex];
+  const supabase = createClient();
 
   /*
-   * Evaluationscode überprüfen
+   * Evaluation-Code überprüfen
    */
-  const verifyEvaluationCode = (inputCode: string) => {
-    const isValid = inputCode.trim().toUpperCase() === EVALUATION_CODE;
+  const verifyEvaluationCode = async (inputCode: string): Promise<boolean> => {
+    try {
+      const { data, error } = await supabase.functions.invoke(
+        "start-evaluation",
+        {
+          body: {
+            code: inputCode,
+          },
+        },
+      );
 
-    if (!isValid) {
+      if (error) {
+        console.error("start-evaluation error:", error);
+        return false;
+      }
+
+      if (!data?.sessionId || !data?.sessionToken) {
+        console.error("Ungültige Antwort:", data);
+        return false;
+      }
+
+      setSessionId(data.sessionId);
+      setSessionToken(data.sessionToken);
+      setCurrentTaskIndex(0);
+      setCountdown(3);
+      setPhase("intro");
+
+      return true;
+    } catch (error) {
+      console.error("Evaluation konnte nicht gestartet werden:", error);
+
       return false;
     }
-
-    /*
-     * Neue anonyme Session erzeugen
-     */
-    const newSessionId = crypto.randomUUID();
-    setSessionId(newSessionId);
-
-    return true;
-  };
-
-  /*
-   * Intro starten
-   */
-  const startIntro = () => {
-    setPhase("intro");
   };
 
   /*
@@ -116,28 +142,99 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
   /*
    * Aufgabe starten
    */
-  const startTask = () => {
-    setTaskStartedAt(Date.now());
-    setPhase("task");
+  const startTask = async () => {
+    if (!sessionId || !sessionToken) {
+      console.error("Keine gültige Evaluation-Session vorhanden.");
+
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke("start-task", {
+        body: {
+          sessionId,
+          sessionToken,
+          taskId: currentTask.id,
+        },
+      });
+
+      if (error) {
+        console.error("start-task error:", error);
+
+        return;
+      }
+
+      if (!data?.success) {
+        console.error("Task konnte nicht gestartet werden:", data);
+
+        return;
+      }
+
+      /*
+       * Erst wenn der Server bestätigt hat,
+       * dass die Aufgabe gestartet wurde,
+       * wechseln wir in die Task-Phase.
+       */
+      setPhase("task");
+
+      console.log("Task gestartet:", {
+        taskId: currentTask.id,
+        startedAt: data.startedAt,
+        taskSessionId: data.taskSessionId,
+      });
+    } catch (error) {
+      console.error("Task konnte nicht gestartet werden:", error);
+    }
   };
 
   /*
-   * Aufgabe erfolgreich abgeschlossen
+   * Aufgabe abschließen
    */
-  const completeTask = () => {
-    let duration: number | null = null;
-    if (taskStartedAt !== null) {
-      duration = Math.round((Date.now() - taskStartedAt) / 1000);
+  const completeTask = async () => {
+    if (!sessionId || !sessionToken) {
+      console.error("Keine gültige Evaluation-Session vorhanden.");
+
+      return;
     }
 
-    console.log("Evaluation Task abgeschlossen:", {
-      sessionId,
-      taskId: currentTask.id,
-      duration,
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke("complete-task", {
+        body: {
+          sessionId,
+          sessionToken,
+          taskId: currentTask.id,
+        },
+      });
 
-    setCountdown(3);
-    setPhase("countdown");
+      if (error) {
+        console.error("complete-task error:", error);
+
+        return;
+      }
+
+      if (!data?.success) {
+        console.error("Task konnte nicht abgeschlossen werden:", data);
+
+        return;
+      }
+
+      console.log("Task abgeschlossen:", {
+        taskId: data.taskId,
+        startedAt: data.startedAt,
+        completedAt: data.completedAt,
+        durationSeconds: data.durationSeconds,
+      });
+
+      /*
+       * Erst nachdem der Server den
+       * Abschluss bestätigt hat,
+       * starten wir den Countdown.
+       */
+      setCountdown(3);
+      setPhase("countdown");
+    } catch (error) {
+      console.error("Task konnte nicht abgeschlossen werden:", error);
+    }
   };
 
   /*
@@ -168,7 +265,7 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
   }, [phase]);
 
   /*
-   * Vorhandene Session speichern
+   * Gesamten Evaluation-State speichern
    */
   useEffect(() => {
     const state: SavedEvaluationState = {
@@ -176,15 +273,14 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
       currentTaskIndex,
       countdown,
       sessionId,
-      taskStartedAt,
+      sessionToken,
     };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [phase, currentTaskIndex, countdown, sessionId, taskStartedAt]);
+  }, [phase, currentTaskIndex, countdown, sessionId, sessionToken]);
 
   /*
-   * Nach dem Fragebogen:
-   * nächste Aufgabe oder Evaluation beendet
+   * Nächste Aufgabe
    */
   const nextTask = () => {
     const isLastTask = currentTaskIndex >= evaluationTasks.length - 1;
@@ -195,6 +291,7 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
     }
 
     setCurrentTaskIndex((current) => current + 1);
+    setCountdown(3);
     setPhase("task-explanation");
   };
 
@@ -207,8 +304,8 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
         currentTask,
         countdown,
         sessionId,
+        sessionToken,
         verifyEvaluationCode,
-        startIntro,
         startEvaluation,
         startTask,
         completeTask,

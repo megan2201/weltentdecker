@@ -5,15 +5,15 @@ import { Input } from "@/components/ui/input";
 import { useEvaluation } from "../context/evaluation-provider";
 
 export default function EvaluationAccess() {
-  const { verifyEvaluationCode, startIntro } = useEvaluation();
+  const { verifyEvaluationCode } = useEvaluation();
 
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (event: React.SyntheticEvent) => {
+  const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    const success = verifyEvaluationCode(code);
+    const success = await verifyEvaluationCode(code);
 
     if (!success) {
       setError("Der eingegebene Code ist nicht gültig.");
@@ -21,7 +21,6 @@ export default function EvaluationAccess() {
     }
 
     setError("");
-    startIntro();
   };
 
   return (

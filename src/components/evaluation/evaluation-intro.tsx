@@ -76,6 +76,7 @@ export default function EvaluationIntro() {
               - manche sachen sind nicht anklickbar
               - eval code ändern und ins backend
               - local storage am ende der eval leeren
+              - leute dürfen nicht mehrfach die Evaluation machen dürfen
             </li>
           </ol>
         </div>
