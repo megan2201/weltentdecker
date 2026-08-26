@@ -22,8 +22,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { useTrip } from "@/components/context/trip-context";
 import { getExperienceById, type Experience } from "@/assets/data/experiences";
-import Home from "../home";
 import { useUser } from "@/components/context/user-context";
+import NotFound from "../not-found";
 
 function formatDate(date?: Date) {
   if (!date) return "—";
@@ -45,20 +45,17 @@ export default function ExperiencesBooking() {
   const experience = id ? getExperienceById(id) : undefined;
 
   if (!experience) {
-    return <Home />;
+    return <NotFound />;
   }
 
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
-
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvc, setCvc] = useState("");
-
+  const [cardNumber, setCardNumber] = useState("4242 4242 4242 4242");
+  const [expiry, setExpiry] = useState("10 / 26");
+  const [cvc, setCvc] = useState("123");
   const [acceptTerms, setAcceptTerms] = useState(false);
 
   /*

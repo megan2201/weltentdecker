@@ -586,7 +586,7 @@ export default function StaysDetail() {
                 }}
                 className="mt-6 h-14 w-full rounded-xl bg-emerald-600 text-base font-semibold hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Verfügbarkeit prüfen
+                Unterkunft buchen
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
 

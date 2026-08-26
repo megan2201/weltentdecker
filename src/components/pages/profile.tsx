@@ -1,5 +1,6 @@
 import {
   CalendarDays,
+  Check,
   ChevronRight,
   CircleX,
   Eye,
@@ -10,6 +11,7 @@ import {
   MapPin,
   Pencil,
   User,
+  X,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -73,9 +75,8 @@ export default function Profile() {
 
             <button
               onClick={() => {
-                logout();
                 clearTrip();
-                navigate("/");
+                logout();
               }}
               className="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-red-500 transition hover:bg-red-50"
             >
@@ -321,11 +322,35 @@ function MeineBuchungen() {
 function MeinProfil() {
   const { user, setFirstName, setLastName, setEmail, setPassword } = useUser();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
   const [firstNameInput, setFirstNameInput] = useState(user.firstName);
   const [lastNameInput, setLastNameInput] = useState(user.lastName);
   const [emailInput, setEmailInput] = useState(user.email);
   const [passwordInput, setPasswordInput] = useState(user.password);
+  const [confirmPasswordInput, setConfirmPasswordInput] = useState(
+    user.password,
+  );
+
+  const passwordRequirements = {
+    minLength: passwordInput.length >= 8,
+    hasNumber: /\d/.test(passwordInput),
+    hasUppercase: /[A-Z]/.test(passwordInput),
+    hasSpecialCharacter: /[^A-Za-z0-9]/.test(passwordInput),
+  };
+
+  const isPasswordValid =
+    passwordRequirements.minLength &&
+    passwordRequirements.hasNumber &&
+    passwordRequirements.hasUppercase &&
+    passwordRequirements.hasSpecialCharacter;
+
+  const passwordsMatch =
+    passwordInput.length > 0 &&
+    confirmPasswordInput.length > 0 &&
+    passwordInput === confirmPasswordInput;
+
+  const isFormValid = isPasswordValid && passwordsMatch;
 
   return (
     <div>
@@ -347,7 +372,7 @@ function MeinProfil() {
           </p>
         </div>
 
-        <div className="rounded-2xl border bg-white shadow-sm">
+        <form className="rounded-2xl border bg-white shadow-sm">
           {/* Profile header */}
           <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
@@ -445,37 +470,151 @@ function MeinProfil() {
             </div>
 
             <div className="md:col-span-2">
-              <label className="mb-2 block text-sm font-medium">Passwort</label>
+              {/* =================================================
+                  PASSWORD
+              ================================================== */}
 
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-
-                <Input
-                  disabled={!editProfile}
-                  value={passwordInput}
-                  onChange={(e) => setPasswordInput(e.target.value)}
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Dein Passwort"
-                  className="h-12 rounded-xl border-gray-200 pl-12 pr-12 shadow-none focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20"
-                  required
-                />
-
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-gray-700"
-                  aria-label={
-                    showPassword ? "Passwort anzeigen" : "Passwort verstecken"
-                  }
+              <div>
+                <label
+                  htmlFor="password"
+                  className="mb-2 block text-sm font-medium text-gray-800"
                 >
-                  {showPassword ? (
-                    <Eye className="h-5 w-5" />
-                  ) : (
-                    <EyeOff className="h-5 w-5" />
-                  )}
-                </button>
+                  Passwort
+                </label>
+
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+
+                  <Input
+                    disabled={!editProfile}
+                    value={passwordInput}
+                    onChange={(e) => setPasswordInput(e.target.value)}
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Dein Passwort"
+                    autoComplete="new-password"
+                    minLength={8}
+                    className="h-12 rounded-xl border-gray-200 pl-12 pr-12 shadow-none focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20"
+                    required
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-gray-700"
+                    aria-label={
+                      showPassword ? "Passwort verstecken" : "Passwort anzeigen"
+                    }
+                  >
+                    {showPassword ? (
+                      <Eye className="h-5 w-5" />
+                    ) : (
+                      <EyeOff className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
+
+                {/* Password requirements */}
+                {editProfile && (
+                  <div className="mt-3 rounded-xl bg-gray-50 p-4">
+                    <p className="mb-3 text-xs font-semibold text-gray-700">
+                      Dein Passwort benötigt:
+                    </p>
+
+                    <div className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-2">
+                      <PasswordRequirement
+                        valid={passwordRequirements.minLength}
+                        text="Mindestens 8 Zeichen"
+                      />
+
+                      <PasswordRequirement
+                        valid={passwordRequirements.hasNumber}
+                        text="Mindestens eine Zahl"
+                      />
+
+                      <PasswordRequirement
+                        valid={passwordRequirements.hasUppercase}
+                        text="Einen Großbuchstaben"
+                      />
+
+                      <PasswordRequirement
+                        valid={passwordRequirements.hasSpecialCharacter}
+                        text="Ein Sonderzeichen"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
+
+              {/* =================================================
+                  CONFIRM PASSWORD
+              ================================================== */}
+              {editProfile && (
+                <div>
+                  <label
+                    htmlFor="confirmPassword"
+                    className="mb-2 block text-sm font-medium text-gray-800"
+                  >
+                    Passwort wiederholen
+                  </label>
+
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+
+                    <Input
+                      value={confirmPasswordInput}
+                      onChange={(e) => setConfirmPasswordInput(e.target.value)}
+                      id="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Passwort wiederholen"
+                      autoComplete="new-password"
+                      className={`h-12 rounded-xl pl-12 pr-12 shadow-none focus-visible:ring-emerald-500/20 ${
+                        confirmPasswordInput.length > 0 && !passwordsMatch
+                          ? "border-red-300 focus-visible:border-red-500"
+                          : "border-gray-200 focus-visible:border-emerald-500"
+                      }`}
+                      required
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-gray-700"
+                      aria-label={
+                        showConfirmPassword
+                          ? "Passwort verstecken"
+                          : "Passwort anzeigen"
+                      }
+                    >
+                      {showConfirmPassword ? (
+                        <Eye className="h-5 w-5" />
+                      ) : (
+                        <EyeOff className="h-5 w-5" />
+                      )}
+                    </button>
+                  </div>
+
+                  {confirmPasswordInput.length > 0 && (
+                    <div
+                      className={`mt-2 flex items-center gap-2 text-xs ${
+                        passwordsMatch ? "text-emerald-600" : "text-red-500"
+                      }`}
+                    >
+                      {passwordsMatch ? (
+                        <Check className="h-4 w-4" />
+                      ) : (
+                        <X className="h-4 w-4" />
+                      )}
+
+                      {passwordsMatch
+                        ? "Passwörter stimmen überein"
+                        : "Passwörter stimmen nicht überein"}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -493,6 +632,8 @@ function MeinProfil() {
 
                     setEditProfile(false);
                   }}
+                  type="submit"
+                  disabled={!isFormValid}
                   className="rounded-xl bg-emerald-600 hover:bg-emerald-700"
                 >
                   Änderungen speichern
@@ -500,8 +641,44 @@ function MeinProfil() {
               </div>
             </div>
           )}
-        </div>
+        </form>
       </section>
+    </div>
+  );
+}
+
+/*
+ * ==========================================================
+ * PASSWORD REQUIREMENT COMPONENT
+ * ==========================================================
+ */
+
+function PasswordRequirement({
+  valid,
+  text,
+}: {
+  valid: boolean;
+  text: string;
+}) {
+  return (
+    <div
+      className={`flex items-center gap-2 ${
+        valid ? "text-emerald-600" : "text-gray-400"
+      }`}
+    >
+      <div
+        className={`flex h-4 w-4 items-center justify-center rounded-full ${
+          valid ? "bg-emerald-100" : "bg-gray-200"
+        }`}
+      >
+        {valid ? (
+          <Check className="h-2.5 w-2.5" />
+        ) : (
+          <div className="h-1 w-1 rounded-full bg-gray-400" />
+        )}
+      </div>
+
+      <span>{text}</span>
     </div>
   );
 }

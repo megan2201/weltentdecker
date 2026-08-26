@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { Eye, EyeOff, ArrowLeft, Mail, Lock } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useUser } from "@/components/context/user-context";
 
 export default function Login() {
-  const { user, setIsLoggedIn, setEmail, setPassword } = useUser();
-  const navigate = useNavigate()
+  const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   return (
     <main className="min-h-screen bg-white">
@@ -33,7 +34,7 @@ export default function Login() {
               to="/"
               className="w-fit text-2xl font-bold tracking-tight text-white"
             >
-              welt<span className="text-emerald-300">entdecken</span>
+              welt<span className="text-emerald-300">entdecker</span>
             </Link>
 
             {/* Quote */}
@@ -91,10 +92,15 @@ export default function Login() {
             {/* Login form */}
             <form
               className="mt-10 space-y-5"
-              onSubmit={(event) => {
+              onSubmit={async (event) => {
+                setLoading(true);
+                setError(false);
+
                 event.preventDefault();
-                setIsLoggedIn(true)
-                navigate("/")
+                await new Promise((resolve) => setTimeout(resolve, 1500));
+
+                setError(true);
+                setLoading(false);
               }}
             >
               {/* Email */}
@@ -110,8 +116,8 @@ export default function Login() {
                   <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
 
                   <Input
-                    value={user.email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={emailInput}
+                    onChange={(e) => setEmailInput(e.target.value)}
                     id="email"
                     type="email"
                     placeholder="name@example.com"
@@ -136,8 +142,8 @@ export default function Login() {
                   <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
 
                   <Input
-                    value={user.password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={passwordInput}
+                    onChange={(e) => setPasswordInput(e.target.value)}
                     id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Dein Passwort"
@@ -162,12 +168,22 @@ export default function Login() {
                 </div>
               </div>
 
+              {error && (
+                <div
+                  role="alert"
+                  className="mt-10 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                >
+                  Es wurde kein Benutzerkonto mit diesen Anmeldedaten gefunden.
+                </div>
+              )}
+
               {/* Submit */}
               <Button
                 type="submit"
+                disabled={loading}
                 className="h-12 w-full mt-5 rounded-xl bg-emerald-600 text-base font-medium shadow-lg shadow-emerald-600/20 hover:bg-emerald-700"
               >
-                Anmelden
+                {loading ? "Wird angemeldet..." : "Anmelden"}
               </Button>
             </form>
 

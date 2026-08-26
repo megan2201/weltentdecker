@@ -50,9 +50,9 @@ type UserContextType = {
 
 const defaultUser: User = {
   isLoggedIn: false,
-  firstName: "",
-  lastName: "",
-  email: "",
+  firstName: "Lars",
+  lastName: "Weber",
+  email: "lars.weber@example.de",
   password: "",
   stayBookings: [],
   experienceBookings: [],
@@ -63,7 +63,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User>(() => {
     try {
-      const saved = sessionStorage.getItem("weltentdecken-user");
+      const saved = localStorage.getItem("weltentdecker-user");
       if (!saved) return defaultUser;
 
       const parsed: User = JSON.parse(saved);
@@ -94,7 +94,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    sessionStorage.setItem("weltentdecken-user", JSON.stringify(user));
+    localStorage.setItem("weltentdecker-user", JSON.stringify(user));
   }, [user]);
 
   function updateUser(values: Partial<User>) {
@@ -140,7 +140,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   function logout() {
     setUser(defaultUser);
-    sessionStorage.removeItem("weltentdecken-user");
+    localStorage.removeItem("weltentdecker-user");
   }
 
   return (

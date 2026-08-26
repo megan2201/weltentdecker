@@ -13,7 +13,7 @@ export default function Footer() {
                 to="/"
                 className="text-2xl font-bold tracking-tight"
               >
-                welt<span className="text-emerald-600">entdecken</span>
+                welt<span className="text-emerald-600">entdecker</span>
               </Link>
 
               <p className="mt-4 max-w-sm text-sm leading-6 text-gray-500">
@@ -47,7 +47,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="font-semibold">Über weltentdecken</h3>
+              <h3 className="font-semibold">Über weltentdecker</h3>
 
               <div className="mt-4 space-y-3 text-sm text-gray-500">
                 <a href="#" className="block hover:text-gray-900">

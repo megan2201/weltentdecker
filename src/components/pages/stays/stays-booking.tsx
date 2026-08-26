@@ -16,8 +16,8 @@ import { Separator } from "@/components/ui/separator"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useTrip } from "@/components/context/trip-context"
 import { getStayById, type Stay } from "@/assets/data/stays"
-import Home from "../home"
 import { useUser } from "@/components/context/user-context"
+import NotFound from "../not-found"
 
 function formatDate(date: Date) {
   return date.toLocaleDateString("de-DE", {
@@ -35,19 +35,17 @@ export default function StaysBooking() {
   const { id } = useParams();
   const stay = id ? getStayById(id) : undefined;
   if (!stay) {
-    return <Home />;
+    return <NotFound />;
   }
 
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
-
   const [firstName, setFirstName] = useState(user.firstName)
   const [lastName, setLastName] = useState(user.lastName)
   const [email, setEmail] = useState(user.email)
-
-  const [cardNumber, setCardNumber] = useState("")
-  const [expiry, setExpiry] = useState("")
-  const [cvc, setCvc] = useState("")
+  const [cardNumber, setCardNumber] = useState("4242 4242 4242 4242")
+  const [expiry, setExpiry] = useState("10 / 26")
+  const [cvc, setCvc] = useState("123")
 
   const [acceptTerms, setAcceptTerms] = useState(false)
 

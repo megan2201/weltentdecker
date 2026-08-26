@@ -15,6 +15,8 @@ import Login from "./components/pages/auth/login";
 import Register from "./components/pages/auth/register";
 import Profile from "./components/pages/profile";
 import { ProtectedRoute } from "./components/context/protected-route";
+import NotFound from "./components/pages/not-found";
+import EvaluationManager from "./components/evaluation/evaluation-manager";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -74,8 +76,12 @@ function App() {
             path="/experiences/:id/booking"
             element={<ExperiencesBooking />}
           />
+
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
+
+      <EvaluationManager />
     </BrowserRouter>
   );
 }

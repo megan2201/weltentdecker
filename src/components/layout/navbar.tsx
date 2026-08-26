@@ -70,7 +70,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
           <span
             className={isTransparent ? "text-emerald-300" : "text-emerald-600"}
           >
-            entdecken
+            entdecker
           </span>
         </Link>
 

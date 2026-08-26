@@ -56,8 +56,8 @@ export function TripProvider({
     useState<TripSearch>(() => {
       try {
         const saved =
-          sessionStorage.getItem(
-            "weltentdecken-trip",
+          localStorage.getItem(
+            "weltentdecker-trip",
           )
 
         if (!saved) {
@@ -104,8 +104,8 @@ export function TripProvider({
       guests: trip.guests,
     }
 
-    sessionStorage.setItem(
-      "weltentdecken-trip",
+    localStorage.setItem(
+      "weltentdecker-trip",
       JSON.stringify(data),
     )
   }, [trip])
@@ -152,8 +152,8 @@ export function TripProvider({
   function clearTrip() {
     setTrip(defaultTrip)
 
-    sessionStorage.removeItem(
-      "weltentdecken-trip",
+    localStorage.removeItem(
+      "weltentdecker-trip",
     )
   }
 

@@ -10,7 +10,7 @@ export default function HomeWhyUs() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-2xl">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">
-              Warum weltentdecken?
+              Warum weltentdecker?
             </p>
 
             <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
@@ -38,7 +38,7 @@ export default function HomeWhyUs() {
               {
                 icon: Globe2,
                 title: "Die ganze Welt",
-                text: "Von Wochenendtrips in Europa bis zu einmaligen Fernreisen – entdecke die Welt mit weltentdecken.",
+                text: "Von Wochenendtrips in Europa bis zu einmaligen Fernreisen – entdecke die Welt mit weltentdecker.",
               },
             ].map((feature) => (
               <div key={feature.title}>

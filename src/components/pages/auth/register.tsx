@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { ArrowLeft, Check, Eye, EyeOff, Lock, Mail, User } from "lucide-react";
+import {
+  ArrowLeft,
+  Check,
+  Eye,
+  EyeOff,
+  Lock,
+  Mail,
+  User,
+  X,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
@@ -9,6 +18,7 @@ import { useUser } from "@/components/context/user-context";
 
 export default function Register() {
   const navigate = useNavigate();
+
   const {
     user,
     setFirstName,
@@ -17,9 +27,71 @@ export default function Register() {
     setPassword,
     setIsLoggedIn,
   } = useUser();
+
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [newsletter, setNewsletter] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  /*
+   * ==========================================================
+   * PASSWORD VALIDATION
+   * ==========================================================
+   */
+
+  const password = user.password;
+
+  const passwordRequirements = {
+    minLength: password.length >= 8,
+    hasNumber: /\d/.test(password),
+    hasUppercase: /[A-Z]/.test(password),
+    hasSpecialCharacter: /[^A-Za-z0-9]/.test(password),
+  };
+
+  const isPasswordValid =
+    passwordRequirements.minLength &&
+    passwordRequirements.hasNumber &&
+    passwordRequirements.hasUppercase &&
+    passwordRequirements.hasSpecialCharacter;
+
+  const passwordsMatch =
+    password.length > 0 &&
+    confirmPassword.length > 0 &&
+    password === confirmPassword;
+
+  const isFormValid = isPasswordValid && passwordsMatch && acceptTerms;
+
+  /*
+   * ==========================================================
+   * SUBMIT
+   * ==========================================================
+   */
+
+  const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!isPasswordValid) {
+      return;
+    }
+
+    if (!passwordsMatch) {
+      return;
+    }
+
+    if (!acceptTerms) {
+      return;
+    }
+
+    setLoading(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    setIsLoggedIn(true)
+    setLoading(false);
+    navigate("/");
+  };
 
   return (
     <main className="min-h-screen bg-white">
@@ -27,6 +99,7 @@ export default function Register() {
         {/* =====================================================
             LEFT — IMAGE
         ====================================================== */}
+
         <section className="relative hidden overflow-hidden lg:block">
           <img
             src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=90"
@@ -39,14 +112,16 @@ export default function Register() {
 
           <div className="relative z-10 flex h-full flex-col justify-between p-10 xl:p-14">
             {/* Logo */}
+
             <Link
               to="/"
               className="w-fit text-2xl font-bold tracking-tight text-white"
             >
-              welt<span className="text-emerald-300">entdecken</span>
+              welt<span className="text-emerald-300">entdecker</span>
             </Link>
 
             {/* Bottom content */}
+
             <div className="max-w-xl text-white">
               <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-md">
                 <span className="text-xl">✦</span>
@@ -88,17 +163,20 @@ export default function Register() {
         {/* =====================================================
             RIGHT — REGISTER
         ====================================================== */}
+
         <section className="flex min-h-screen items-center justify-center px-6 py-10">
           <div className="w-full max-w-md">
             {/* Mobile logo */}
+
             <Link
               to="/"
               className="mb-8 block text-2xl font-bold tracking-tight lg:hidden"
             >
-              welt<span className="text-emerald-600">entdecken</span>
+              welt<span className="text-emerald-600">entdecker</span>
             </Link>
 
             {/* Back */}
+
             <Link
               to="/"
               className="mb-8 inline-flex items-center gap-2 text-sm text-gray-500 transition hover:text-gray-900"
@@ -108,6 +186,7 @@ export default function Register() {
             </Link>
 
             {/* Heading */}
+
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">
                 Kostenlos registrieren
@@ -118,24 +197,21 @@ export default function Register() {
               </h1>
 
               <p className="mt-3 text-gray-500">
-                Erstelle dein Konto und entdecke die Welt mit weltentdecken.
+                Erstelle dein Konto und entdecke die Welt mit weltentdecker.
               </p>
             </div>
 
-            {/* Form */}
-            <form
-              className="mt-8 space-y-4"
-              onSubmit={(event) => {
-                event.preventDefault();
-                setIsLoggedIn(true);
-                navigate("/");
-              }}
-            >
+            {/* =================================================
+                FORM
+            ================================================== */}
+
+            <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
               {/* Name */}
+
               <div className="flex gap-5">
-                <div>
+                <div className="min-w-0 flex-1">
                   <label
-                    htmlFor="name"
+                    htmlFor="firstName"
                     className="mb-2 block text-sm font-medium text-gray-800"
                   >
                     Vorname
@@ -147,19 +223,19 @@ export default function Register() {
                     <Input
                       value={user.firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      id="name"
+                      id="firstName"
                       type="text"
                       placeholder="Vorname"
-                      autoComplete="name"
+                      autoComplete="given-name"
                       className="h-12 rounded-xl border-gray-200 pl-12 shadow-none focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20"
                       required
                     />
                   </div>
                 </div>
 
-                <div>
+                <div className="min-w-0 flex-1">
                   <label
-                    htmlFor="name"
+                    htmlFor="lastName"
                     className="mb-2 block text-sm font-medium text-gray-800"
                   >
                     Nachname
@@ -171,10 +247,10 @@ export default function Register() {
                     <Input
                       value={user.lastName}
                       onChange={(e) => setLastName(e.target.value)}
-                      id="name"
+                      id="lastName"
                       type="text"
                       placeholder="Nachname"
-                      autoComplete="name"
+                      autoComplete="family-name"
                       className="h-12 rounded-xl border-gray-200 pl-12 shadow-none focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20"
                       required
                     />
@@ -183,6 +259,7 @@ export default function Register() {
               </div>
 
               {/* Email */}
+
               <div>
                 <label
                   htmlFor="email"
@@ -207,7 +284,10 @@ export default function Register() {
                 </div>
               </div>
 
-              {/* Password */}
+              {/* =================================================
+                  PASSWORD
+              ================================================== */}
+
               <div>
                 <label
                   htmlFor="password"
@@ -220,11 +300,13 @@ export default function Register() {
                   <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
 
                   <Input
-                    value={user.password}
+                    value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Dein Passwort"
+                    autoComplete="new-password"
+                    minLength={8}
                     className="h-12 rounded-xl border-gray-200 pl-12 pr-12 shadow-none focus-visible:border-emerald-500 focus-visible:ring-emerald-500/20"
                     required
                   />
@@ -234,7 +316,7 @@ export default function Register() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-gray-700"
                     aria-label={
-                      showPassword ? "Passwort anzeigen" : "Passwort verstecken"
+                      showPassword ? "Passwort verstecken" : "Passwort anzeigen"
                     }
                   >
                     {showPassword ? (
@@ -244,9 +326,109 @@ export default function Register() {
                     )}
                   </button>
                 </div>
+
+                {/* Password requirements */}
+
+                <div className="mt-3 rounded-xl bg-gray-50 p-4">
+                  <p className="mb-3 text-xs font-semibold text-gray-700">
+                    Dein Passwort benötigt:
+                  </p>
+
+                  <div className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-2">
+                    <PasswordRequirement
+                      valid={passwordRequirements.minLength}
+                      text="Mindestens 8 Zeichen"
+                    />
+
+                    <PasswordRequirement
+                      valid={passwordRequirements.hasNumber}
+                      text="Mindestens eine Zahl"
+                    />
+
+                    <PasswordRequirement
+                      valid={passwordRequirements.hasUppercase}
+                      text="Einen Großbuchstaben"
+                    />
+
+                    <PasswordRequirement
+                      valid={passwordRequirements.hasSpecialCharacter}
+                      text="Ein Sonderzeichen"
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* Terms */}
+              {/* =================================================
+                  CONFIRM PASSWORD
+              ================================================== */}
+
+              <div>
+                <label
+                  htmlFor="confirmPassword"
+                  className="mb-2 block text-sm font-medium text-gray-800"
+                >
+                  Passwort wiederholen
+                </label>
+
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+
+                  <Input
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    id="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    placeholder="Passwort wiederholen"
+                    autoComplete="new-password"
+                    className={`h-12 rounded-xl pl-12 pr-12 shadow-none focus-visible:ring-emerald-500/20 ${
+                      confirmPassword.length > 0 && !passwordsMatch
+                        ? "border-red-300 focus-visible:border-red-500"
+                        : "border-gray-200 focus-visible:border-emerald-500"
+                    }`}
+                    required
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-gray-700"
+                    aria-label={
+                      showConfirmPassword
+                        ? "Passwort verstecken"
+                        : "Passwort anzeigen"
+                    }
+                  >
+                    {showConfirmPassword ? (
+                      <Eye className="h-5 w-5" />
+                    ) : (
+                      <EyeOff className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
+
+                {confirmPassword.length > 0 && (
+                  <div
+                    className={`mt-2 flex items-center gap-2 text-xs ${
+                      passwordsMatch ? "text-emerald-600" : "text-red-500"
+                    }`}
+                  >
+                    {passwordsMatch ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      <X className="h-4 w-4" />
+                    )}
+
+                    {passwordsMatch
+                      ? "Passwörter stimmen überein"
+                      : "Passwörter stimmen nicht überein"}
+                  </div>
+                )}
+              </div>
+
+              {/* =================================================
+                  TERMS
+              ================================================== */}
+
               <div className="flex items-start gap-3 pt-2">
                 <Checkbox
                   id="terms"
@@ -274,6 +456,7 @@ export default function Register() {
               </div>
 
               {/* Newsletter */}
+
               <div className="flex items-start gap-3">
                 <Checkbox
                   id="newsletter"
@@ -291,17 +474,20 @@ export default function Register() {
                 </label>
               </div>
 
-              {/* Submit */}
+              {/* =================================================
+                  SUBMIT
+              ================================================== */}
               <Button
                 type="submit"
-                disabled={!acceptTerms}
+                disabled={loading || !isFormValid}
                 className="mt-2 h-12 w-full rounded-xl bg-emerald-600 text-base font-medium shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Konto erstellen
+                {loading ? "Konto wird erstellt..." : "Konto erstellen"}
               </Button>
             </form>
 
             {/* Login */}
+
             <p className="mt-7 text-center text-sm text-gray-500">
               Du hast bereits ein Konto?{" "}
               <Link
@@ -315,5 +501,41 @@ export default function Register() {
         </section>
       </div>
     </main>
+  );
+}
+
+/*
+ * ==========================================================
+ * PASSWORD REQUIREMENT COMPONENT
+ * ==========================================================
+ */
+
+function PasswordRequirement({
+  valid,
+  text,
+}: {
+  valid: boolean;
+  text: string;
+}) {
+  return (
+    <div
+      className={`flex items-center gap-2 ${
+        valid ? "text-emerald-600" : "text-gray-400"
+      }`}
+    >
+      <div
+        className={`flex h-4 w-4 items-center justify-center rounded-full ${
+          valid ? "bg-emerald-100" : "bg-gray-200"
+        }`}
+      >
+        {valid ? (
+          <Check className="h-2.5 w-2.5" />
+        ) : (
+          <div className="h-1 w-1 rounded-full bg-gray-400" />
+        )}
+      </div>
+
+      <span>{text}</span>
+    </div>
   );
 }
