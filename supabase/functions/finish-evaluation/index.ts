@@ -36,7 +36,7 @@ Deno.serve(async (req) => {
   }
 
   /*
-   * Nur POST
+   * Nur POST erlauben
    */
   if (req.method !== "POST") {
     return jsonResponse(
@@ -52,18 +52,14 @@ Deno.serve(async (req) => {
     const sessionId = typeof body.sessionId === "string" ? body.sessionId : "";
     const sessionToken =
       typeof body.sessionToken === "string" ? body.sessionToken : "";
-    const questionId =
-      typeof body.questionId === "string" ? body.questionId : "";
-    const answer = typeof body.answer === "string" ? body.answer.trim() : "";
-    const taskId = typeof body.taskId === "string" ? body.taskId : null;
 
     /*
      * Request validieren
      */
-    if (!sessionId || !sessionToken || !questionId || !answer) {
+    if (!sessionId || !sessionToken) {
       return jsonResponse(
         {
-          error: "sessionId, sessionToken, questionId and answer are required",
+          error: "sessionId and sessionToken are required",
         },
         400,
       );
@@ -89,11 +85,11 @@ Deno.serve(async (req) => {
     const sessionTokenHash = await sha256(sessionToken);
 
     /*
-     * Evaluation Session überprüfen
+     * Evaluation Session laden
      */
     const { data: session, error: sessionError } = await supabase
       .from("evaluation_sessions")
-      .select("id, session_token_hash, status")
+      .select("id, session_token_hash, status, completed_at")
       .eq("id", sessionId)
       .maybeSingle();
 
@@ -121,7 +117,7 @@ Deno.serve(async (req) => {
     }
 
     /*
-     * Token überprüfen
+     * Session Token überprüfen
      */
     if (session.session_token_hash !== sessionTokenHash) {
       return jsonResponse(
@@ -133,108 +129,68 @@ Deno.serve(async (req) => {
     }
 
     /*
-     * Session muss aktiv sein
+     * Falls Evaluation bereits
+     * abgeschlossen wurde
+     */
+    if (session.status === "completed") {
+      return jsonResponse({
+        success: true,
+        alreadyCompleted: true,
+        completedAt: session.completed_at,
+      });
+    }
+
+    /*
+     * Nur aktive Evaluationen
+     * können abgeschlossen werden.
      */
     if (session.status !== "in_progress") {
       return jsonResponse(
         {
-          error: "Evaluation session is not active",
+          error: "Evaluation session cannot be completed",
         },
         409,
       );
     }
 
     /*
-     * Prüfen, ob diese Frage bereits
-     * beantwortet wurde.
+     * Serverzeit verwenden
      */
-    const { data: existingAnswer, error: existingAnswerError } = await supabase
-      .from("evaluation_answers")
-      .select("id, answer, created_at")
-      .eq("session_id", sessionId)
-      .eq("question_id", questionId)
-      .maybeSingle();
-
-    if (existingAnswerError) {
-      console.error("Could not check existing answer:", existingAnswerError);
-
-      return jsonResponse(
-        {
-          error: "Could not check existing answer",
-        },
-        500,
-      );
-    }
+    const completedAt = new Date().toISOString();
 
     /*
-     * Bereits vorhandene Antwort
-     *
-     * Wir überschreiben sie hier,
-     * damit der Benutzer seine Antwort
-     * ändern kann.
+     * Evaluation abschließen
      */
-    if (existingAnswer) {
-      const { data: updatedAnswer, error: updateError } = await supabase
-        .from("evaluation_answers")
-        .update({
-          answer,
-          task_id: taskId,
-        })
-        .eq("id", existingAnswer.id)
-        .select("id, question_id, task_id, answer, created_at")
-        .single();
-
-      if (updateError) {
-        console.error("Could not update answer:", updateError);
-
-        return jsonResponse(
-          {
-            error: "Could not update answer",
-          },
-          500,
-        );
-      }
-
-      return jsonResponse({
-        success: true,
-        updated: true,
-        answer: updatedAnswer,
-      });
-    }
-
-    /*
-     * Neue Antwort speichern
-     */
-    const { data: savedAnswer, error: insertError } = await supabase
-      .from("evaluation_answers")
-      .insert({
-        session_id: sessionId,
-        task_id: taskId,
-        question_id: questionId,
-        answer,
+    const { data: updatedSession, error: updateError } = await supabase
+      .from("evaluation_sessions")
+      .update({
+        status: "completed",
+        completed_at: completedAt,
       })
-      .select("id, question_id, task_id, answer, created_at")
+      .eq("id", sessionId)
+      .eq("status", "in_progress")
+      .select("id, status, completed_at")
       .single();
 
-    if (insertError) {
-      console.error("Could not save answer:", insertError);
+    if (updateError) {
+      console.error("Could not finish evaluation:", updateError);
 
       return jsonResponse(
         {
-          error: "Could not save answer",
-          details: insertError.message,
+          error: "Could not finish evaluation",
+          details: updateError.message,
         },
         500,
       );
     }
 
     /*
-     * Erfolgreich gespeichert
+     * Erfolg
      */
     return jsonResponse({
       success: true,
-      updated: false,
-      answer: savedAnswer,
+      alreadyCompleted: false,
+      session: updatedSession,
     });
   } catch (error) {
     console.error("Unexpected error:", error);

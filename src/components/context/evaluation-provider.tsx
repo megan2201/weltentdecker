@@ -68,9 +68,15 @@ type EvaluationContextType = {
   sessionToken: string | null;
   verifyEvaluationCode: (code: string) => Promise<boolean>;
   startEvaluation: () => void;
-  startTask: () => void;
+  startTask: () => Promise<void>;
   completeTask: () => Promise<void>;
-  nextTask: () => void;
+  nextTask: () => Promise<void>;
+  submitAnswer: (
+    questionId: string,
+    answer: string,
+    taskId?: string,
+  ) => Promise<boolean>;
+  finishEvaluation: () => Promise<boolean>;
 };
 
 const EvaluationContext = createContext<EvaluationContextType | null>(null);
@@ -160,13 +166,11 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
 
       if (error) {
         console.error("start-task error:", error);
-
         return;
       }
 
       if (!data?.success) {
         console.error("Task konnte nicht gestartet werden:", data);
-
         return;
       }
 
@@ -282,17 +286,107 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
   /*
    * Nächste Aufgabe
    */
-  const nextTask = () => {
+  const nextTask = async () => {
     const isLastTask = currentTaskIndex >= evaluationTasks.length - 1;
 
     if (isLastTask) {
-      setPhase("finished");
+      await finishEvaluation();
       return;
     }
 
     setCurrentTaskIndex((current) => current + 1);
     setCountdown(3);
     setPhase("task-explanation");
+  };
+
+  const submitAnswer = async (
+    questionId: string,
+    answer: string,
+    taskId?: string,
+  ): Promise<boolean> => {
+    if (!sessionId || !sessionToken) {
+      console.error("Keine gültige Evaluation-Session vorhanden.");
+
+      return false;
+    }
+
+    if (!questionId || !answer) {
+      console.error("questionId und answer sind erforderlich.");
+
+      return false;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke("submit-answer", {
+        body: {
+          sessionId,
+          sessionToken,
+          questionId,
+          answer,
+          taskId: taskId ?? null,
+        },
+      });
+
+      if (error) {
+        console.error("submit-answer error:", error);
+        return false;
+      }
+
+      if (!data?.success) {
+        console.error("Antwort konnte nicht gespeichert werden:", data);
+        return false;
+      }
+
+      console.log("Antwort gespeichert:", data.answer);
+
+      return true;
+    } catch (error) {
+      console.error("Antwort konnte nicht gespeichert werden:", error);
+      return false;
+    }
+  };
+
+  const finishEvaluation = async (): Promise<boolean> => {
+    if (!sessionId || !sessionToken) {
+      console.error("Keine gültige Evaluation-Session vorhanden.");
+      return false;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke(
+        "finish-evaluation",
+        {
+          body: {
+            sessionId,
+            sessionToken,
+          },
+        },
+      );
+
+      if (error) {
+        console.error("finish-evaluation error:", error);
+        return false;
+      }
+
+      if (!data?.success) {
+        console.error("Evaluation konnte nicht beendet werden:", data);
+        return false;
+      }
+
+      console.log("Evaluation abgeschlossen:", data.session);
+
+      /*
+       * Erst nach erfolgreicher
+       * Serverbestätigung die
+       * lokale Phase ändern.
+       */
+      setPhase("finished");
+
+      return true;
+    } catch (error) {
+      console.error("Evaluation konnte nicht beendet werden:", error);
+      return false;
+    }
   };
 
   return (
@@ -310,6 +404,8 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
         startTask,
         completeTask,
         nextTask,
+        submitAnswer,
+        finishEvaluation,
       }}
     >
       {children}

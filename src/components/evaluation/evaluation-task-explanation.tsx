@@ -1,14 +1,17 @@
 import { ArrowRight, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEvaluation } from "../context/evaluation-provider";
+import { useState } from "react";
 
 export default function EvaluationTaskExplanation() {
-  const {
-    currentTask,
-    currentTaskIndex,
-    tasks,
-    startTask,
-  } = useEvaluation();
+  const { currentTask, currentTaskIndex, tasks, startTask } = useEvaluation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    await startTask();
+    setIsSubmitting(false);
+  };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-white px-6">
@@ -46,10 +49,11 @@ export default function EvaluationTaskExplanation() {
 
           {/* Start */}
           <Button
-            onClick={startTask}
+            disabled={isSubmitting}
+            onClick={handleSubmit}
             className="mt-8 h-12 rounded-xl bg-emerald-600 px-8 text-base hover:bg-emerald-700"
           >
-            Aufgabe starten
+            {isSubmitting ? "Wird gestartet..." : "Aufgabe starten"}
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

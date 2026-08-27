@@ -6,14 +6,16 @@ import { useEvaluation } from "../context/evaluation-provider";
 
 export default function EvaluationAccess() {
   const { verifyEvaluationCode } = useEvaluation();
-
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
+    setIsSubmitting(true);
     const success = await verifyEvaluationCode(code);
+    setIsSubmitting(false);
 
     if (!success) {
       setError("Der eingegebene Code ist nicht gültig.");
@@ -39,16 +41,12 @@ export default function EvaluationAccess() {
             </h1>
 
             <p className="mt-2 text-sm leading-6 text-gray-500">
-              Bitte gib den Evaluationscode ein, den du
-              erhalten hast.
+              Bitte gib den Evaluationscode ein, den du erhalten hast.
             </p>
           </div>
 
           {/* Form */}
-          <form
-            onSubmit={handleSubmit}
-            className="mt-8 space-y-4"
-          >
+          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
             <div>
               <label
                 htmlFor="evaluation-code"
@@ -71,24 +69,22 @@ export default function EvaluationAccess() {
             </div>
 
             {error && (
-              <p className="text-sm font-medium text-red-600">
-                {error}
-              </p>
+              <p className="text-sm font-medium text-red-600">{error}</p>
             )}
 
             <Button
               type="submit"
-              disabled={!code.trim()}
+              disabled={!code.trim() || isSubmitting}
               className="h-12 w-full rounded-xl bg-emerald-600 text-base hover:bg-emerald-700"
             >
-              Evaluation starten
+              {isSubmitting ? "Evaluationscode wird geprüft..." : "Evaluation starten"}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </form>
 
           <p className="mt-6 text-center text-xs leading-5 text-gray-400">
-            Der Code wird ausschließlich zur Zuordnung
-            deiner Evaluation verwendet.
+            Der Code wird ausschließlich zur Zuordnung deiner Evaluation
+            verwendet.
           </p>
         </div>
       </div>

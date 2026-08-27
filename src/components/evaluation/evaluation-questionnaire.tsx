@@ -1,39 +1,34 @@
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { useEvaluation } from "../context/evaluation-provider"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useEvaluation } from "../context/evaluation-provider";
 
 export default function EvaluationQuestionnaire() {
-  const {
-    currentTask,
-    currentTaskIndex,
-    tasks,
-    nextTask,
-  } = useEvaluation()
+  const { currentTask, currentTaskIndex, tasks, nextTask, submitAnswer } =
+    useEvaluation();
+  const [valence, setValence] = useState<number | null>(null);
+  const [arousal, setArousal] = useState<number | null>(null);
+  const [comment, setComment] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [valence, setValence] =
-    useState<number | null>(null)
-
-  const [arousal, setArousal] =
-    useState<number | null>(null)
-
-  const [comment, setComment] = useState("")
-
-  const handleSubmit = () => {
-    const result = {
-      taskId: currentTask.id,
-      taskIndex: currentTaskIndex,
-
-      valence: valence,
-      arousal: arousal,
-      comment,
-
-      submittedAt: new Date().toISOString(),
+  const handleSubmit = async () => {
+    if (!valence || !arousal) {
+      return;
     }
 
-    console.log("Evaluation result:", result)
+    setIsSubmitting(true);
+    const [successValence, successArousal] = await Promise.all([
+      submitAnswer("valence", valence.toString(), currentTask.id),
+      submitAnswer("arousal", arousal.toString(), currentTask.id),
+    ]);
 
-    nextTask()
-  }
+    if (!successValence || !successArousal) {
+      setIsSubmitting(false);
+      return;
+    }
+
+    await nextTask();
+    setIsSubmitting(false);
+  };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-white px-6 py-12">
@@ -77,9 +72,7 @@ export default function EvaluationQuestionnaire() {
           <Question title="Möchtest du noch etwas zur Aufgabe sagen?">
             <textarea
               value={comment}
-              onChange={(event) =>
-                setComment(event.target.value)
-              }
+              onChange={(event) => setComment(event.target.value)}
               placeholder="Optionaler Kommentar..."
               className="min-h-32 w-full resize-none rounded-xl border px-4 py-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
             />
@@ -87,36 +80,31 @@ export default function EvaluationQuestionnaire() {
         </div>
 
         <Button
-          disabled={
-            valence === null ||
-            arousal === null
-          }
+          disabled={valence === null || arousal === null || isSubmitting}
           onClick={handleSubmit}
           className="mt-10 h-12 w-full rounded-xl bg-emerald-600 hover:bg-emerald-700"
         >
-          Bewertung abgeben
+          {isSubmitting ? "Wird gespeichert..." : "Bewertung abgeben"}
         </Button>
       </div>
     </div>
-  )
+  );
 }
 
 function Question({
   title,
   children,
 }: {
-  title: string
-  children: React.ReactNode
+  title: string;
+  children: React.ReactNode;
 }) {
   return (
     <div>
-      <h3 className="font-semibold text-gray-900">
-        {title}
-      </h3>
+      <h3 className="font-semibold text-gray-900">{title}</h3>
 
       <div className="mt-4">{children}</div>
     </div>
-  )
+  );
 }
 
 function Rating({
@@ -125,10 +113,10 @@ function Rating({
   leftLabel,
   rightLabel,
 }: {
-  value: number | null
-  onChange: (value: number) => void
-  leftLabel: string
-  rightLabel: string
+  value: number | null;
+  onChange: (value: number) => void;
+  leftLabel: string;
+  rightLabel: string;
 }) {
   return (
     <>
@@ -153,5 +141,5 @@ function Rating({
         <span>{rightLabel}</span>
       </div>
     </>
-  )
+  );
 }
