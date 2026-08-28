@@ -1,11 +1,19 @@
 import { ArrowRight, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEvaluation } from "../context/evaluation-provider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function EvaluationTaskExplanation() {
   const { currentTask, currentTaskIndex, tasks, startTask } = useEvaluation();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Verhindert das Scrollen der Hauptseite im Hintergrund
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -14,8 +22,8 @@ export default function EvaluationTaskExplanation() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-white px-6">
-      <div className="w-full max-w-2xl">
+    <div className="fixed inset-0 z-[100] flex justify-center bg-white px-6">
+      <div className="my-auto w-full max-w-2xl">
         {/* Fortschritt */}
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">

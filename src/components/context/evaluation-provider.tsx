@@ -10,16 +10,21 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import {
+  isEvaluationFinished,
+  markEvaluationFinished,
+} from "./evaluation-storage";
 
 const STORAGE_KEY = "evaluation-state";
 
 export type EvaluationPhase =
   | "access"
   | "intro"
+  | "pre-questionnaire"
   | "task-explanation"
   | "task"
   | "countdown"
-  | "questionnaire"
+  | "sam"
   | "finished";
 
 type SavedEvaluationState = {
@@ -67,6 +72,7 @@ type EvaluationContextType = {
   sessionId: string | null;
   sessionToken: string | null;
   verifyEvaluationCode: (code: string) => Promise<boolean>;
+  startPreQuestionnaire: () => void;
   startEvaluation: () => void;
   startTask: () => Promise<void>;
   completeTask: () => Promise<void>;
@@ -103,6 +109,10 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
    * Evaluation-Code überprüfen
    */
   const verifyEvaluationCode = async (inputCode: string): Promise<boolean> => {
+    if (isEvaluationFinished()) {
+      return false;
+    }
+
     try {
       const { data, error } = await supabase.functions.invoke(
         "start-evaluation",
@@ -135,6 +145,13 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
 
       return false;
     }
+  };
+
+   /*
+   * Pre Questionnaire starten
+   */
+  const startPreQuestionnaire = () => {
+    setPhase("pre-questionnaire");
   };
 
   /*
@@ -254,7 +271,7 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
         if (current <= 1) {
           window.clearInterval(interval);
 
-          setPhase("questionnaire");
+          setPhase("sam");
 
           return 0;
         }
@@ -272,6 +289,10 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
    * Gesamten Evaluation-State speichern
    */
   useEffect(() => {
+    if (isEvaluationFinished()) {
+      return;
+    }
+
     const state: SavedEvaluationState = {
       phase,
       currentTaskIndex,
@@ -381,6 +402,8 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
        * lokale Phase ändern.
        */
       setPhase("finished");
+      localStorage.clear();
+      markEvaluationFinished();
 
       return true;
     } catch (error) {
@@ -400,6 +423,7 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
         sessionId,
         sessionToken,
         verifyEvaluationCode,
+        startPreQuestionnaire,
         startEvaluation,
         startTask,
         completeTask,

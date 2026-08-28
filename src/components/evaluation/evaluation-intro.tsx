@@ -1,13 +1,22 @@
-import { CheckCircle2, Clock3, MousePointer2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useEvaluation } from "../context/evaluation-provider"
+import { CheckCircle2, Clock3, MousePointer2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useEvaluation } from "../context/evaluation-provider";
+import { useEffect } from "react";
 
 export default function EvaluationIntro() {
-  const { startEvaluation, tasks } = useEvaluation()
+  const { tasks, startPreQuestionnaire } = useEvaluation();
+
+  // Verhindert das Scrollen der Hauptseite im Hintergrund
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-white px-6 py-12">
-      <div className="w-full max-w-3xl">
+    <div className="fixed inset-0 z-[100] flex justify-center overflow-y-auto bg-white px-6 py-12">
+      <div className="my-auto w-full max-w-3xl">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">
             Usability Evaluation
@@ -18,9 +27,8 @@ export default function EvaluationIntro() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
-            In dieser Evaluation testest du eine Reiseplattform. Deine
-            Aufgabe ist es, verschiedene Aufgaben auf der Webseite zu
-            bearbeiten.
+            In dieser Evaluation testest du eine Reiseplattform. Deine Aufgabe
+            ist es, verschiedene Aufgaben auf der Webseite zu bearbeiten.
           </p>
         </div>
 
@@ -45,45 +53,40 @@ export default function EvaluationIntro() {
         </div>
 
         <div className="mt-8 rounded-2xl bg-gray-50 p-6">
-          <h2 className="font-semibold text-gray-900">
-            So funktioniert es
-          </h2>
+          <h2 className="font-semibold text-gray-900">So funktioniert es</h2>
 
           <ol className="mt-4 space-y-3 text-sm leading-6 text-gray-600">
             <li>
-              <span className="font-medium text-gray-900">1.</span>{" "}
-              Bearbeite die angezeigte Aufgabe.
+              <span className="font-medium text-gray-900">1.</span> Bearbeite
+              die angezeigte Aufgabe.
             </li>
 
             <li>
-              <span className="font-medium text-gray-900">2.</span>{" "}
-              Sobald du die Aufgabe erfolgreich abgeschlossen hast, wird die
-              Webseite kurz unterbrochen.
+              <span className="font-medium text-gray-900">2.</span> Sobald du
+              die Aufgabe erfolgreich abgeschlossen hast, wird die Webseite kurz
+              unterbrochen.
             </li>
 
             <li>
-              <span className="font-medium text-gray-900">3.</span>{" "}
-              Nach einem kurzen Countdown erscheint ein Fragebogen.
+              <span className="font-medium text-gray-900">3.</span> Nach einem
+              kurzen Countdown erscheint ein Fragebogen.
             </li>
 
             <li>
-              <span className="font-medium text-gray-900">4.</span>{" "}
-              Danach kannst du mit der nächsten Aufgabe fortfahren.
-              Zusätzlich erklären:
-              - manche werte sind schon vorausgefüllt
-              - keine privaten daten zb passwörter eingeben
-              - auf und einklappen und verschieben der aufgaben
-              - manche sachen sind nicht anklickbar
-              - eval code ändern und ins backend
-              - local storage am ende der eval leeren
-              - leute dürfen nicht mehrfach die Evaluation machen dürfen
+              <span className="font-medium text-gray-900">4.</span> Danach
+              kannst du mit der nächsten Aufgabe fortfahren. Zusätzlich
+              erklären: - manche werte sind schon vorausgefüllt - keine privaten
+              daten zb passwörter eingeben - auf und einklappen und verschieben
+              der aufgaben - manche sachen sind nicht anklickbar - eval code
+              ändern und ins backend - local storage am ende der eval leeren -
+              leute dürfen nicht mehrfach die Evaluation machen dürfen
             </li>
           </ol>
         </div>
 
         <div className="mt-8 text-center">
           <Button
-            onClick={startEvaluation}
+            onClick={startPreQuestionnaire}
             className="h-12 rounded-xl bg-emerald-600 px-8 text-base hover:bg-emerald-700"
           >
             Evaluation starten
@@ -95,7 +98,7 @@ export default function EvaluationIntro() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function InfoCard({
@@ -103,9 +106,9 @@ function InfoCard({
   title,
   description,
 }: {
-  icon: React.ReactNode
-  title: string
-  description: string
+  icon: React.ReactNode;
+  title: string;
+  description: string;
 }) {
   return (
     <div className="rounded-2xl border bg-white p-5">
@@ -115,9 +118,7 @@ function InfoCard({
 
       <h3 className="mt-4 font-semibold text-gray-900">{title}</h3>
 
-      <p className="mt-1 text-sm leading-6 text-gray-500">
-        {description}
-      </p>
+      <p className="mt-1 text-sm leading-6 text-gray-500">{description}</p>
     </div>
-  )
+  );
 }

@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { isEvaluationFinished } from "./evaluation-storage";
 
 export type User = {
   isLoggedIn: boolean;
@@ -94,6 +95,11 @@ export function UserProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
+    if (isEvaluationFinished()) {
+      logout()
+      return;
+    }
+    
     localStorage.setItem("weltentdecker-user", JSON.stringify(user));
   }, [user]);
 

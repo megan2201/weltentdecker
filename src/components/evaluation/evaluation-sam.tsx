@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useEvaluation } from "../context/evaluation-provider";
 
-export default function EvaluationQuestionnaire() {
+export default function EvaluationSam() {
   const { currentTask, currentTaskIndex, tasks, nextTask, submitAnswer } =
     useEvaluation();
   const [valence, setValence] = useState<number | null>(null);
@@ -10,8 +10,16 @@ export default function EvaluationQuestionnaire() {
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Verhindert das Scrollen der Hauptseite im Hintergrund
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   const handleSubmit = async () => {
-    if (!valence || !arousal) {
+    if (!valence || !arousal || isSubmitting) {
       return;
     }
 
@@ -31,8 +39,8 @@ export default function EvaluationQuestionnaire() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-white px-6 py-12">
-      <div className="w-full max-w-2xl">
+    <div className="fixed inset-0 z-[100] flex justify-center overflow-y-auto bg-white px-6 py-12">
+      <div className="my-auto w-full max-w-2xl">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">
             Aufgabe {currentTaskIndex + 1} von {tasks.length}
