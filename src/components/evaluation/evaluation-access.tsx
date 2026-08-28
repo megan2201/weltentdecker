@@ -91,11 +91,6 @@ export default function EvaluationAccess() {
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </form>
-
-          <p className="mt-6 text-center text-xs leading-5 text-gray-400">
-            Der Code wird ausschließlich zur Zuordnung deiner Evaluation
-            verwendet.
-          </p>
         </div>
       </div>
     </div>

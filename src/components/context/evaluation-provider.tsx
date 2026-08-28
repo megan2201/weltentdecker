@@ -21,10 +21,12 @@ export type EvaluationPhase =
   | "access"
   | "intro"
   | "pre-questionnaire"
+  | "pre-sam"
   | "task-explanation"
   | "task"
   | "countdown"
   | "sam"
+  | "debriefing"
   | "finished";
 
 type SavedEvaluationState = {
@@ -73,10 +75,11 @@ type EvaluationContextType = {
   sessionToken: string | null;
   verifyEvaluationCode: (code: string) => Promise<boolean>;
   startPreQuestionnaire: () => void;
+  startPreSam: () => void;
   startEvaluation: () => void;
   startTask: () => Promise<void>;
   completeTask: () => Promise<void>;
-  nextTask: () => Promise<void>;
+  nextTask: () => void
   submitAnswer: (
     questionId: string,
     answer: string,
@@ -152,6 +155,13 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
    */
   const startPreQuestionnaire = () => {
     setPhase("pre-questionnaire");
+  };
+
+    /*
+   * Pre Questionnaire starten
+   */
+  const startPreSam = () => {
+    setPhase("pre-sam");
   };
 
   /*
@@ -307,11 +317,11 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
   /*
    * Nächste Aufgabe
    */
-  const nextTask = async () => {
+  const nextTask = () => {
     const isLastTask = currentTaskIndex >= evaluationTasks.length - 1;
 
     if (isLastTask) {
-      await finishEvaluation();
+      setPhase("debriefing")
       return;
     }
 
@@ -424,6 +434,7 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
         sessionToken,
         verifyEvaluationCode,
         startPreQuestionnaire,
+        startPreSam: startPreSam,
         startEvaluation,
         startTask,
         completeTask,

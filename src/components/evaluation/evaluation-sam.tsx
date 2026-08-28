@@ -2,13 +2,25 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useEvaluation } from "../context/evaluation-provider";
 
-export default function EvaluationSam() {
-  const { currentTask, currentTaskIndex, tasks, nextTask, submitAnswer } =
-    useEvaluation();
+type EvaluationSamProps = {
+  mode?: "pre" | "post";
+};
+
+export default function EvaluationSam({ mode = "post" }: EvaluationSamProps) {
+  const {
+    currentTask,
+    currentTaskIndex,
+    tasks,
+    nextTask,
+    submitAnswer,
+    startEvaluation,
+  } = useEvaluation();
   const [valence, setValence] = useState<number | null>(null);
   const [arousal, setArousal] = useState<number | null>(null);
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const isPreSam = mode === "pre";
 
   // Verhindert das Scrollen der Hauptseite im Hintergrund
   useEffect(() => {
@@ -25,8 +37,8 @@ export default function EvaluationSam() {
 
     setIsSubmitting(true);
     const [successValence, successArousal] = await Promise.all([
-      submitAnswer("valence", valence.toString(), currentTask.id),
-      submitAnswer("arousal", arousal.toString(), currentTask.id),
+      submitAnswer(isPreSam ? "pre-valence" : "valence", valence.toString(), currentTask.id),
+      submitAnswer(isPreSam ? "pre-arousal" : "arousal", arousal.toString(), currentTask.id),
     ]);
 
     if (!successValence || !successArousal) {
@@ -34,7 +46,11 @@ export default function EvaluationSam() {
       return;
     }
 
-    await nextTask();
+    if (isPreSam) {
+      startEvaluation();
+    } else {
+      nextTask();
+    }
     setIsSubmitting(false);
   };
 
@@ -43,7 +59,9 @@ export default function EvaluationSam() {
       <div className="my-auto w-full max-w-2xl">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">
-            Aufgabe {currentTaskIndex + 1} von {tasks.length}
+            {isPreSam
+              ? "Vor Beginn der Aufgaben"
+              : `Aufgabe ${currentTaskIndex + 1} von ${tasks.length}`}
           </p>
 
           <h2 className="mt-4 text-3xl font-semibold tracking-tight">

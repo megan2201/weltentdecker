@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useEvaluation } from "../context/evaluation-provider";
 
 export default function EvaluationPreQuestionnaire() {
-  const { submitAnswer, startEvaluation } = useEvaluation();
+  const { submitAnswer, startPreSam } = useEvaluation();
 
   const [age, setAge] = useState<string | null>(null);
   const [travelBookingExperience, setTravelBookingExperience] = useState<
@@ -36,7 +36,7 @@ export default function EvaluationPreQuestionnaire() {
       return;
     }
 
-    startEvaluation();
+    startPreSam();
     setIsSubmitting(false);
   };
 

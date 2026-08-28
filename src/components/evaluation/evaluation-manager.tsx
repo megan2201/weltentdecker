@@ -1,6 +1,7 @@
 import { useEvaluation } from "../context/evaluation-provider";
 import EvaluationAccess from "./evaluation-access";
 import EvaluationCountdown from "./evaluation-countdown";
+import EvaluationDebriefing from "./evaluation-debriefing";
 import EvaluationFinished from "./evaluation-finished";
 import EvaluationIntro from "./evaluation-intro";
 import EvaluationPreQuestionnaire from "./evaluation-pre-questionnaire";
@@ -19,6 +20,8 @@ export default function EvaluationManager() {
 
       {phase === "pre-questionnaire" && <EvaluationPreQuestionnaire />}
 
+      {phase === "pre-sam" && <EvaluationSam mode="pre" />}
+
       {phase === "task-explanation" && <EvaluationTaskExplanation />}
 
       {phase === "task" && <TaskInstructionOverlay />}
@@ -26,6 +29,8 @@ export default function EvaluationManager() {
       {phase === "countdown" && <EvaluationCountdown />}
 
       {phase === "sam" && <EvaluationSam />}
+
+      {phase === "debriefing" && <EvaluationDebriefing />}
 
       {phase === "finished" && <EvaluationFinished />}
     </>
