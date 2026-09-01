@@ -1,6 +1,5 @@
 import {
   CalendarDays,
-  Check,
   ChevronRight,
   CircleX,
   Eye,
@@ -11,7 +10,6 @@ import {
   MapPin,
   Pencil,
   User,
-  X,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -514,42 +512,6 @@ function MeinProfil() {
           )}
         </form>
       </section>
-    </div>
-  );
-}
-
-/*
- * ==========================================================
- * PASSWORD REQUIREMENT COMPONENT
- * ==========================================================
- */
-
-function PasswordRequirement({
-  valid,
-  text,
-}: {
-  valid: boolean;
-  text: string;
-}) {
-  return (
-    <div
-      className={`flex items-center gap-2 ${
-        valid ? "text-emerald-600" : "text-gray-400"
-      }`}
-    >
-      <div
-        className={`flex h-4 w-4 items-center justify-center rounded-full ${
-          valid ? "bg-emerald-100" : "bg-gray-200"
-        }`}
-      >
-        {valid ? (
-          <Check className="h-2.5 w-2.5" />
-        ) : (
-          <div className="h-1 w-1 rounded-full bg-gray-400" />
-        )}
-      </div>
-
-      <span>{text}</span>
     </div>
   );
 }

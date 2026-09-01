@@ -10,7 +10,6 @@ import {
   Globe2,
   Lock,
   MapPin,
-  ShieldCheck,
   Star,
   Users,
 } from "lucide-react";

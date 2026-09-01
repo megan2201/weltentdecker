@@ -1,28 +1,20 @@
-import {
-  ArrowRight,
-  Globe2,
-  MapPin,
-  Search,
-  Sparkles,
-} from "lucide-react"
-import { useState } from "react"
+import { ArrowRight, Globe2, MapPin, Search, Sparkles } from "lucide-react";
+import { useState } from "react";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { useRef } from 'react'
-import { Link } from "react-router-dom"
-import { destinations } from "@/assets/data/destinations"
-import { getStayCountryDetails } from "@/assets/data/stays"
-import destinationsImg from "/img/weltentdecker-destinations.webp"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
+import { destinations } from "@/assets/data/destinations";
+import { getStayCountryDetails } from "@/assets/data/stays";
+import destinationsImg from "/img/weltentdecker-destinations.webp";
 
 export default function Destinations() {
-  const [searchInput, setSearchInput] = useState("")
-  const [search, setSearch] = useState("")
+  const [searchInput, setSearchInput] = useState("");
   const destinationsRef = useRef<HTMLElement | null>(null);
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
-
       {/* =====================================================
           PAGE HERO
       ====================================================== */}
@@ -38,14 +30,12 @@ export default function Destinations() {
               <h1 className="max-w-2xl text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
                 Entdecke Orte,
                 <br />
-                <span className="text-emerald-600">
-                  die bleiben.
-                </span>
+                <span className="text-emerald-600">die bleiben.</span>
               </h1>
 
               <p className="mt-7 max-w-xl text-lg leading-8 text-gray-600">
-                Von mediterranen Küsten bis zu abgelegenen Bergdörfern:
-                entdecke Reiseziele, die zu deinem nächsten Abenteuer passen.
+                Von mediterranen Küsten bis zu abgelegenen Bergdörfern: entdecke
+                Reiseziele, die zu deinem nächsten Abenteuer passen.
               </p>
 
               {/* Search */}
@@ -57,23 +47,26 @@ export default function Destinations() {
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                     onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                        setSearch(searchInput)
-                        destinationsRef.current?.scrollIntoView({ behavior: 'smooth' })
-                        }
+                      if (e.key === "Enter") {
+                        destinationsRef.current?.scrollIntoView({
+                          behavior: "smooth",
+                        });
+                      }
                     }}
                     placeholder="Reiseziel oder Land suchen..."
                     className="h-14 rounded-2xl border-gray-200 bg-white pl-12 shadow-sm"
                   />
                 </div>
 
-                <Button 
-                    onClick={() => {
-                        setSearch(searchInput)
-                        destinationsRef.current?.scrollIntoView({ behavior: 'smooth' })
-                    }}
-                    className="h-14 rounded-2xl bg-emerald-600 px-7 hover:bg-emerald-700">
-                        Suchen
+                <Button
+                  onClick={() => {
+                    destinationsRef.current?.scrollIntoView({
+                      behavior: "smooth",
+                    });
+                  }}
+                  className="h-14 rounded-2xl bg-emerald-600 px-7 hover:bg-emerald-700"
+                >
+                  Suchen
                 </Button>
               </div>
             </div>
@@ -95,12 +88,8 @@ export default function Destinations() {
                   </div>
 
                   <div>
-                    <p className="text-sm font-semibold">
-                      3.200+ Reiseziele
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      weltweit entdecken
-                    </p>
+                    <p className="text-sm font-semibold">3.200+ Reiseziele</p>
+                    <p className="text-xs text-gray-500">weltweit entdecken</p>
                   </div>
                 </div>
               </div>
@@ -112,7 +101,10 @@ export default function Destinations() {
       {/* =====================================================
           DESTINATION GRID
       ====================================================== */}
-      <section ref={destinationsRef} className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
+      <section
+        ref={destinationsRef}
+        className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24"
+      >
         <div className="flex items-end justify-between gap-6">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">
@@ -207,40 +199,40 @@ export default function Destinations() {
             </div>
 
             <p className="max-w-md text-sm leading-6 text-gray-400">
-              Entdecke neue Reiseideen nach Länder und finde deinen
-              persönlichen nächsten Lieblingsort.
+              Entdecke neue Reiseideen nach Länder und finde deinen persönlichen
+              nächsten Lieblingsort.
             </p>
           </div>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {getStayCountryDetails().slice(0, 4).map((countryDetails) => (
-              <Link
-                to={`/stays?q=${encodeURIComponent(countryDetails[0])}`}
-                key={countryDetails[0]}
-                className="group relative h-72 overflow-hidden rounded-3xl"
-              >
-                <img
-                  src={countryDetails[1]}
-                  alt={countryDetails[0]}
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
-                />
+            {getStayCountryDetails()
+              .slice(0, 4)
+              .map((countryDetails) => (
+                <Link
+                  to={`/stays?q=${encodeURIComponent(countryDetails[0])}`}
+                  key={countryDetails[0]}
+                  className="group relative h-72 overflow-hidden rounded-3xl"
+                >
+                  <img
+                    src={countryDetails[1]}
+                    alt={countryDetails[0]}
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                  />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
 
-                <div className="absolute bottom-5 left-5">
-                  <h3 className="text-2xl font-semibold">
-                    {countryDetails[0]}
-                  </h3>
+                  <div className="absolute bottom-5 left-5">
+                    <h3 className="text-2xl font-semibold">
+                      {countryDetails[0]}
+                    </h3>
 
-                  <p className="mt-1 text-sm text-white/65">
-                    4 Unterkünfte
-                  </p>
-                </div>
-              </Link>
-            ))}
+                    <p className="mt-1 text-sm text-white/65">4 Unterkünfte</p>
+                  </div>
+                </Link>
+              ))}
           </div>
         </div>
       </section>
     </main>
-  )
+  );
 }

@@ -1,10 +1,8 @@
 import { experiences } from "@/assets/data/experiences"
 import { ArrowRight } from "lucide-react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export default function HomeExperiences() {
-  const navigate = useNavigate()
-
     return (
         <section
         id="experiences"

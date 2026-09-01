@@ -12,7 +12,6 @@ export default function Login() {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -179,15 +178,6 @@ export default function Login() {
                   </button>
                 </div>
               </div>
-
-              {error && (
-                <div
-                  role="alert"
-                  className="mt-10 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
-                >
-                  Es wurde kein Benutzerkonto mit diesen Anmeldedaten gefunden.
-                </div>
-              )}
 
               {/* Submit */}
               <Button
