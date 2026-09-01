@@ -22,12 +22,12 @@ export default function EvaluationFinished() {
         </h1>
 
         <p className="mt-5 text-lg leading-8 text-gray-600">
-          Du hast alle Aufgaben der Evaluation erfolgreich abgeschlossen. Vielen
-          Dank für deine Zeit und dein Feedback.
+          Sie haben alle Aufgaben der Evaluation erfolgreich abgeschlossen. Vielen
+          Dank für Ihre Zeit und Ihr Feedback.
         </p>
 
         <p className="mt-8 text-sm text-gray-400">
-          Du kannst dieses Fenster nun schließen.
+          Sie können dieses Fenster nun schließen.
         </p>
       </div>
     </div>
