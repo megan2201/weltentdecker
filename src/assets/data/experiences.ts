@@ -1,23 +1,3 @@
-import {
-  Bike,
-  Camera,
-  Coffee,
-  CookingPot,
-  Footprints,
-  Mountain,
-  Sailboat,
-  Sparkles,
-  Utensils,
-  Waves,
-  Wine,
-} from "lucide-react";
-
-export type ExperienceAmenity = {
-  icon: any;
-  title: string;
-  description: string;
-};
-
 export type Experience = {
   id: string;
   title: string;
@@ -25,520 +5,499 @@ export type Experience = {
   category: string;
   location: string;
   country: string;
-
   description: string;
-  longDescription: string;
-
   price: number;
   currency: string;
   duration: string;
   durationMinutes: number;
-
   rating: number;
-  reviews: number;
-
   maxGuests: number;
-  minAge?: number;
-
-  images: string[];
-
+  image: string;
   included: string[];
   notIncluded?: string[];
-
-  amenities: ExperienceAmenity[];
-
   meetingPoint: string;
-  meetingPointImage: string;
-  meetingPointDescription: string;
-
   languages: string[];
-
   tags: string[];
-
   featured?: boolean;
   instantBooking?: boolean;
 };
 
 export const experiences: Experience[] = [
+  // =========================
+  // 🇩🇪 DEUTSCHLAND
+  // =========================
   {
-    id: "amalfi-boat-tour",
-    title: "Private Bootstour entlang der Amalfiküste",
-    type: "Bootstour",
-    category: "Wasser & Meer",
-
-    location: "Amalfiküste",
-    country: "Italien",
-
+    id: "experience-germany-01",
+    title: "Wanderung auf die Zugspitze",
+    type: "Geführte Wanderung",
+    category: "Natur & Abenteuer",
+    location: "Garmisch-Partenkirchen",
+    country: "Deutschland",
     description:
-      "Entdecke versteckte Buchten, kleine Küstendörfer und das türkisblaue Meer bei einer privaten Bootstour.",
-
-    longDescription:
-      "Verbringe einen unvergesslichen Tag auf dem Mittelmeer und entdecke die Amalfiküste aus einer ganz neuen Perspektive. Dein lokaler Skipper bringt dich zu versteckten Buchten, kleinen Grotten und ruhigen Badestellen, die vom Land aus kaum erreichbar sind. Zwischendurch kannst du ins kristallklare Wasser springen oder an Bord ein Glas Prosecco genießen.",
-
-    price: 129,
-    currency: "EUR",
-
-    duration: "4 Stunden",
-    durationMinutes: 240,
-
-    rating: 4.9,
-    reviews: 327,
-
-    maxGuests: 8,
-
-    images: [
-      "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1600&q=90",
-      "https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=90",
-    ],
-
-    included: [
-      "Privates Boot",
-      "Lokaler Skipper",
-      "Schwimmwesten",
-      "Wasser",
-      "Prosecco",
-      "Schnorchelausrüstung",
-    ],
-
-    notIncluded: ["Hoteltransfer", "Mittagessen", "Persönliche Ausgaben"],
-
-    amenities: [
-      {
-        icon: Sailboat,
-        title: "Privates Boot",
-        description: "Nur du, deine Gruppe und dein Skipper",
-      },
-      {
-        icon: Waves,
-        title: "Schwimmen & Schnorcheln",
-        description: "Stopps an ausgewählten Badestellen",
-      },
-      {
-        icon: Camera,
-        title: "Fotostopps",
-        description: "Die schönsten Aussichtspunkte der Küste",
-      },
-      {
-        icon: Sparkles,
-        title: "Kleine Extras",
-        description: "Wasser und Prosecco inklusive",
-      },
-    ],
-
-    meetingPoint: "Marina Grande, Amalfi",
-
-    meetingPointImage: "https://images.unsplash.com/photo-1578508448485-446f3b009b37?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-
-    meetingPointDescription:
-      "Treffpunkt direkt am Haupthafen von Amalfi. Dein Skipper erwartet dich vor dem Haupteingang der Marina.",
-
-    languages: ["Deutsch", "Englisch", "Italienisch"],
-
-    tags: ["Meer", "Boot", "Privat", "Familienfreundlich"],
-
-    featured: true,
-    instantBooking: true,
-  },
-
-  {
-    id: "amalfi-cooking-class",
-    title: "Italienischer Kochkurs bei einer lokalen Familie",
-    type: "Kochkurs",
-    category: "Essen & Trinken",
-
-    location: "Ravello",
-    country: "Italien",
-
-    description:
-      "Lerne traditionelle Gerichte der Amalfiküste kennen und koche gemeinsam mit einer italienischen Familie.",
-
-    longDescription:
-      "Tauche für einen Nachmittag in die italienische Küche ein. Gemeinsam mit deiner Gastgeberin lernst du, wie frische Pasta, traditionelle Saucen und ein typisches Dessert der Region zubereitet werden. Nach dem Kochen sitzt ihr gemeinsam am Tisch und genießt eure Kreationen mit regionalem Wein.",
-
+      "Erleben Sie die beeindruckende Bergwelt rund um Deutschlands höchsten Gipfel bei einer geführten Wanderung mit erfahrenem Bergführer.",
     price: 89,
     currency: "EUR",
-
-    duration: "3,5 Stunden",
-    durationMinutes: 210,
-
-    rating: 4.95,
-    reviews: 184,
-
+    duration: "6 Stunden",
+    durationMinutes: 360,
+    rating: 4.9,
     maxGuests: 8,
-
-    images: [
-      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1600&q=90",
-      "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1200&q=90",
-    ],
-
+    image: new URL('../img/experience/experience-germany-01.jpg', import.meta.url).href,
     included: [
-      "Alle Zutaten",
-      "Kochkurs",
-      "Gemeinsames Abendessen",
-      "Regionaler Wein",
-      "Rezepte zum Mitnehmen",
+      "Erfahrener Bergführer",
+      "Geführte Wanderung",
+      "Kleine Erfrischung",
+      "Sicherheitsausrüstung",
     ],
-
-    notIncluded: ["Hoteltransfer", "Zusätzliche Getränke"],
-
-    amenities: [
-      {
-        icon: CookingPot,
-        title: "Gemeinsam kochen",
-        description: "Traditionelle italienische Rezepte",
-      },
-      {
-        icon: Utensils,
-        title: "Gemeinsames Essen",
-        description: "Genieße deine selbst gekochten Gerichte",
-      },
-      {
-        icon: Wine,
-        title: "Regionaler Wein",
-        description: "Lokale Weine begleiten das Essen",
-      },
-      {
-        icon: Sparkles,
-        title: "Kleine Gruppe",
-        description: "Persönliche Atmosphäre mit maximal 8 Gästen",
-      },
-    ],
-
-    meetingPoint: "Ravello, Amalfiküste",
-
-    meetingPointImage: "https://images.unsplash.com/photo-1612277262334-257287134cc4?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-
-    meetingPointDescription:
-      "Die genaue Adresse wird nach der Buchung mitgeteilt.",
-
-    languages: ["Deutsch", "Englisch", "Italienisch"],
-
-    tags: ["Kulinarik", "Pasta", "Lokal", "Kleine Gruppe"],
-
+    notIncluded: ["Seilbahnticket", "Persönliche Ausgaben", "Mittagessen"],
+    meetingPoint: "Bahnhof Garmisch-Partenkirchen",
+    languages: ["Deutsch", "Englisch"],
+    tags: ["Berge", "Wandern", "Natur", "Abenteuer"],
     featured: true,
     instantBooking: true,
   },
 
   {
-    id: "santorini-sunset-sailing",
-    title: "Sunset Sailing vor Santorini",
-    type: "Segeltörn",
-    category: "Wasser & Meer",
-
-    location: "Santorini",
-    country: "Griechenland",
-
+    id: "experience-germany-02",
+    title: "Berliner Street-Art & Kieztour",
+    type: "Stadtführung",
+    category: "Kultur & Kunst",
+    location: "Berlin",
+    country: "Deutschland",
     description:
-      "Segle bei Sonnenuntergang entlang der Caldera und genieße Santorini vom Wasser aus.",
-
-    longDescription:
-      "Erlebe einen der schönsten Sonnenuntergänge Griechenlands vom Deck eines traditionellen Segelboots. Nach einem entspannten Nachmittag auf dem Wasser ankern wir in einer ruhigen Bucht. Während die Sonne langsam hinter der Caldera verschwindet, genießt du lokale Snacks, Wein und den Blick auf die weißen Dörfer von Santorini.",
-
-    price: 145,
+      "Entdecken Sie Berlins kreative Seite bei einem geführten Rundgang durch alternative Viertel, vorbei an beeindruckender Street-Art und versteckten Galerien.",
+    price: 35,
     currency: "EUR",
+    duration: "2,5 Stunden",
+    durationMinutes: 150,
+    rating: 4.8,
+    maxGuests: 12,
+    image: new URL('../img/experience/experience-germany-02.jpg', import.meta.url).href,
+    included: ["Lokaler Guide", "Geführter Rundgang", "Kleine Überraschung"],
+    notIncluded: ["Getränke", "Persönliche Ausgaben"],
+    meetingPoint: "U-Bahnhof Kottbusser Tor",
+    languages: ["Deutsch", "Englisch"],
+    tags: ["Street-Art", "Kultur", "Stadt", "Kunst"],
+    featured: true,
+    instantBooking: true,
+  },
 
+  {
+    id: "experience-germany-03",
+    title: "Schwarzwald-Wanderung mit regionaler Verkostung",
+    type: "Naturerlebnis",
+    category: "Natur & Genuss",
+    location: "Freiburg",
+    country: "Deutschland",
+    description:
+      "Wandern Sie durch die idyllische Landschaft des Schwarzwalds und probieren Sie regionale Spezialitäten bei einem gemütlichen Zwischenstopp.",
+    price: 59,
+    currency: "EUR",
+    duration: "4 Stunden",
+    durationMinutes: 240,
+    rating: 4.8,
+    maxGuests: 10,
+    image: new URL('../img/experience/experience-germany-03.jpg', import.meta.url).href,
+    included: [
+      "Lokaler Guide",
+      "Geführte Wanderung",
+      "Regionale Verkostung",
+      "Wasser",
+    ],
+    notIncluded: ["An- und Abreise", "Weitere Getränke"],
+    meetingPoint: "Freiburg Hauptbahnhof",
+    languages: ["Deutsch", "Englisch"],
+    tags: ["Natur", "Wandern", "Essen", "Schwarzwald"],
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-germany-04",
+    title: "Hamburger Hafen bei Sonnenuntergang",
+    type: "Hafenrundfahrt",
+    category: "Sightseeing",
+    location: "Hamburg",
+    country: "Deutschland",
+    description:
+      "Erleben Sie Hamburg vom Wasser aus und genießen Sie den Blick auf Hafen, Speicherstadt und Elbphilharmonie während des Sonnenuntergangs.",
+    price: 42,
+    currency: "EUR",
+    duration: "2 Stunden",
+    durationMinutes: 120,
+    rating: 4.7,
+    maxGuests: 20,
+    image: new URL('../img/experience/experience-germany-04.jpg', import.meta.url).href,
+    included: ["Hafenrundfahrt", "Audiokommentar", "Getränk an Bord"],
+    notIncluded: ["Weitere Getränke", "Persönliche Ausgaben"],
+    meetingPoint: "Landungsbrücken, Brücke 3",
+    languages: ["Deutsch", "Englisch"],
+    tags: ["Hafen", "Boot", "Sonnenuntergang", "Sightseeing"],
+    featured: true,
+    instantBooking: true,
+  },
+
+  // =========================
+  // 🇮🇹 ITALIEN
+  // =========================
+  {
+    id: "experience-italy-01",
+    title: "Toskanische Wein- & Olivenölverkostung",
+    type: "Kulinarisches Erlebnis",
+    category: "Essen & Trinken",
+    location: "Toskana",
+    country: "Italien",
+    description:
+      "Verbringen Sie einen genussvollen Nachmittag auf einem traditionellen Weingut und entdecken Sie die Aromen der Toskana.",
+    price: 75,
+    currency: "EUR",
+    duration: "3 Stunden",
+    durationMinutes: 180,
+    rating: 4.9,
+    maxGuests: 12,
+    image: new URL('../img/experience/experience-italy-01.jpg', import.meta.url).href,
+    included: [
+      "Führung durch das Weingut",
+      "Weinverkostung",
+      "Olivenölverkostung",
+      "Regionale Spezialitäten",
+    ],
+    notIncluded: ["An- und Abreise", "Zusätzliche Weinflaschen"],
+    meetingPoint: "Weingut im Chianti-Gebiet",
+    languages: ["Italienisch", "Englisch", "Deutsch"],
+    tags: ["Wein", "Kulinarik", "Toskana", "Genuss"],
+    featured: true,
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-italy-02",
+    title: "Bootstour entlang der Amalfiküste",
+    type: "Bootstour",
+    category: "Meer & Natur",
+    location: "Positano",
+    country: "Italien",
+    description:
+      "Entdecken Sie die spektakuläre Amalfiküste vom Wasser aus und schwimmen Sie in versteckten Buchten des Mittelmeers.",
+    price: 110,
+    currency: "EUR",
+    duration: "4 Stunden",
+    durationMinutes: 240,
+    rating: 4.9,
+    maxGuests: 8,
+    image: new URL('../img/experience/experience-italy-02.jpg', import.meta.url).href,
+    included: [
+      "Bootsfahrt",
+      "Skipper",
+      "Getränke",
+      "Schnorchelausrüstung",
+      "Kleine Snacks",
+    ],
+    notIncluded: ["Mittagessen", "Handtücher", "Persönliche Ausgaben"],
+    meetingPoint: "Hafen von Positano",
+    languages: ["Italienisch", "Englisch"],
+    tags: ["Meer", "Boot", "Schwimmen", "Amalfiküste"],
+    featured: true,
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-italy-03",
+    title: "Kulinarische Entdeckungstour durch Rom",
+    type: "Food-Tour",
+    category: "Essen & Kultur",
+    location: "Rom",
+    country: "Italien",
+    description:
+      "Probieren Sie sich durch Roms kulinarische Klassiker und entdecken Sie dabei versteckte Gassen und historische Plätze.",
+    price: 69,
+    currency: "EUR",
+    duration: "3,5 Stunden",
+    durationMinutes: 210,
+    rating: 4.8,
+    maxGuests: 10,
+    image: new URL('../img/experience/experience-italy-03.jpg', import.meta.url).href,
+    included: [
+      "Lokaler Guide",
+      "Mehrere Verkostungen",
+      "Pizza",
+      "Pasta",
+      "Italienisches Dessert",
+    ],
+    notIncluded: ["Zusätzliche Getränke", "Persönliche Ausgaben"],
+    meetingPoint: "Piazza Navona",
+    languages: ["Italienisch", "Deutsch", "Englisch"],
+    tags: ["Essen", "Pizza", "Pasta", "Kultur"],
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-italy-04",
+    title: "Bootsausflug auf dem Comer See",
+    type: "Bootstour",
+    category: "Natur & Erholung",
+    location: "Comer See",
+    country: "Italien",
+    description:
+      "Entdecken Sie die malerischen Orte und eleganten Villen rund um den Comer See bei einer entspannten privaten Bootsfahrt.",
+    price: 95,
+    currency: "EUR",
+    duration: "3 Stunden",
+    durationMinutes: 180,
+    rating: 4.8,
+    maxGuests: 6,
+    image: new URL('../img/experience/experience-italy-04.jpg', import.meta.url).href,
+    included: [
+      "Private Bootsfahrt",
+      "Erfahrener Skipper",
+      "Getränke",
+      "Fotostopps",
+    ],
+    notIncluded: ["Mittagessen", "Hoteltransfer", "Persönliche Ausgaben"],
+    meetingPoint: "Hafen von Como",
+    languages: ["Italienisch", "Englisch", "Deutsch"],
+    tags: ["See", "Boot", "Natur", "Romantisch"],
+    featured: true,
+    instantBooking: true,
+  },
+
+  // =========================
+  // 🇪🇸 SPANIEN
+  // =========================
+  {
+    id: "experience-spain-01",
+    title: "Tapas- und Architektur-Tour durch Barcelona",
+    type: "Kulinarische Stadtführung",
+    category: "Essen & Kultur",
+    location: "Barcelona",
+    country: "Spanien",
+    description:
+      "Entdecken Sie Barcelona zu Fuß, probieren Sie traditionelle Tapas und erfahren Sie mehr über die außergewöhnliche Architektur der Stadt.",
+    price: 65,
+    currency: "EUR",
+    duration: "3 Stunden",
+    durationMinutes: 180,
+    rating: 4.8,
+    maxGuests: 10,
+    image: new URL('../img/experience/experience-spain-01.jpg', import.meta.url).href,
+    included: [
+      "Lokaler Guide",
+      "Mehrere Tapas",
+      "Getränke",
+      "Historische Stadtführung",
+    ],
+    notIncluded: ["Eintritt zu Sehenswürdigkeiten", "Persönliche Ausgaben"],
+    meetingPoint: "Plaça de Catalunya",
+    languages: ["Spanisch", "Deutsch", "Englisch"],
+    tags: ["Tapas", "Architektur", "Kultur", "Stadt"],
+    featured: true,
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-spain-02",
+    title: "Segeltörn vor Mallorca",
+    type: "Segeltörn",
+    category: "Meer & Abenteuer",
+    location: "Mallorca",
+    country: "Spanien",
+    description:
+      "Verbringen Sie einen entspannten Tag auf dem Mittelmeer, entdecken Sie versteckte Buchten und springen Sie ins kristallklare Wasser.",
+    price: 120,
+    currency: "EUR",
     duration: "5 Stunden",
     durationMinutes: 300,
-
     rating: 4.9,
-    reviews: 412,
-
-    maxGuests: 12,
-
-    images: [
-      "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1600&q=90",
-      "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1603565816030-6b389eeb23cb?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=1200&q=90",
-    ],
-
+    maxGuests: 8,
+    image: new URL('../img/experience/experience-spain-02.jpg', import.meta.url).href,
     included: [
       "Segeltörn",
       "Skipper",
-      "Lokale Snacks",
-      "Wein und Getränke",
       "Schnorchelausrüstung",
-      "Handtücher",
+      "Getränke",
+      "Obst und Snacks",
     ],
-
-    notIncluded: ["Hoteltransfer", "Persönliche Ausgaben"],
-
-    amenities: [
-      {
-        icon: Sailboat,
-        title: "Segelboot",
-        description: "Entspannter Segeltörn entlang der Caldera",
-      },
-      {
-        icon: Waves,
-        title: "Schwimmen",
-        description: "Badepause in einer ruhigen Bucht",
-      },
-      {
-        icon: Wine,
-        title: "Lokale Getränke",
-        description: "Wein, Wasser und Snacks inklusive",
-      },
-      {
-        icon: Camera,
-        title: "Sunset",
-        description: "Perfekte Aussicht auf den Sonnenuntergang",
-      },
-    ],
-
-    meetingPoint: "Vlychada Marina, Santorini",
-
-    meetingPointImage: "https://images.unsplash.com/photo-1594048069339-42ae0e89376a?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-
-    meetingPointDescription:
-      "Treffpunkt an der Marina von Vlychada. Ein Transfer kann optional hinzugebucht werden.",
-
-    languages: ["Englisch", "Griechisch", "Deutsch"],
-
-    tags: ["Sunset", "Segeln", "Meer", "Romantisch"],
-
+    notIncluded: ["Hoteltransfer", "Mittagessen", "Handtücher"],
+    meetingPoint: "Hafen von Palma",
+    languages: ["Spanisch", "Deutsch", "Englisch"],
+    tags: ["Meer", "Segeln", "Strand", "Sommer"],
     featured: true,
     instantBooking: true,
   },
 
   {
-    id: "ubud-jungle-hike",
-    title: "Dschungelwanderung bei Sonnenaufgang",
-    type: "Wanderung",
-    category: "Natur & Outdoor",
-
-    location: "Ubud",
-    country: "Indonesien",
-
+    id: "experience-spain-03",
+    title: "Flamenco-Abend mit Tapas",
+    type: "Kulturabend",
+    category: "Kultur & Genuss",
+    location: "Sevilla",
+    country: "Spanien",
     description:
-      "Erkunde den tropischen Dschungel Balis bei einer frühen Wanderung mit lokalem Guide.",
-
-    longDescription:
-      "Starte deinen Tag früh und erlebe Bali, bevor die ersten Besucher unterwegs sind. Dein lokaler Guide führt dich durch tropische Wälder, vorbei an kleinen Wasserfällen und traditionellen Reisfeldern. Unterwegs erfährst du mehr über die Pflanzenwelt, lokale Traditionen und das Leben rund um Ubud.",
-
-    price: 52,
-    currency: "EUR",
-
-    duration: "4 Stunden",
-    durationMinutes: 240,
-
-    rating: 4.8,
-    reviews: 156,
-
-    maxGuests: 10,
-    minAge: 12,
-
-    images: [
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=90",
-      "https://images.unsplash.com/photo-1555400038-63f5ba517a47?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1200&q=90",
-    ],
-
-    included: ["Lokaler Guide", "Wasser", "Frühstück", "Hotelabholung in Ubud"],
-
-    notIncluded: ["Persönliche Ausgaben", "Trinkgeld"],
-
-    amenities: [
-      {
-        icon: Footprints,
-        title: "Geführte Wanderung",
-        description: "Erfahrene lokale Guides begleiten dich",
-      },
-      {
-        icon: Mountain,
-        title: "Natur pur",
-        description: "Dschungel, Wasserfälle und Reisfelder",
-      },
-      {
-        icon: Camera,
-        title: "Fotostopps",
-        description: "Besondere Orte abseits der Touristenpfade",
-      },
-      {
-        icon: Coffee,
-        title: "Frühstück",
-        description: "Kleines lokales Frühstück inklusive",
-      },
-    ],
-
-    meetingPoint: "Ubud Zentrum",
-
-    meetingPointImage: "https://images.unsplash.com/photo-1643346173514-74a489cedccf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-
-    meetingPointDescription:
-      "Kostenlose Abholung von Unterkünften im Zentrum von Ubud.",
-
-    languages: ["Englisch", "Deutsch", "Indonesisch"],
-
-    tags: ["Dschungel", "Wandern", "Sonnenaufgang", "Natur"],
-
-    instantBooking: true,
-  },
-
-  {
-    id: "dolomites-bike-tour",
-    title: "E-Bike Tour durch die Dolomiten",
-    type: "E-Bike Tour",
-    category: "Sport & Abenteuer",
-
-    location: "Südtirol",
-    country: "Italien",
-
-    description: "Erkunde spektakuläre Bergpässe und Almen mit dem E-Bike.",
-
-    longDescription:
-      "Diese geführte E-Bike-Tour führt dich durch einige der schönsten Landschaften der Dolomiten. Dank moderner E-Bikes kannst du auch längere Anstiege entspannt bewältigen und hast genügend Zeit, die Aussicht zu genießen.",
-
+      "Erleben Sie die Leidenschaft des traditionellen Flamenco bei einer Live-Aufführung und genießen Sie dazu andalusische Spezialitäten.",
     price: 79,
     currency: "EUR",
-
-    duration: "6 Stunden",
-    durationMinutes: 360,
-
+    duration: "2,5 Stunden",
+    durationMinutes: 150,
     rating: 4.9,
-    reviews: 98,
+    maxGuests: 20,
+    image: new URL('../img/experience/experience-spain-03.jpg', import.meta.url).href,
+    included: [
+      "Flamenco-Aufführung",
+      "Sitzplatzreservierung",
+      "Tapas-Auswahl",
+      "Ein Getränk",
+    ],
+    notIncluded: ["Weitere Getränke", "Persönliche Ausgaben"],
+    meetingPoint: "Altstadt von Sevilla",
+    languages: ["Spanisch", "Deutsch", "Englisch"],
+    tags: ["Flamenco", "Tapas", "Kultur", "Abend"],
+    instantBooking: true,
+  },
 
+  {
+    id: "experience-spain-04",
+    title: "Kajaktour entlang der Costa Brava",
+    type: "Kajaktour",
+    category: "Meer & Abenteuer",
+    location: "Costa Brava",
+    country: "Spanien",
+    description:
+      "Paddeln Sie entlang der spektakulären Küste, entdecken Sie versteckte Buchten und erkunden Sie kleine Meereshöhlen.",
+    price: 70,
+    currency: "EUR",
+    duration: "3 Stunden",
+    durationMinutes: 180,
+    rating: 4.8,
+    maxGuests: 12,
+    image: new URL('../img/experience/experience-spain-04.jpg', import.meta.url).href,
+    included: ["Kajak", "Paddel", "Schwimmweste", "Erfahrener Guide", "Wasser"],
+    notIncluded: ["Hoteltransfer", "Mittagessen", "Wasserschuhe"],
+    meetingPoint: "Strand von Tossa de Mar",
+    languages: ["Spanisch", "Deutsch", "Englisch"],
+    tags: ["Kajak", "Meer", "Abenteuer", "Buchten"],
+    featured: true,
+    instantBooking: true,
+  },
+
+  // =========================
+  // 🇯🇵 JAPAN
+  // =========================
+  {
+    id: "experience-japan-01",
+    title: "Traditionelle Teezeremonie in Kyoto",
+    type: "Kulturerlebnis",
+    category: "Kultur & Tradition",
+    location: "Kyoto",
+    country: "Japan",
+    description:
+      "Tauchen Sie ein in die japanische Teekultur und erleben Sie eine traditionelle Teezeremonie in einem ruhigen historischen Ambiente.",
+    price: 55,
+    currency: "EUR",
+    duration: "1,5 Stunden",
+    durationMinutes: 90,
+    rating: 4.9,
     maxGuests: 8,
-    minAge: 14,
-
-    images: [
-      "https://images.unsplash.com/photo-1529422643029-d4585747aaf2?auto=format&fit=crop&w=1600&q=90",
-      "https://images.unsplash.com/photo-1502744688674-c619d1586c9e?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=90",
+    image: new URL('../img/experience/experience-japan-01.jpg', import.meta.url).href,
+    included: [
+      "Traditionelle Teezeremonie",
+      "Matcha-Tee",
+      "Japanische Süßigkeit",
+      "Einführung in die Teekultur",
     ],
-
-    included: ["E-Bike", "Helm", "Lokaler Guide", "Wasser", "Kleine Snacks"],
-
-    notIncluded: ["Mittagessen", "Hoteltransfer", "Persönliche Ausgaben"],
-
-    amenities: [
-      {
-        icon: Bike,
-        title: "Modernes E-Bike",
-        description: "Hochwertige E-Bikes inklusive",
-      },
-      {
-        icon: Mountain,
-        title: "Dolomiten",
-        description: "Panoramablicke auf die Bergwelt",
-      },
-      {
-        icon: Camera,
-        title: "Fotostopps",
-        description: "Zeit für die schönsten Aussichtspunkte",
-      },
-      {
-        icon: Sparkles,
-        title: "Kleine Gruppe",
-        description: "Maximal acht Teilnehmer",
-      },
-    ],
-
-    meetingPoint: "Cortina d'Ampezzo",
-
-    meetingPointImage: "https://images.unsplash.com/photo-1665317039412-e58541bbe47e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-
-    meetingPointDescription:
-      "Treffpunkt am Fahrradverleih im Zentrum von Cortina.",
-
-    languages: ["Deutsch", "Englisch", "Italienisch"],
-
-    tags: ["E-Bike", "Berge", "Sport", "Outdoor"],
-
+    notIncluded: ["Kimono-Verleih", "Persönliche Ausgaben"],
+    meetingPoint: "Gion, Kyoto",
+    languages: ["Japanisch", "Deutsch", "Englisch"],
+    tags: ["Teezeremonie", "Kultur", "Tradition", "Matcha"],
     featured: true,
     instantBooking: true,
   },
 
   {
-    id: "amalfi-wine-tasting",
-    title: "Weinverkostung mit Blick auf das Meer",
-    type: "Weinverkostung",
-    category: "Essen & Trinken",
-
-    location: "Praiano",
-    country: "Italien",
-
+    id: "experience-japan-02",
+    title: "Tokio bei Nacht – Neon & Street Food",
+    type: "Abendliche Stadtführung",
+    category: "Stadt & Kulinarik",
+    location: "Tokio",
+    country: "Japan",
     description:
-      "Verkoste ausgewählte Weine aus Kampanien auf einer privaten Terrasse über dem Meer.",
-
-    longDescription:
-      "Entdecke die Weine Kampaniens bei einer entspannten Verkostung mit Blick auf das Mittelmeer. Ein lokaler Sommelier erklärt dir die Besonderheiten der Region und kombiniert die Weine mit Käse, Oliven, hausgemachtem Brot und weiteren regionalen Spezialitäten.",
-
-    price: 68,
+      "Erleben Sie Tokio nach Sonnenuntergang und entdecken Sie leuchtende Straßen, versteckte Bars und typisch japanisches Street Food.",
+    price: 59,
     currency: "EUR",
-
-    duration: "2 Stunden",
-    durationMinutes: 120,
-
-    rating: 4.9,
-    reviews: 203,
-
+    duration: "3 Stunden",
+    durationMinutes: 180,
+    rating: 4.8,
     maxGuests: 10,
-    minAge: 18,
-
-    images: [
-      "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1600&q=90",
-      "https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1473973266408-ed4e27abdd47?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1567696911980-2eed69a46042?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=90",
-    ],
-
+    image: new URL('../img/experience/experience-japan-02.jpg', import.meta.url).href,
     included: [
-      "5 regionale Weine",
-      "Sommelier",
-      "Käseauswahl",
-      "Oliven",
-      "Hausgemachtes Brot",
+      "Lokaler Guide",
+      "Street-Food-Verkostung",
+      "Getränk",
+      "Besuch mehrerer Stadtviertel",
     ],
+    notIncluded: ["Weitere Getränke", "Persönliche Ausgaben"],
+    meetingPoint: "Shibuya Crossing",
+    languages: ["Japanisch", "Deutsch", "Englisch"],
+    tags: ["Tokio", "Nachtleben", "Street Food", "Neon"],
+    featured: true,
+    instantBooking: true,
+  },
 
-    notIncluded: ["Hoteltransfer", "Weitere Getränke"],
-
-    amenities: [
-      {
-        icon: Wine,
-        title: "5 Weine",
-        description: "Ausgewählte Weine aus Kampanien",
-      },
-      {
-        icon: Utensils,
-        title: "Regionale Snacks",
-        description: "Käse, Oliven und lokale Spezialitäten",
-      },
-      {
-        icon: Waves,
-        title: "Meerblick",
-        description: "Private Terrasse über dem Mittelmeer",
-      },
-      {
-        icon: Sparkles,
-        title: "Sommelier",
-        description: "Persönliche Einführung in die Weine",
-      },
+  {
+    id: "experience-japan-03",
+    title: "Hakone Onsen & Fuji-Erlebnis",
+    type: "Wellness-Erlebnis",
+    category: "Entspannung & Natur",
+    location: "Hakone",
+    country: "Japan",
+    description:
+      "Entspannen Sie in einem traditionellen Onsen und entdecken Sie die natürliche Schönheit Hakones mit Blick auf den Fuji.",
+    price: 95,
+    currency: "EUR",
+    duration: "5 Stunden",
+    durationMinutes: 300,
+    rating: 4.9,
+    maxGuests: 8,
+    image: new URL('../img/experience/experience-japan-03.jpg', import.meta.url).href,
+    included: [
+      "Eintritt ins Onsen",
+      "Lokaler Guide",
+      "Tee",
+      "Transport innerhalb Hakones",
     ],
+    notIncluded: ["Mahlzeiten", "Private Handtücher", "Persönliche Ausgaben"],
+    meetingPoint: "Hakone-Yumoto Bahnhof",
+    languages: ["Japanisch", "Deutsch", "Englisch"],
+    tags: ["Onsen", "Fuji", "Wellness", "Natur"],
+    featured: true,
+    instantBooking: true,
+  },
 
-    meetingPoint: "Praiano, Amalfiküste",
-
-    meetingPointImage: "https://images.unsplash.com/photo-1675267374972-45358f240163?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-
-    meetingPointDescription:
-      "Die genaue Adresse wird nach der Buchung mitgeteilt.",
-
-    languages: ["Deutsch", "Englisch", "Italienisch"],
-
-    tags: ["Wein", "Kulinarik", "Meerblick", "Romantisch"],
-
+  {
+    id: "experience-japan-04",
+    title: "Schnorcheln in Okinawas Korallenriffen",
+    type: "Schnorcheltour",
+    category: "Meer & Abenteuer",
+    location: "Okinawa",
+    country: "Japan",
+    description:
+      "Entdecken Sie die farbenprächtige Unterwasserwelt Okinawas bei einer geführten Schnorcheltour durch kristallklares Wasser.",
+    price: 85,
+    currency: "EUR",
+    duration: "3 Stunden",
+    durationMinutes: 180,
+    rating: 4.9,
+    maxGuests: 10,
+    image: new URL('../img/experience/experience-japan-04.jpg', import.meta.url).href,
+    included: [
+      "Schnorchelausrüstung",
+      "Schwimmweste",
+      "Erfahrener Guide",
+      "Wasser",
+      "Versicherung",
+    ],
+    notIncluded: ["Hoteltransfer", "Mittagessen", "Unterwasserkamera"],
+    meetingPoint: "Strand von Onna",
+    languages: ["Japanisch", "Deutsch", "Englisch"],
+    tags: ["Schnorcheln", "Meer", "Korallenriff", "Abenteuer"],
+    featured: true,
     instantBooking: true,
   },
 ];
@@ -596,5 +555,9 @@ export function getExperienceCategories(): string[] {
 }
 
 export function getExperiencesAtDestination(destination: string): Experience[] {
-  return [...new Set(experiences.filter((experience) => experience.location === destination))];
+  return [
+    ...new Set(
+      experiences.filter((experience) => experience.location === destination),
+    ),
+  ];
 }

@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useUser } from "@/components/context/user-context";
+import heroImg from "@/assets/img/weltentdecker_register.jpg"
 
 export default function Register() {
   const navigate = useNavigate();
@@ -102,7 +103,7 @@ export default function Register() {
 
         <section className="relative hidden overflow-hidden lg:block">
           <img
-            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=90"
+            src={heroImg}
             alt="Strand und Meer"
             className="absolute inset-0 h-full w-full object-cover"
           />

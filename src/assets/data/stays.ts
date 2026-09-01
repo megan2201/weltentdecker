@@ -1,12 +1,33 @@
 import {
   Bath,
   BedDouble,
+  Birdhouse,
+  Building,
+  Coffee,
+  CookingPot,
+  Flame,
   Home,
+  Kayak,
+  Landmark,
+  MapPin,
+  Mountain,
+  Parasol,
   ParkingCircle,
+  RockingChair,
+  Ship,
   Snowflake,
   Sparkles,
+  Sun,
+  TrainFront,
+  TreePine,
+  Trees,
+  Tv,
   Waves,
+  WavesHorizontal,
+  WavesLadder,
+  WavesVertical,
   Wifi,
+  Wine,
 } from "lucide-react";
 
 export type StayAmenity = {
@@ -23,15 +44,11 @@ export type Stay = {
   country: string;
   countryImage: string;
   description: string;
-  longDescription: string;
   pricePerNight: number;
   rating: number;
-  reviews: number;
   guests: number;
   bedrooms: number;
   bathrooms: number;
-  host: string;
-  hostImage: string;
   images: string[];
   amenities: StayAmenity[];
   facilities: string[];
@@ -40,273 +57,750 @@ export type Stay = {
 };
 
 export const stays: Stay[] = [
+  // =========================
+  // 🇩🇪 DEUTSCHLAND
+  // =========================
   {
-    id: "casa-mare",
-    name: "Casa Mare",
-    type: "Boutique-Hotel",
-    location: "Amalfiküste",
-    country: "Italien",
-    countryImage:
-      "https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?q=80&w=1167&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    id: "stay-germany-01",
+    name: "Alpen-Chalet am See",
+    type: "Chalet",
+    location: "Garmisch-Partenkirchen",
+    country: "Deutschland",
+    countryImage: new URL('../img/country/germany.jpg', import.meta.url).href,
     description:
-      "Mediterranes Boutique-Hotel mit traumhaftem Blick auf das Mittelmeer.",
-    longDescription:
-      "Casa Mare liegt hoch über der Küste von Amalfi und verbindet mediterranes Design mit modernem Komfort. Von der privaten Terrasse genießt du einen atemberaubenden Blick auf das tiefblaue Mittelmeer. Das familiengeführte Boutique-Hotel ist der perfekte Ausgangspunkt, um die kleinen Dörfer, Strände und kulinarischen Highlights der Amalfiküste zu entdecken.",
-    pricePerNight: 189,
+      "Gemütliches Alpen-Chalet mit atemberaubendem Bergblick, privater Sauna und direktem Zugang zu zahlreichen Wanderwegen.",
+    pricePerNight: 185,
     rating: 4.9,
-    reviews: 248,
-    guests: 4,
-    bedrooms: 1,
-    bathrooms: 1,
-    host: "Sofia & Marco",
-    hostImage:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80",
+    guests: 6,
+    bedrooms: 3,
+    bathrooms: 2,
     images: [
-      "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1600&q=90",
-      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1601918774946-25832a4be0d6?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=90",
+      new URL('../img/stay/1_stay-germany-01.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-germany-01.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-germany-01.jpg', import.meta.url).href,
     ],
     amenities: [
       {
         icon: Wifi,
         title: "Kostenloses WLAN",
-        description: "Schnelles WLAN in der gesamten Unterkunft",
+        description: "Schnelles und zuverlässiges WLAN im gesamten Chalet.",
       },
       {
-        icon: Bath,
-        title: "Eigenes Badezimmer",
-        description: "Modernes Badezimmer mit Dusche",
+        icon: WavesVertical,
+        title: "Private Sauna",
+        description: "Entspannen Sie in Ihrer eigenen finnischen Sauna.",
       },
       {
-        icon: BedDouble,
-        title: "Kingsize-Bett",
-        description: "Hochwertige Bettwäsche inklusive",
+        icon: Mountain,
+        title: "Bergblick",
+        description:
+          "Genießen Sie einen wunderschönen Panoramablick auf die Alpen.",
+      },
+    ],
+    facilities: [
+      "Privater Parkplatz",
+      "Voll ausgestattete Küche",
+      "Kamin",
+      "Terrasse",
+      "Waschmaschine",
+    ],
+    tags: ["Berge", "Natur", "Familie", "Luxus"],
+    featured: true,
+  },
+  {
+    id: "stay-germany-02",
+    name: "Urbanes Loft Berlin",
+    type: "Loft",
+    location: "Berlin",
+    country: "Deutschland",
+    countryImage: new URL('../img/country/germany.jpg', import.meta.url).href,
+    description:
+      "Stilvolles Loft im industriellen Design im Herzen Berlins, umgeben von Cafés, Galerien und dem pulsierenden Nachtleben.",
+    pricePerNight: 125,
+    rating: 4.7,
+    guests: 4,
+    bedrooms: 2,
+    bathrooms: 1,
+    images: [
+      new URL('../img/stay/1_stay-germany-02.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-germany-02.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-germany-02.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Wifi,
+        title: "Highspeed-WLAN",
+        description: "Ideal zum Streamen und Arbeiten von unterwegs.",
       },
       {
-        icon: Waves,
-        title: "Meerblick",
-        description: "Panoramablick über das Mittelmeer",
+        icon: Coffee,
+        title: "Kaffeestation",
+        description: "Genießen Sie jeden Morgen frisch zubereiteten Kaffee.",
+      },
+      {
+        icon: Tv,
+        title: "Smart-TV",
+        description: "Unterhaltung mit beliebten Streaming-Diensten.",
+      },
+    ],
+    facilities: [
+      "Aufzug",
+      "Voll ausgestattete Küche",
+      "Arbeitsplatz",
+      "Klimaanlage",
+      "Kontaktloser Check-in",
+    ],
+    tags: ["Stadt", "Modern", "Paare", "Business"],
+  },
+  {
+    id: "stay-germany-03",
+    name: "Rückzugsort im Schwarzwald",
+    type: "Ferienhaus",
+    location: "Freiburg",
+    country: "Deutschland",
+    countryImage: new URL('../img/country/germany.jpg', import.meta.url).href,
+    description:
+      "Ruhiges Ferienhaus mitten in der Natur, umgeben von den Wäldern und sanften Hügeln des Schwarzwalds.",
+    pricePerNight: 145,
+    rating: 4.8,
+    guests: 5,
+    bedrooms: 3,
+    bathrooms: 2,
+    images: [
+      new URL('../img/stay/1_stay-germany-03.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-germany-03.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-germany-03.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Trees,
+        title: "Waldblick",
+        description: "Wachen Sie umgeben von ruhiger Natur und Wald auf.",
+      },
+      {
+        icon: Flame,
+        title: "Holzofen",
+        description:
+          "Ein gemütlicher Holzofen sorgt an kalten Abenden für Wärme.",
+      },
+      {
+        icon: Wifi,
+        title: "Kostenloses WLAN",
+        description: "Bleiben Sie auch mitten in der Natur verbunden.",
+      },
+    ],
+    facilities: [
+      "Garten",
+      "Grillplatz",
+      "Kostenloser Parkplatz",
+      "Küche",
+      "Essbereich im Freien",
+    ],
+    tags: ["Natur", "Ruhe", "Familie", "Wandern"],
+  },
+  {
+    id: "stay-germany-04",
+    name: "Hafenblick Apartment",
+    type: "Apartment",
+    location: "Hamburg",
+    country: "Deutschland",
+    countryImage: new URL('../img/country/germany.jpg', import.meta.url).href,
+    description:
+      "Helles und modernes Apartment nahe dem Hamburger Hafen, zahlreichen Restaurants und der historischen Innenstadt.",
+    pricePerNight: 110,
+    rating: 4.6,
+    guests: 3,
+    bedrooms: 1,
+    bathrooms: 1,
+    images: [
+      new URL('../img/stay/1_stay-germany-04.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-germany-04.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-germany-04.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Wifi,
+        title: "Kostenloses WLAN",
+        description: "Zuverlässiges Internet im gesamten Apartment.",
+      },
+      {
+        icon: Ship,
+        title: "Hafenblick",
+        description:
+          "Genießen Sie den Blick auf die Hamburger Wasserlandschaft.",
+      },
+      {
+        icon: CookingPot,
+        title: "Voll ausgestattete Küche",
+        description:
+          "Alles, was Sie für einen komfortablen Aufenthalt benötigen.",
+      },
+    ],
+    facilities: [
+      "Aufzug",
+      "Balkon",
+      "Küche",
+      "Heizung",
+      "Öffentliche Verkehrsmittel in der Nähe",
+    ],
+    tags: ["Stadt", "Hafen", "Paare", "Wochenende"],
+  },
+
+  // =========================
+  // 🇮🇹 ITALIEN
+  // =========================
+  {
+    id: "stay-italy-01",
+    name: "Toskanische Weinberg-Villa",
+    type: "Villa",
+    location: "Toskana",
+    country: "Italien",
+    countryImage: new URL('../img/country/italy.jpg', import.meta.url).href,
+    description:
+      "Elegante Villa umgeben von Weinbergen und Olivenhainen im Herzen der Toskana.",
+    pricePerNight: 320,
+    rating: 4.9,
+    guests: 8,
+    bedrooms: 4,
+    bathrooms: 3,
+    images: [
+      new URL('../img/stay/1_stay-italy-01.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-italy-01.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-italy-01.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: WavesLadder,
+        title: "Privater Pool",
+        description: "Entspannen Sie an Ihrem eigenen privaten Außenpool.",
+      },
+      {
+        icon: Wine,
+        title: "Weinberge",
+        description:
+          "Die Villa liegt mitten in der wunderschönen toskanischen Weinlandschaft.",
+      },
+      {
+        icon: Sun,
+        title: "Sonnige Terrasse",
+        description:
+          "Perfekt für gemeinsame Mahlzeiten und entspannte Stunden im Freien.",
       },
     ],
     facilities: [
       "Privater Pool",
-      "Meerblick",
-      "Klimaanlage",
-      "Kostenloses WLAN",
-      "Frühstück inklusive",
-      "Kostenloser Parkplatz",
-      "Terrasse",
-      "Nichtraucherzimmer",
-      "Minibar",
-      "24-Stunden-Rezeption",
-      "Zimmerservice",
-      "Haustiere erlaubt",
+      "Garten",
+      "Grill",
+      "Parkplatz",
+      "Voll ausgestattete Küche",
     ],
-    tags: ["Meerblick", "Pool", "Frühstück"],
+    tags: ["Luxus", "Weinberge", "Familie", "Romantisch"],
     featured: true,
   },
-
   {
-    id: "aegean-blue",
-    name: "Aegean Blue Villa",
-    type: "Villa",
-    location: "Santorini",
-    country: "Griechenland",
-    countryImage:
-      "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    id: "stay-italy-02",
+    name: "Meerblick an der Amalfiküste",
+    type: "Apartment",
+    location: "Positano",
+    country: "Italien",
+    countryImage: new URL('../img/country/italy.jpg', import.meta.url).href,
     description:
-      "Private Villa mit Infinity-Pool und spektakulärem Sonnenuntergang.",
-    longDescription:
-      "Die Aegean Blue Villa verbindet die typische Architektur Santorinis mit modernem Luxus. Die ruhige Lage bietet Privatsphäre, während Restaurants und kleine Buchten schnell erreichbar sind.",
-    pricePerNight: 295,
+      "Romantisches Apartment hoch über der Amalfiküste mit atemberaubendem Blick auf das Mittelmeer.",
+    pricePerNight: 245,
     rating: 4.8,
-    reviews: 186,
-    guests: 6,
-    bedrooms: 3,
-    bathrooms: 2,
-    host: "Nikos",
-    hostImage:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80",
+    guests: 2,
+    bedrooms: 1,
+    bathrooms: 1,
     images: [
-      "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1600&q=90",
-      "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1582610116397-edb318620f90?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?auto=format&fit=crop&w=1200&q=90",
+      new URL('../img/stay/1_stay-italy-02.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-italy-02.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-italy-02.jpg', import.meta.url).href,
     ],
     amenities: [
       {
-        icon: Waves,
-        title: "Infinity-Pool",
-        description: "Privater Pool mit Blick auf die Ägäis",
+        icon: WavesHorizontal,
+        title: "Meerblick",
+        description:
+          "Wachen Sie mit einem traumhaften Blick auf das Mittelmeer auf.",
+      },
+      {
+        icon: Sun,
+        title: "Privater Balkon",
+        description: "Genießen Sie Ihr Frühstück mit Blick auf die Küste.",
       },
       {
         icon: Wifi,
         title: "Kostenloses WLAN",
-        description: "High-Speed-WLAN inklusive",
-      },
-      {
-        icon: Snowflake,
-        title: "Klimaanlage",
-        description: "Individuell regulierbare Klimaanlage",
-      },
-      {
-        icon: BedDouble,
-        title: "3 Schlafzimmer",
-        description: "Platz für bis zu sechs Gäste",
+        description:
+          "Bleiben Sie während Ihres Aufenthalts jederzeit verbunden.",
       },
     ],
     facilities: [
-      "Privater Infinity-Pool",
-      "Meerblick",
+      "Privater Balkon",
+      "Kleine Küche",
       "Klimaanlage",
-      "Kostenloses WLAN",
-      "Frühstück",
-      "Private Terrasse",
-      "Outdoor-Lounge",
-      "Grill",
-      "Küche",
-      "Waschmaschine",
-      "Kostenloser Parkplatz",
+      "Strandzugang",
       "Flughafentransfer",
     ],
-    tags: ["Infinity-Pool", "Meerblick", "Villa"],
+    tags: ["Meer", "Romantisch", "Paare", "Luxus"],
     featured: true,
   },
-
   {
-    id: "jungle-house",
-    name: "Jungle House",
-    type: "Eco-Lodge",
-    location: "Ubud",
-    country: "Indonesien",
-    countryImage:
-      "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    description: "Tropische Eco-Lodge mitten im Dschungel von Bali.",
-    longDescription:
-      "Jungle House ist ein besonderer Rückzugsort mitten in der tropischen Landschaft von Ubud. Nachhaltiges Design, natürliche Materialien und die Geräusche des Dschungels machen diese Unterkunft zu einem einzigartigen Erlebnis.",
-    pricePerNight: 142,
-    rating: 4.9,
-    reviews: 312,
-    guests: 2,
-    bedrooms: 1,
+    id: "stay-italy-03",
+    name: "Historische Residenz Rom",
+    type: "Boutique-Apartment",
+    location: "Rom",
+    country: "Italien",
+    countryImage: new URL('../img/country/italy.jpg', import.meta.url).href,
+    description:
+      "Charmante historische Unterkunft in zentraler Lage, von der aus Sie die berühmtesten Sehenswürdigkeiten Roms bequem zu Fuß erreichen.",
+    pricePerNight: 160,
+    rating: 4.7,
+    guests: 4,
+    bedrooms: 2,
     bathrooms: 1,
-    host: "Made",
-    hostImage:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
     images: [
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=90",
-      "https://images.unsplash.com/photo-1559628233-3e5f9c4c5b42?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1544986581-efac024faf62?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1555400038-63f5ba517a47?auto=format&fit=crop&w=1200&q=90",
+      new URL('../img/stay/1_stay-italy-03.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-italy-03.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-italy-03.jpg', import.meta.url).href,
     ],
     amenities: [
       {
-        icon: Home,
-        title: "Eco-Lodge",
-        description: "Nachhaltig gebaut mit natürlichen Materialien",
+        icon: Wifi,
+        title: "Kostenloses WLAN",
+        description: "Schnelles WLAN zum Arbeiten und Entspannen.",
       },
       {
-        icon: Waves,
-        title: "Dschungel-Pool",
-        description: "Infinity-Pool mitten im Grünen",
+        icon: Coffee,
+        title: "Kaffeestation",
+        description: "Starten Sie Ihren Morgen mit italienischem Kaffee.",
+      },
+      {
+        icon: MapPin,
+        title: "Zentrale Lage",
+        description: "Viele Sehenswürdigkeiten sind bequem zu Fuß erreichbar.",
+      },
+    ],
+    facilities: [
+      "Küche",
+      "Klimaanlage",
+      "Heizung",
+      "Waschmaschine",
+      "Kontaktloser Check-in",
+    ],
+    tags: ["Historisch", "Stadt", "Kultur", "Paare"],
+  },
+  {
+    id: "stay-italy-04",
+    name: "Gartenhaus am Comer See",
+    type: "Gästehaus",
+    location: "Comer See",
+    country: "Italien",
+    countryImage: new URL('../img/country/italy.jpg', import.meta.url).href,
+    description:
+      "Ruhiges Gartenhaus nahe dem Comer See – ideal für erholsame Tage inmitten der italienischen Landschaft.",
+    pricePerNight: 195,
+    rating: 4.8,
+    guests: 4,
+    bedrooms: 2,
+    bathrooms: 2,
+    images: [
+      new URL('../img/stay/1_stay-italy-04.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-italy-04.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-italy-04.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Birdhouse,
+        title: "Privater Garten",
+        description: "Ein ruhiger Garten zum Entspannen und Abschalten.",
+      },
+      {
+        icon: Kayak,
+        title: "Nähe zum See",
+        description:
+          "Der Comer See und umliegende Orte sind schnell erreichbar.",
       },
       {
         icon: Wifi,
-        title: "WLAN",
-        description: "Kostenloses WLAN verfügbar",
+        title: "Kostenloses WLAN",
+        description: "Zuverlässiges WLAN im gesamten Haus.",
+      },
+    ],
+    facilities: [
+      "Garten",
+      "Parkplatz",
+      "Küche",
+      "Essbereich im Freien",
+      "Fahrradstellplatz",
+    ],
+    tags: ["See", "Natur", "Erholung", "Familie"],
+  },
+
+  // =========================
+  // 🇪🇸 SPANIEN
+  // =========================
+  {
+    id: "stay-spain-01",
+    name: "Strand-Loft Barcelona",
+    type: "Loft",
+    location: "Barcelona",
+    country: "Spanien",
+    countryImage: new URL('../img/country/spain.jpg', import.meta.url).href,
+    description:
+      "Helles und modernes Loft in Strandnähe, umgeben von Restaurants und dem lebendigen Stadtleben Barcelonas.",
+    pricePerNight: 155,
+    rating: 4.7,
+    guests: 4,
+    bedrooms: 2,
+    bathrooms: 1,
+    images: [
+      new URL('../img/stay/1_stay-spain-01.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-spain-01.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-spain-01.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Parasol,
+        title: "Strandnähe",
+        description: "Der Strand ist bequem zu Fuß erreichbar.",
       },
       {
-        icon: Sparkles,
-        title: "Wellness",
-        description: "Yoga und Wellnessangebote",
+        icon: Wifi,
+        title: "Kostenloses WLAN",
+        description: "Schnelles Internet im gesamten Loft.",
+      },
+      {
+        icon: Sun,
+        title: "Sonniger Balkon",
+        description: "Entspannen Sie bei viel natürlichem Licht im Freien.",
+      },
+    ],
+    facilities: ["Balkon", "Küche", "Klimaanlage", "Aufzug", "Strandzugang"],
+    tags: ["Strand", "Stadt", "Modern", "Paare"],
+    featured: true,
+  },
+  {
+    id: "stay-spain-02",
+    name: "Mallorquinische Finca",
+    type: "Finca",
+    location: "Mallorca",
+    country: "Spanien",
+    countryImage: new URL('../img/country/spain.jpg', import.meta.url).href,
+    description:
+      "Traditionelle mallorquinische Finca umgeben von Olivenbäumen mit privatem Pool und großzügigem Garten.",
+    pricePerNight: 275,
+    rating: 4.9,
+    guests: 7,
+    bedrooms: 4,
+    bathrooms: 3,
+    images: [
+      new URL('../img/stay/1_stay-spain-02.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-spain-02.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-spain-02.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: WavesLadder,
+        title: "Privater Pool",
+        description: "Erfrischen Sie sich in Ihrem eigenen Außenpool.",
+      },
+      {
+        icon: TreePine,
+        title: "Olivenhain",
+        description: "Genießen Sie die ruhige mediterrane Landschaft.",
+      },
+      {
+        icon: Sun,
+        title: "Außenterrasse",
+        description:
+          "Große Terrasse für gemeinsame Mahlzeiten und entspannte Stunden.",
+      },
+    ],
+    facilities: ["Privater Pool", "Garten", "Grill", "Parkplatz", "Außenküche"],
+    tags: ["Insel", "Pool", "Natur", "Familie"],
+    featured: true,
+  },
+  {
+    id: "stay-spain-03",
+    name: "Andalusisches Innenhofhaus",
+    type: "Stadthaus",
+    location: "Sevilla",
+    country: "Spanien",
+    countryImage: new URL('../img/country/spain.jpg', import.meta.url).href,
+    description:
+      "Traditionelles andalusisches Stadthaus mit wunderschönem privatem Innenhof im Herzen Sevillas.",
+    pricePerNight: 135,
+    rating: 4.6,
+    guests: 5,
+    bedrooms: 3,
+    bathrooms: 2,
+    images: [
+      new URL('../img/stay/1_stay-spain-03.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-spain-03.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-spain-03.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Landmark,
+        title: "Historischer Charme",
+        description:
+          "Traditionelle andalusische Architektur und liebevolle Details.",
+      },
+      {
+        icon: Sun,
+        title: "Privater Innenhof",
+        description: "Ein ruhiger Innenhof mit mediterranen Pflanzen.",
+      },
+      {
+        icon: Wifi,
+        title: "Kostenloses WLAN",
+        description: "Zuverlässiges WLAN im gesamten Haus.",
+      },
+    ],
+    facilities: [
+      "Innenhof",
+      "Küche",
+      "Klimaanlage",
+      "Waschmaschine",
+      "Zentrale Lage",
+    ],
+    tags: ["Historisch", "Kultur", "Stadt", "Familie"],
+  },
+  {
+    id: "stay-spain-04",
+    name: "Villa an der Costa Brava",
+    type: "Villa",
+    location: "Costa Brava",
+    country: "Spanien",
+    countryImage: new URL('../img/country/spain.jpg', import.meta.url).href,
+    description:
+      "Moderne Küstenvilla mit spektakulärem Blick auf das Mittelmeer, großzügiger Terrasse und privatem Pool.",
+    pricePerNight: 295,
+    rating: 4.9,
+    guests: 8,
+    bedrooms: 4,
+    bathrooms: 3,
+    images: [
+      new URL('../img/stay/1_stay-spain-04.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-spain-04.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-spain-04.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: WavesHorizontal,
+        title: "Meerblick",
+        description: "Unverbauter Blick auf das Mittelmeer.",
+      },
+      {
+        icon: WavesLadder,
+        title: "Infinity-Pool",
+        description: "Privater Pool mit Blick auf die Küste.",
+      },
+      {
+        icon: Sun,
+        title: "Große Terrasse",
+        description: "Viel Platz zum Entspannen und Essen im Freien.",
       },
     ],
     facilities: [
       "Infinity-Pool",
-      "Dschungelblick",
-      "Klimaanlage",
-      "Kostenloses WLAN",
-      "Yoga-Bereich",
-      "Spa",
-      "Restaurant",
-      "Bar",
-      "Frühstück",
-      "Terrasse",
-      "Fahrradverleih",
-      "Flughafentransfer",
+      "Privater Parkplatz",
+      "Grill",
+      "Küche",
+      "Außendusche",
     ],
-    tags: ["Dschungel", "Eco", "Wellness"],
-    featured: true,
+    tags: ["Meer", "Luxus", "Pool", "Familie"],
   },
 
+  // =========================
+  // 🇯🇵 JAPAN
+  // =========================
   {
-    id: "alpine-retreat",
-    name: "Alpine Retreat",
-    type: "Chalet",
-    location: "Tirol",
-    country: "Österreich",
-    countryImage:
-      "https://images.unsplash.com/photo-1597086831879-756db15e81d3?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    description: "Modernes Bergchalet mit Sauna und Panoramablick.",
-    longDescription:
-      "Das Alpine Retreat liegt ruhig oberhalb eines kleinen Tiroler Bergdorfs. Nach einem Tag auf der Skipiste oder einer Wanderung kannst du dich in der privaten Sauna entspannen und den Blick auf die umliegenden Gipfel genießen.",
-    pricePerNight: 225,
-    rating: 4.7,
-    reviews: 124,
-    guests: 5,
+    id: "stay-japan-01",
+    name: "Traditionelles Machiya in Kyoto",
+    type: "Machiya",
+    location: "Kyoto",
+    country: "Japan",
+    countryImage: new URL('../img/country/japan.jpg', import.meta.url).href,
+    description:
+      "Liebevoll restauriertes traditionelles Stadthaus in Kyoto, das japanische Architektur mit modernem Komfort verbindet.",
+    pricePerNight: 210,
+    rating: 4.9,
+    guests: 4,
     bedrooms: 2,
-    bathrooms: 2,
-    host: "Anna",
-    hostImage:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+    bathrooms: 1,
     images: [
-      "https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1600&q=90",
-      "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=1200&q=90",
-      "https://images.unsplash.com/photo-1601918774946-25832a4be0d6?auto=format&fit=crop&w=1200&q=90",
+      new URL('../img/stay/1_stay-japan-01.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-japan-01.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-japan-01.jpg', import.meta.url).href,
     ],
     amenities: [
       {
-        icon: Waves,
-        title: "Private Sauna",
-        description: "Entspannung mit Bergblick",
+        icon: Sun,
+        title: "Japanischer Garten",
+        description:
+          "Privater, ruhiger Garten im traditionellen japanischen Stil.",
       },
       {
-        icon: BedDouble,
-        title: "2 Schlafzimmer",
-        description: "Platz für bis zu fünf Gäste",
+        icon: Bath,
+        title: "Japanisches Bad",
+        description:
+          "Entspannen Sie in einem traditionellen tiefen Badebecken.",
       },
       {
         icon: Wifi,
-        title: "WLAN",
-        description: "Kostenloses High-Speed-WLAN",
-      },
-      {
-        icon: ParkingCircle,
-        title: "Parkplatz",
-        description: "Privater Parkplatz direkt am Chalet",
+        title: "Kostenloses WLAN",
+        description: "Schnelles Internet im gesamten Haus.",
       },
     ],
     facilities: [
-      "Private Sauna",
-      "Bergblick",
-      "Kamin",
-      "Klimaanlage",
-      "Kostenloses WLAN",
+      "Privater Garten",
+      "Traditionelles Tatami-Zimmer",
       "Küche",
       "Waschmaschine",
-      "Terrasse",
-      "Grill",
-      "Skiraum",
-      "Kostenloser Parkplatz",
-      "Haustiere erlaubt",
+      "Klimaanlage",
     ],
-    tags: ["Berge", "Sauna", "Chalet"],
+    tags: ["Traditionell", "Kultur", "Romantisch", "Einzigartig"],
+    featured: true,
+  },
+  {
+    id: "stay-japan-02",
+    name: "Apartment mit Blick über Tokio",
+    type: "Apartment",
+    location: "Tokio",
+    country: "Japan",
+    countryImage: new URL('../img/country/japan.jpg', import.meta.url).href,
+    description:
+      "Modernes Apartment in einem Hochhaus mit beeindruckendem Blick über die Skyline Tokios und zentraler Lage.",
+    pricePerNight: 175,
+    rating: 4.7,
+    guests: 3,
+    bedrooms: 1,
+    bathrooms: 1,
+    images: [
+      new URL('../img/stay/1_stay-japan-02.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-japan-02.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-japan-02.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Building,
+        title: "Skyline-Blick",
+        description: "Genießen Sie einen spektakulären Blick über Tokio.",
+      },
+      {
+        icon: Wifi,
+        title: "Highspeed-WLAN",
+        description: "Schnelles Internet zum Arbeiten und Entspannen.",
+      },
+      {
+        icon: TrainFront,
+        title: "Nähe zur Metro",
+        description: "Bequemer Zugang zum öffentlichen Verkehrsnetz Tokios.",
+      },
+    ],
+    facilities: [
+      "Aufzug",
+      "Kleine Küche",
+      "Klimaanlage",
+      "Arbeitsplatz",
+      "Waschmaschine",
+    ],
+    tags: ["Stadt", "Modern", "Business", "Paare"],
+  },
+  {
+    id: "stay-japan-03",
+    name: "Ryokan in den Bergen von Hakone",
+    type: "Ryokan",
+    location: "Hakone",
+    country: "Japan",
+    countryImage: new URL('../img/country/japan.jpg', import.meta.url).href,
+    description:
+      "Ruhiges traditionelles Ryokan inmitten der Berge mit authentischen Zimmern und entspannendem Thermalbad.",
+    pricePerNight: 260,
+    rating: 4.9,
+    guests: 4,
+    bedrooms: 2,
+    bathrooms: 2,
+    images: [
+      new URL('../img/stay/1_stay-japan-03.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-japan-03.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-japan-03.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Bath,
+        title: "Thermalbad",
+        description:
+          "Entspannen Sie in einem traditionellen japanischen Onsen.",
+      },
+      {
+        icon: Mountain,
+        title: "Bergblick",
+        description: "Ruhiger Blick auf die umliegenden Berge von Hakone.",
+      },
+      {
+        icon: Coffee,
+        title: "Teeraum",
+        description:
+          "Erleben Sie eine traditionelle japanische Tee-Atmosphäre.",
+      },
+    ],
+    facilities: [
+      "Onsen",
+      "Traditionelle Futons",
+      "Japanischer Garten",
+      "Teeraum",
+      "Kostenloser Parkplatz",
+    ],
+    tags: ["Onsen", "Traditionell", "Natur", "Erholung"],
+    featured: true,
+  },
+  {
+    id: "stay-japan-04",
+    name: "Tropische Villa auf Okinawa",
+    type: "Villa",
+    location: "Okinawa",
+    country: "Japan",
+    countryImage: new URL('../img/country/japan.jpg', import.meta.url).href,
+    description:
+      "Moderne tropische Villa in Strandnähe – perfekt für eine entspannte Auszeit auf der Insel Okinawa.",
+    pricePerNight: 230,
+    rating: 4.8,
+    guests: 6,
+    bedrooms: 3,
+    bathrooms: 2,
+    images: [
+      new URL('../img/stay/1_stay-japan-04.jpg', import.meta.url).href,
+      new URL('../img/stay/2_stay-japan-04.jpg', import.meta.url).href,
+      new URL('../img/stay/3_stay-japan-04.jpg', import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Parasol,
+        title: "Strandzugang",
+        description: "Der Strand ist nur wenige Gehminuten entfernt.",
+      },
+      {
+        icon: WavesLadder,
+        title: "Privater Pool",
+        description: "Privater Pool umgeben von tropischen Pflanzen.",
+      },
+      {
+        icon: Wifi,
+        title: "Kostenloses WLAN",
+        description: "Zuverlässiges Internet in der gesamten Villa.",
+      },
+    ],
+    facilities: [
+      "Privater Pool",
+      "Garten",
+      "Grill",
+      "Kostenloser Parkplatz",
+      "Außendusche",
+    ],
+    tags: ["Strand", "Insel", "Pool", "Familie"],
   },
 ];
 
@@ -337,7 +831,15 @@ export function getStayCountryDetails(): [string, string][] {
 }
 
 export function getStaysAtDestination(destination: string): Stay[] {
-  return [...new Set(stays.filter((stay) => stay.location.includes(destination) || destination.includes(stay.location)))];
+  return [
+    ...new Set(
+      stays.filter(
+        (stay) =>
+          stay.location.includes(destination) ||
+          destination.includes(stay.location),
+      ),
+    ),
+  ];
 }
 
 export function getMinPriceOfStaysAtDestination(destination: string): number {

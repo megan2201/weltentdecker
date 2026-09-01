@@ -1,27 +1,10 @@
+import { experiences } from "@/assets/data/experiences"
 import { ArrowRight } from "lucide-react"
-
-const experiences = [
-  {
-    title: "Kulinarische Entdeckungen",
-    text: "Erlebe lokale Küche dort, wo sie zuhause ist.",
-    image:
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=85",
-  },
-  {
-    title: "Abenteuer in der Natur",
-    text: "Wandern, entdecken und Orte abseits der Massen erleben.",
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85",
-  },
-  {
-    title: "Momente zum Abschalten",
-    text: "Traumhafte Orte, an denen du einfach mal nichts tun musst.",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
-  },
-]
+import { Link, useNavigate } from "react-router-dom"
 
 export default function HomeExperiences() {
+  const navigate = useNavigate()
+
     return (
         <section
         id="experiences"
@@ -43,9 +26,9 @@ export default function HomeExperiences() {
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {experiences.map((experience) => (
-            <a
-              href="#"
+          {experiences.slice(0, 3).map((experience) => (
+            <Link
+              to={"/experiences/" + experience.id}
               key={experience.title}
               className="group relative min-h-[480px] overflow-hidden rounded-[2rem]"
             >
@@ -62,16 +45,12 @@ export default function HomeExperiences() {
                   {experience.title}
                 </h3>
 
-                <p className="mt-2 max-w-sm text-sm leading-6 text-white/75">
-                  {experience.text}
-                </p>
-
                 <div className="mt-5 flex items-center text-sm font-medium">
                   Entdecken
                   <ArrowRight className="ml-2 h-4 w-4 transition group-hover:translate-x-1" />
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>

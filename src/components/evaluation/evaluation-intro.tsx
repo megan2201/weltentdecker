@@ -65,8 +65,9 @@ export default function EvaluationIntro() {
             </h1>
 
             <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-600">
-              Bevor die Evaluation beginnt, möchten wir Sie über den Ablauf, die
-              Aufzeichnung und die Verwendung Ihrer Daten informieren.
+              Bevor Sie starten, erhalten Sie einen kurzen Überblick über den
+              Ablauf der Evaluation, den Umgang mit Ihren Daten und wichtige
+              Hinweise zur Durchführung.
             </p>
           </header>
 
@@ -108,19 +109,17 @@ export default function EvaluationIntro() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Projektbeschreibung
                 </p>
-                <p className="mt-1 font-medium text-slate-900">
+                <div className="mt-1 font-medium text-slate-900">
                   <p>Sehr geehrte Teilnehmerin, sehr geehrter Teilnehmer,</p>
                   <p>
                     wir laden Sie herzlich ein, an einem Usability-Test
-                    teilzunehmen. Ziel dieser Untersuchung ist es, die User
-                    Experience bei der Nutzung eines Online-Reiseportals sowie
-                    die Wahrnehmung der Benutzer während der Interaktion zu
-                    untersuchen. Die gewonnenen Erkenntnisse sollen dazu
-                    beitragen, die Benutzerfreundlichkeit und Benutzererfahrung
-                    bei der Benutzung digitaler Reiseangebote besser zu
-                    verstehen.
+                    teilzunehmen. In dieser Evaluation untersuchen wir, wie
+                    Nutzerinnen und Nutzer ein Online-Reiseportal wahrnehmen und
+                    bedienen. Ziel ist es, die Benutzerfreundlichkeit des
+                    Portals zu bewerten und mögliche Verbesserungspotenziale zu
+                    identifizieren.
                   </p>
-                </p>
+                </div>
               </div>
             </div>
 
@@ -147,21 +146,21 @@ export default function EvaluationIntro() {
 
             <div className="grid gap-4 sm:grid-cols-3">
               <InfoCard
+                icon={<Clock3 className="h-5 w-5" />}
+                title="Dauer"
+                description="Die Evaluation dauert etwa 20 Minuten."
+              />
+
+              <InfoCard
                 icon={<MousePointer2 className="h-5 w-5" />}
                 title="Aufgaben"
                 description={`${tasks.length} Aufgaben warten auf Sie.`}
               />
 
               <InfoCard
-                icon={<Clock3 className="h-5 w-5" />}
-                title="Unterbrechungen"
-                description="Nach jeder Aufgabe folgt eine kurze Pause."
-              />
-
-              <InfoCard
                 icon={<CheckCircle2 className="h-5 w-5" />}
                 title="Fragebogen"
-                description="Nach jeder Aufgabe beantworten Sie einige Fragen."
+                description="Nach jeder Aufgabe beantworten Sie zwei kurze Fragen."
               />
             </div>
           </section>
@@ -175,26 +174,26 @@ export default function EvaluationIntro() {
             <ol className="mt-5 space-y-4">
               <Step
                 number="1"
-                title="Aufgabe bearbeiten"
-                description="Bearbeite die angezeigte Aufgabe auf der Reiseplattform."
+                title="Vorab-Fragebogen"
+                description="Zu Beginn beantworten Sie einige kurze Fragen zu Ihrer Person und Ihren Erfahrungen mit Online-Reiseportalen."
               />
 
               <Step
                 number="2"
-                title="Kurze Unterbrechung"
-                description="Nach erfolgreichem Abschluss wird die Webseite kurz unterbrochen."
+                title="Aufgabe bearbeiten"
+                description="Anschließend bearbeiten Sie eine konkrete Aufgabe auf der Reiseplattform."
               />
 
               <Step
                 number="3"
-                title="Fragebogen"
-                description="Nach einem kurzen Countdown erscheint ein Fragebogen."
+                title="Kurze Bewertung"
+                description="Nach jeder Aufgabe beantworten Sie zwei kurze Fragen zu Ihrem Erleben und Ihrer Wahrnehmung während der Bearbeitung."
               />
 
               <Step
                 number="4"
                 title="Nächste Aufgabe"
-                description="Danach können Sie mit der nächsten Aufgabe fortfahren."
+                description="Danach geht es direkt mit der nächsten Aufgabe weiter."
               />
             </ol>
           </section>
@@ -207,25 +206,16 @@ export default function EvaluationIntro() {
 
             <div className="mt-5 space-y-4 text-sm leading-6 text-slate-600">
               <PrivacyPoint>
-                Alle Aufzeichnungen und Transkripte werden so bearbeitet, dass
-                kein Rückschluss auf Ihre Person möglich ist. Personenbezogene
-                Daten werden entfernt oder pseudonymisiert.
+                Alle gespeicherten Daten werden so bearbeitet, dass kein
+                Rückschluss auf Ihre Person möglich ist. Personenbezogene Daten
+                werden entfernt oder pseudonymisiert.
               </PrivacyPoint>
 
               <PrivacyPoint>
-                Bevor die transkribierten Texte final in die Auswertung
-                einfließen, wird Ihnen das Transkript zur Einsicht und Freigabe
-                vorgelegt. Sie haben die Möglichkeit, inhaltliche Fehler zu
-                korrigieren oder die Löschung bestimmter Passagen zu
-                veranlassen.
-              </PrivacyPoint>
-
-              <PrivacyPoint>
-                Sie können jederzeit und ohne Angabe von Gründen die Löschung
-                Ihrer personenbezogenen Daten sowie der zugehörigen
-                Aufzeichnungen und Transkripte verlangen. Wir werden diese Daten
-                dann unverzüglich und vollständig aus unseren Systemen
-                entfernen.
+                Sie können jederzeit und ohne Angabe von Gründen unter Angabe
+                Ihrer Teilnehmenden-ID die Löschung Ihrer Daten verlangen. Wir
+                werden diese Daten dann unverzüglich und vollständig aus unseren
+                Systemen entfernen.
               </PrivacyPoint>
             </div>
           </section>
@@ -238,29 +228,38 @@ export default function EvaluationIntro() {
 
             <div className="mt-5 space-y-4 text-sm leading-6 text-slate-600">
               <ImportantPoint>
-                Einige Werte und Eingabefelder können bereits vorausgefüllt
-                sein. Bitte verändere diese nur, wenn die jeweilige Aufgabe dies
-                verlangt.
+                Bitte führen Sie die Evaluation auf einem Laptop, Tablet oder
+                Desktop-Computer durch. Die Reiseplattform ist nicht für
+                Smartphones optimiert.
               </ImportantPoint>
 
               <ImportantPoint>
-                Bitte gib keine privaten oder sensiblen Daten ein, insbesondere
-                keine echten Passwörter.
+                Bitte führen Sie die Evaluation an einem ruhigen und ungestörten
+                Ort durch. Bei zwei Aufgaben werden Sie gebeten, Ihre
+                Lieblingsmusik abzuspielen.
               </ImportantPoint>
 
               <ImportantPoint>
-                Aufgaben können je nach Oberfläche auf- und zugeklappt sowie
+                Bitte geben Sie keine privaten oder sensiblen Daten ein,
+                insbesondere keine echten Passwörter.
+              </ImportantPoint>
+
+              <ImportantPoint>
+                Die Aufgabenbeschreibung kann während der Aufgabe auf- und zugeklappt sowie
                 verschoben werden.
               </ImportantPoint>
 
               <ImportantPoint>
-                Nicht alle sichtbaren Elemente sind anklickbar. Dies ist
-                teilweise Bestandteil der Evaluation.
+                Einige Werte und Eingabefelder können bereits vorausgefüllt
+                sein. Lassen Sie sich davon nicht beirren. Dies dient dazu,
+                Ihnen unnötige Eingaben zu ersparen.
               </ImportantPoint>
 
               <ImportantPoint>
-                Laptop oder Computer und ruhigen, ungestörten Musik (wird
-                aufgefordert Lieblingsmusik abzuspielen)
+                Bitte beachten Sie: Die Reiseplattform ist ein Prototyp. Daher
+                sind einige sichtbare Elemente noch nicht funktionsfähig oder
+                nicht anklickbar. Das ist normal und kein Fehler. Nicht
+                funktionsfähige Elemente sind nicht Bestandteil der Aufgaben.
               </ImportantPoint>
             </div>
           </section>
@@ -308,10 +307,9 @@ export default function EvaluationIntro() {
                 onChange={setConsentSam}
                 required
               >
-                meine Angaben zur Wahrnehmung und zum Erleben nach den Aufgaben
-                im Rahmen der Untersuchung erhobenen Bewertungen, erfasst und
-                für die Zwecke der wissenschaftlichen Untersuchung verarbeitet
-                werden.
+                meine Antworten zu meiner Wahrnehmung und meinem Erleben während
+                der Evaluation erhoben und für die wissenschaftliche Auswertung
+                verarbeitet werden.
               </ConsentCheckbox>
             </div>
 

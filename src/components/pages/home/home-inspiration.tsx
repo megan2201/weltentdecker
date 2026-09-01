@@ -1,6 +1,7 @@
 import {
   Sparkles
 } from "lucide-react"
+import inspoImg from "@/assets/img/weltentdecker_inspiration.jpg"
 
 export default function HomeInspiration() {
     return (
@@ -30,7 +31,7 @@ export default function HomeInspiration() {
             <div className="relative">
               <div className="overflow-hidden rounded-[2rem]">
                 <img
-                  src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1400&q=90"
+                  src={inspoImg}
                   alt="Reise durch eine Berglandschaft"
                   className="aspect-[4/3] w-full object-cover"
                 />

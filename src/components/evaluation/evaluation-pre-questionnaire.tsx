@@ -65,11 +65,10 @@ export default function EvaluationPreQuestionnaire() {
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {[
                 "Unter 18",
-                "18–24",
-                "25–34",
-                "35–44",
-                "45–54",
-                "55 oder älter",
+                "18–29",
+                "30–44",
+                "45-59",
+                "60 oder älter",
               ].map((option) => (
                 <OptionButton
                   key={option}
@@ -97,16 +96,12 @@ export default function EvaluationPreQuestionnaire() {
                     "Ich habe bisher ein- bis zweimal online eine Reise gebucht.",
                 },
                 {
-                  value: "Gelegentliche Erfahrung",
-                  description: "Ich buche gelegentlich Reisen online.",
+                  value: "Etwas Erfahrung",
+                  description: "Ich habe bereits mehrmals Reisen online gebucht.",
                 },
                 {
                   value: "Viel Erfahrung",
-                  description: "Ich buche regelmäßig Reisen online.",
-                },
-                {
-                  value: "Sehr viel Erfahrung",
-                  description: "Ich buche fast alle meine Reisen online.",
+                  description: "Ich buche fast alle meine Reisen online und kenne mich mit Online-Reisebuchungen gut aus.",
                 },
               ].map((option) => (
                 <button

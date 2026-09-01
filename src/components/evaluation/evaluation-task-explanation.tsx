@@ -40,7 +40,19 @@ export default function EvaluationTaskExplanation() {
           </h1>
 
           {/* Aufgabe */}
-          <div className="mx-auto mt-6 max-w-xl rounded-2xl bg-gray-50 p-6 text-left">
+          {currentTask.scenario && (
+            <div className="mx-auto mt-6 max-w-xl rounded-2xl border border-emerald-100 bg-emerald-50 p-5 text-left">
+              <p className="text-xs font-semibold uppercase tracking-wider text-emerald-700">
+                Szenario
+              </p>
+
+              <p className="mt-2 text-base leading-7 text-gray-700">
+                {currentTask.scenario}
+              </p>
+            </div>
+          )}
+
+          <div className="mx-auto mt-4 max-w-xl rounded-2xl bg-gray-50 p-6 text-left">
             <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
               Deine Aufgabe
             </p>
@@ -49,11 +61,6 @@ export default function EvaluationTaskExplanation() {
               {currentTask.description}
             </p>
           </div>
-
-          {/* Hinweis */}
-          <p className="mt-6 text-sm text-gray-500">
-            Versuche die Aufgabe selbstständig zu lösen.
-          </p>
 
           {/* Start */}
           <Button

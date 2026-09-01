@@ -581,10 +581,6 @@ export default function Stays() {
                         </span>
 
                         <span className="text-sm text-gray-500"> / Nacht</span>
-
-                        <p className="mt-0.5 text-xs text-gray-500">
-                          zzgl. Steuern & Gebühren
-                        </p>
                       </div>
 
                       <Link

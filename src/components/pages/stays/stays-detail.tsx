@@ -36,30 +36,6 @@ function calculateNights(checkIn?: Date, checkOut?: Date) {
   return Math.max(0, Math.ceil(difference / (1000 * 60 * 60 * 24)));
 }
 
-const reviews = [
-  {
-    name: "Sophie M.",
-    date: "August 2026",
-    rating: 5,
-    text: "Eine wunderschöne Unterkunft mit einem unglaublichen Blick über das Meer. Das Personal war herzlich und das Frühstück fantastisch.",
-    avatar: "https://i.pravatar.cc/100?img=47",
-  },
-  {
-    name: "Daniel K.",
-    date: "Juli 2026",
-    rating: 5,
-    text: "Perfekt für unseren Urlaub an der Amalfiküste. Die Lage ist traumhaft und die Zimmer waren sehr sauber.",
-    avatar: "https://i.pravatar.cc/100?img=12",
-  },
-  {
-    name: "Anna R.",
-    date: "Juni 2026",
-    rating: 4,
-    text: "Sehr schönes Hotel und tolle Gastgeber. Besonders der Pool und die Aussicht haben uns gefallen.",
-    avatar: "https://i.pravatar.cc/100?img=32",
-  },
-];
-
 export default function StaysDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -74,13 +50,8 @@ export default function StaysDetail() {
   const [isCheckInOpen, setIsCheckInOpen] = useState(false);
   const [isCheckOutOpen, setIsCheckOutOpen] = useState(false);
 
-  const cleaningFee = 35;
-  const serviceFee = 42;
-
   const nights = calculateNights(trip.checkIn, trip.checkOut);
-
-  const accommodationPrice = stay.pricePerNight * nights;
-  const total = stay.pricePerNight * nights + cleaningFee + serviceFee;
+  const total = stay.pricePerNight * nights;
   const canBook =
     !!trip.checkIn && !!trip.checkOut && nights > 0 && trip.guests > 0;
 
@@ -121,10 +92,6 @@ export default function StaysDetail() {
                 <Star className="h-4 w-4 fill-current" />
                 {stay.rating}
               </span>
-
-              <span className="text-sm text-gray-500">
-                · {stay.reviews} Bewertungen
-              </span>
             </div>
 
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -138,13 +105,11 @@ export default function StaysDetail() {
           </div>
 
           <div className="hidden items-center gap-2 md:flex">
-            <span className="rounded-full bg-gray-100 px-3 py-2 text-sm">
-              Boutique-Hotel
-            </span>
-
-            <span className="rounded-full bg-gray-100 px-3 py-2 text-sm">
-              Meerblick
-            </span>
+            {stay.tags.map((tag) => (
+              <span className="rounded-full bg-gray-100 px-3 py-2 text-sm">
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -247,7 +212,7 @@ export default function StaysDetail() {
               </div>
 
               <p className="mt-6 max-w-3xl text-[16px] leading-8 text-gray-600">
-                {stay.longDescription}
+                {stay.description}
               </p>
             </section>
 
@@ -347,63 +312,6 @@ export default function StaysDetail() {
                 </div>
               </div>
             </section>
-
-            <Separator className="my-10" />
-
-            {/* Reviews */}
-            <section>
-              <div className="flex flex-wrap items-center gap-3">
-                <h2 className="text-2xl font-semibold">Bewertungen</h2>
-
-                <div className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1.5">
-                  <Star className="h-4 w-4 fill-current" />
-                  <span className="text-sm font-semibold">{stay.rating}</span>
-                </div>
-
-                <span className="text-sm text-gray-500">
-                  {stay.reviews} Bewertungen
-                </span>
-              </div>
-
-              <div className="mt-8 grid gap-8 md:grid-cols-2">
-                {reviews.map((review) => (
-                  <article key={review.name}>
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={review.avatar}
-                        alt={review.name}
-                        className="h-11 w-11 rounded-full object-cover"
-                      />
-
-                      <div>
-                        <p className="font-medium">{review.name}</p>
-
-                        <p className="text-xs text-gray-500">{review.date}</p>
-                      </div>
-                    </div>
-
-                    <div className="mt-3 flex gap-0.5">
-                      {Array.from({
-                        length: review.rating,
-                      }).map((_, index) => (
-                        <Star
-                          key={index}
-                          className="h-3.5 w-3.5 fill-current"
-                        />
-                      ))}
-                    </div>
-
-                    <p className="mt-3 text-sm leading-6 text-gray-600">
-                      {review.text}
-                    </p>
-                  </article>
-                ))}
-              </div>
-
-              <Button variant="outline" className="mt-8 rounded-xl">
-                Alle {stay.reviews} Bewertungen anzeigen
-              </Button>
-            </section>
           </div>
 
           {/* =====================================================
@@ -422,7 +330,7 @@ export default function StaysDetail() {
 
                 <div className="flex items-center gap-1 text-sm">
                   <Star className="h-4 w-4 fill-current" />
-                  4.9
+                  {stay.rating}
                 </div>
               </div>
 
@@ -542,26 +450,6 @@ export default function StaysDetail() {
               {/* Price */}
               {nights > 0 ? (
                 <div className="mt-6 space-y-4 text-sm">
-                  <div className="flex justify-between">
-                    <span className="underline">
-                      {stay.pricePerNight} € × {nights} Nächte
-                    </span>
-
-                    <span>{accommodationPrice} €</span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="underline">Endreinigung</span>
-
-                    <span>{cleaningFee} €</span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="underline">Servicegebühr</span>
-
-                    <span>{serviceFee} €</span>
-                  </div>
-
                   <Separator />
 
                   <div className="flex justify-between text-base">

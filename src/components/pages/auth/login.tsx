@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import heroImg from "@/assets/img/weltentdecker-hero.jpg"
 
 export default function Login() {
   const [emailInput, setEmailInput] = useState("");
@@ -20,7 +21,7 @@ export default function Login() {
         ====================================================== */}
         <section className="relative hidden overflow-hidden lg:block">
           <img
-            src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1800&q=90"
+            src={heroImg}
             alt="Traumhafte Reiselandschaft"
             className="absolute inset-0 h-full w-full object-cover"
           />

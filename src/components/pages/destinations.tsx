@@ -11,13 +11,6 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useRef } from 'react'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Link } from "react-router-dom"
 import { destinations } from "@/assets/data/destinations"
 import { getStayCountryDetails } from "@/assets/data/stays"
@@ -25,23 +18,7 @@ import { getStayCountryDetails } from "@/assets/data/stays"
 export default function Destinations() {
   const [searchInput, setSearchInput] = useState("")
   const [search, setSearch] = useState("")
-  const [region, setRegion] = useState<string | null>("alle Regionen")
-  const [category, setCategory] = useState<string | null>("alle Reisearten");
   const destinationsRef = useRef<HTMLElement | null>(null);
-
-  const filteredDestinations = destinations.filter((destination) => {
-    const matchesSearch =
-      destination.name.toLowerCase().includes(search.toLowerCase()) ||
-      destination.country.toLowerCase().includes(search.toLowerCase())
-
-    const matchesRegion =
-      region === "alle Regionen" || destination.region === region
-
-    const matchesCategory =
-      category === "alle Reisearten" || destination.category === category
-
-    return matchesSearch && matchesRegion && matchesCategory
-  })
 
   return (
     <main className="min-h-screen bg-white text-gray-900">
@@ -133,97 +110,9 @@ export default function Destinations() {
       </section>
 
       {/* =====================================================
-          FILTER
-      ====================================================== */}
-      <section ref={destinationsRef} className="scroll-mt-18 border-b bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-5 lg:px-8">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex items-center gap-2">
-              <SlidersHorizontal className="h-4 w-4 text-gray-500" />
-
-              <span className="text-sm font-medium">
-                Reiseziele filtern
-              </span>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2 lg:flex">
-              <Select
-                value={region}
-                onValueChange={setRegion}
-              >
-                <SelectTrigger className="w-full rounded-xl lg:w-44">
-                  <SelectValue placeholder="Region" />
-                </SelectTrigger>
-
-                <SelectContent>
-                  <SelectItem value="alle Regionen">
-                    Alle Regionen
-                  </SelectItem>
-                  <SelectItem value="Europa">
-                    Europa
-                  </SelectItem>
-                  <SelectItem value="Asien">
-                    Asien
-                  </SelectItem>
-                  <SelectItem value="Afrika">
-                    Afrika
-                  </SelectItem>
-                  <SelectItem value="Amerika">
-                    Amerika
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select
-                value={category}
-                onValueChange={setCategory}
-              >
-                <SelectTrigger className="w-full rounded-xl lg:w-44">
-                  <SelectValue placeholder="Reiseart" />
-                </SelectTrigger>
-
-                <SelectContent>
-                  <SelectItem value="alle Reisearten">
-                    Alle Reisearten
-                  </SelectItem>
-                  <SelectItem value="Meer">
-                    Strand & Meer
-                  </SelectItem>
-                  <SelectItem value="Natur">
-                    Natur
-                  </SelectItem>
-                  <SelectItem value="Stadt">
-                    Städtereise
-                  </SelectItem>
-                  <SelectItem value="Kultur">
-                    Kultur
-                  </SelectItem>
-                  <SelectItem value="Abenteuer">
-                    Abenteuer
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Button
-                variant="outline"
-                className="rounded-xl"
-                onClick={() => {
-                  setSearch("")
-                  setRegion("alle Regionen")
-                  setCategory("alle Reisearten")
-                }}
-              >
-                Filter zurücksetzen
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
           DESTINATION GRID
       ====================================================== */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
+      <section ref={destinationsRef} className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
         <div className="flex items-end justify-between gap-6">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">
@@ -236,13 +125,13 @@ export default function Destinations() {
           </div>
 
           <p className="hidden text-sm text-gray-500 sm:block">
-            {filteredDestinations.length} Reiseziele
+            {destinations.length} Reiseziele
           </p>
         </div>
 
-        {filteredDestinations.length > 0 ? (
+        {destinations.length > 0 ? (
           <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filteredDestinations.map((destination) => (
+            {destinations.map((destination) => (
               <Link
                 to={`/destinations/${destination.slug}`}
                 key={destination.name}
@@ -272,10 +161,6 @@ export default function Destinations() {
                         {destination.country}
                       </p>
                     </div>
-
-                    <span className="text-sm font-semibold">
-                      {destination.price}
-                    </span>
                   </div>
 
                   <p className="mt-3 line-clamp-2 text-sm leading-6 text-gray-500">
@@ -348,7 +233,7 @@ export default function Destinations() {
                   </h3>
 
                   <p className="mt-1 text-sm text-white/65">
-                    {(Math.floor(Math.random() * 201))} Unterkünfte
+                    4 Unterkünfte
                   </p>
                 </div>
               </Link>

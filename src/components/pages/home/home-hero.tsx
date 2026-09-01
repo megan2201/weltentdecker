@@ -13,6 +13,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { useTrip } from "@/components/context/trip-context";
 import { useNavigate } from "react-router-dom";
 import { useEvaluation } from "@/components/context/evaluation-provider";
+import heroImg from "@/assets/img/weltentdecker-hero.jpg"
 
 export default function HomeHero() {
   const navigate = useNavigate();
@@ -31,8 +32,7 @@ export default function HomeHero() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2400&q=90')",
+            backgroundImage: `url(${heroImg})`,
           }}
         />
 

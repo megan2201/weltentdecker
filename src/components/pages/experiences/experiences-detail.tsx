@@ -26,30 +26,6 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 
-const reviews = [
-  {
-    name: "Sophie M.",
-    date: "August 2026",
-    rating: 5,
-    text: "Ein unglaublich schönes Erlebnis. Unser Guide war super freundlich und hat uns viele besondere Orte gezeigt.",
-    avatar: "https://i.pravatar.cc/100?img=47",
-  },
-  {
-    name: "Daniel K.",
-    date: "Juli 2026",
-    rating: 5,
-    text: "Alles war perfekt organisiert. Die Gruppe war klein und wir hatten trotzdem genügend Zeit, alles zu genießen.",
-    avatar: "https://i.pravatar.cc/100?img=12",
-  },
-  {
-    name: "Anna R.",
-    date: "Juni 2026",
-    rating: 4,
-    text: "Sehr schönes Erlebnis und ein wirklich sympathischer Guide. Würde ich jederzeit wieder buchen.",
-    avatar: "https://i.pravatar.cc/100?img=32",
-  },
-];
-
 export default function ExperiencesDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -131,10 +107,6 @@ export default function ExperiencesDetail() {
                 <Star className="h-4 w-4 fill-current" />
                 {experience.rating}
               </span>
-
-              <span className="text-sm text-gray-500">
-                · {experience.reviews} Bewertungen
-              </span>
             </div>
 
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -164,71 +136,13 @@ export default function ExperiencesDetail() {
             IMAGE GALLERY
         ====================================================== */}
 
-        <div className="mt-8 grid h-[500px] grid-cols-1 gap-2 overflow-hidden rounded-3xl md:grid-cols-2">
-          {/* Main */}
-          <div className="relative overflow-hidden">
+        <div className="mt-8 overflow-hidden rounded-3xl">
             <img
-              src={experience.images[selectedImage]}
+              src={experience.image}
               alt={experience.title}
-              className="h-full w-full object-cover"
+              className="h-90 w-full object-cover"
             />
-
-            <button
-              onClick={() =>
-                setSelectedImage(
-                  selectedImage === 0
-                    ? experience.images.length - 1
-                    : selectedImage - 1,
-                )
-              }
-              className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-lg"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-
-            <button
-              onClick={() =>
-                setSelectedImage(
-                  selectedImage === experience.images.length - 1
-                    ? 0
-                    : selectedImage + 1,
-                )
-              }
-              className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-lg"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-4 py-2 text-xs text-white backdrop-blur">
-              {selectedImage + 1} / {experience.images.length}
-            </div>
           </div>
-
-          {/* Thumbnails */}
-          <div className="hidden grid-cols-2 gap-2 md:grid">
-            {experience.images.slice(1, 5).map((image, index) => (
-              <div
-                key={image}
-                onClick={() => setSelectedImage(index + 1)}
-                className="relative overflow-hidden"
-              >
-                <img
-                  src={image}
-                  alt={`${experience.title} ${index + 2}`}
-                  className="h-full w-full object-cover transition duration-300 hover:scale-105"
-                />
-
-                {index === 3 && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                    <Button variant="outline" className="rounded-xl">
-                      Alle Fotos ansehen
-                    </Button>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* =====================================================
             MAIN CONTENT + BOOKING
@@ -273,7 +187,7 @@ export default function ExperiencesDetail() {
               </div>
 
               <p className="mt-6 max-w-3xl text-[16px] leading-8 text-gray-600">
-                {experience.longDescription}
+                {experience.description}
               </p>
             </section>
 
@@ -364,7 +278,7 @@ export default function ExperiencesDetail() {
 
               <div className="relative mt-6 h-[360px] overflow-hidden rounded-3xl bg-gray-200">
                 <img
-                  src={experience.meetingPointImage}
+                  src={experience.image}
                   alt={experience.meetingPoint}
                   className="h-full w-full object-cover"
                 />
@@ -381,69 +295,6 @@ export default function ExperiencesDetail() {
                   </p>
                 </div>
               </div>
-            </section>
-
-            <Separator className="my-10" />
-
-            {/* =================================================
-                REVIEWS
-            ================================================== */}
-
-            <section>
-              <div className="flex flex-wrap items-center gap-3">
-                <h2 className="text-2xl font-semibold">Bewertungen</h2>
-
-                <div className="flex items-center gap-1 rounded-full bg-gray-100 px-3 py-1.5">
-                  <Star className="h-4 w-4 fill-current" />
-
-                  <span className="text-sm font-semibold">
-                    {experience.rating}
-                  </span>
-                </div>
-
-                <span className="text-sm text-gray-500">
-                  {experience.reviews} Bewertungen
-                </span>
-              </div>
-
-              <div className="mt-8 grid gap-8 md:grid-cols-2">
-                {reviews.map((review) => (
-                  <article key={review.name}>
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={review.avatar}
-                        alt={review.name}
-                        className="h-11 w-11 rounded-full object-cover"
-                      />
-
-                      <div>
-                        <p className="font-medium">{review.name}</p>
-
-                        <p className="text-xs text-gray-500">{review.date}</p>
-                      </div>
-                    </div>
-
-                    <div className="mt-3 flex gap-0.5">
-                      {Array.from({
-                        length: review.rating,
-                      }).map((_, index) => (
-                        <Star
-                          key={index}
-                          className="h-3.5 w-3.5 fill-current"
-                        />
-                      ))}
-                    </div>
-
-                    <p className="mt-3 text-sm leading-6 text-gray-600">
-                      {review.text}
-                    </p>
-                  </article>
-                ))}
-              </div>
-
-              <Button variant="outline" className="mt-8 rounded-xl">
-                Alle {experience.reviews} Bewertungen anzeigen
-              </Button>
             </section>
           </div>
 
@@ -590,18 +441,6 @@ export default function ExperiencesDetail() {
                 {experience.duration} · {trip.guests}{" "}
                 {trip.guests === 1 ? "Person" : "Personen"}
               </p>
-
-              <div className="mt-5 space-y-2">
-                <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
-                  <Check className="h-3.5 w-3.5 text-emerald-600" />
-                  Sofortige Buchungsbestätigung
-                </div>
-
-                <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
-                  <Check className="h-3.5 w-3.5 text-emerald-600" />
-                  Sichere Zahlung
-                </div>
-              </div>
             </div>
           </aside>
         </div>

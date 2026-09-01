@@ -452,7 +452,7 @@ export default function Experiences() {
                     <div className="relative overflow-hidden rounded-2xl">
                       <Link to={`/experiences/${experience.id}`}>
                         <img
-                          src={experience.images[0]}
+                          src={experience.image}
                           alt={experience.title}
                           className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
                         />
@@ -545,10 +545,6 @@ export default function Experiences() {
                             {" "}
                             / Person
                           </span>
-
-                          <p className="mt-0.5 text-xs text-gray-500">
-                            zzgl. Steuern & Gebühren
-                          </p>
                         </div>
 
                         <Link
