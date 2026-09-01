@@ -3,7 +3,6 @@ import {
   Globe2,
   MapPin,
   Search,
-  SlidersHorizontal,
   Sparkles,
 } from "lucide-react"
 import { useState } from "react"
@@ -14,6 +13,7 @@ import { useRef } from 'react'
 import { Link } from "react-router-dom"
 import { destinations } from "@/assets/data/destinations"
 import { getStayCountryDetails } from "@/assets/data/stays"
+import destinationsImg from "/img/weltentdecker-destinations.webp"
 
 export default function Destinations() {
   const [searchInput, setSearchInput] = useState("")
@@ -82,7 +82,7 @@ export default function Destinations() {
             <div className="relative">
               <div className="overflow-hidden rounded-[2rem]">
                 <img
-                  src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=90"
+                  src={destinationsImg}
                   alt="Berglandschaft"
                   className="aspect-[4/3] w-full object-cover"
                 />

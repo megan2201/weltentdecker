@@ -19,6 +19,7 @@ export type Experience = {
   languages: string[];
   tags: string[];
   featured?: boolean;
+  sponsored?: boolean;
   instantBooking?: boolean;
 };
 
@@ -34,14 +35,14 @@ export const experiences: Experience[] = [
     location: "Garmisch-Partenkirchen",
     country: "Deutschland",
     description:
-      "Erleben Sie die beeindruckende Bergwelt rund um Deutschlands höchsten Gipfel bei einer geführten Wanderung mit erfahrenem Bergführer.",
+      "Erlebe die beeindruckende Bergwelt rund um Deutschlands höchsten Gipfel bei einer geführten Wanderung mit erfahrenem Bergführer.",
     price: 89,
     currency: "EUR",
     duration: "6 Stunden",
     durationMinutes: 360,
     rating: 4.9,
     maxGuests: 8,
-    image: new URL('../img/experience/experience-germany-01.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-germany-01.webp', import.meta.url).href,
     included: [
       "Erfahrener Bergführer",
       "Geführte Wanderung",
@@ -53,6 +54,7 @@ export const experiences: Experience[] = [
     languages: ["Deutsch", "Englisch"],
     tags: ["Berge", "Wandern", "Natur", "Abenteuer"],
     featured: true,
+    sponsored: true,
     instantBooking: true,
   },
 
@@ -64,20 +66,21 @@ export const experiences: Experience[] = [
     location: "Berlin",
     country: "Deutschland",
     description:
-      "Entdecken Sie Berlins kreative Seite bei einem geführten Rundgang durch alternative Viertel, vorbei an beeindruckender Street-Art und versteckten Galerien.",
+      "Entdecke Berlins kreative Seite bei einem geführten Rundgang durch alternative Viertel, vorbei an beeindruckender Street-Art und versteckten Galerien.",
     price: 35,
     currency: "EUR",
     duration: "2,5 Stunden",
     durationMinutes: 150,
     rating: 4.8,
     maxGuests: 12,
-    image: new URL('../img/experience/experience-germany-02.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-germany-02.webp', import.meta.url).href,
     included: ["Lokaler Guide", "Geführter Rundgang", "Kleine Überraschung"],
     notIncluded: ["Getränke", "Persönliche Ausgaben"],
     meetingPoint: "U-Bahnhof Kottbusser Tor",
     languages: ["Deutsch", "Englisch"],
     tags: ["Street-Art", "Kultur", "Stadt", "Kunst"],
     featured: true,
+    sponsored: true,
     instantBooking: true,
   },
 
@@ -89,14 +92,14 @@ export const experiences: Experience[] = [
     location: "Freiburg",
     country: "Deutschland",
     description:
-      "Wandern Sie durch die idyllische Landschaft des Schwarzwalds und probieren Sie regionale Spezialitäten bei einem gemütlichen Zwischenstopp.",
+      "Wandere durch die idyllische Landschaft des Schwarzwalds und probiere regionale Spezialitäten bei einem gemütlichen Zwischenstopp.",
     price: 59,
     currency: "EUR",
     duration: "4 Stunden",
     durationMinutes: 240,
     rating: 4.8,
     maxGuests: 10,
-    image: new URL('../img/experience/experience-germany-03.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-germany-03.webp', import.meta.url).href,
     included: [
       "Lokaler Guide",
       "Geführte Wanderung",
@@ -118,14 +121,14 @@ export const experiences: Experience[] = [
     location: "Hamburg",
     country: "Deutschland",
     description:
-      "Erleben Sie Hamburg vom Wasser aus und genießen Sie den Blick auf Hafen, Speicherstadt und Elbphilharmonie während des Sonnenuntergangs.",
+      "Erlebe Hamburg vom Wasser aus und genieße den Blick auf Hafen, Speicherstadt und Elbphilharmonie während des Sonnenuntergangs.",
     price: 42,
     currency: "EUR",
     duration: "2 Stunden",
     durationMinutes: 120,
     rating: 4.7,
     maxGuests: 20,
-    image: new URL('../img/experience/experience-germany-04.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-germany-04.webp', import.meta.url).href,
     included: ["Hafenrundfahrt", "Audiokommentar", "Getränk an Bord"],
     notIncluded: ["Weitere Getränke", "Persönliche Ausgaben"],
     meetingPoint: "Landungsbrücken, Brücke 3",
@@ -146,14 +149,14 @@ export const experiences: Experience[] = [
     location: "Toskana",
     country: "Italien",
     description:
-      "Verbringen Sie einen genussvollen Nachmittag auf einem traditionellen Weingut und entdecken Sie die Aromen der Toskana.",
+      "Verbringe einen genussvollen Nachmittag auf einem traditionellen Weingut und entdecke die Aromen der Toskana.",
     price: 75,
     currency: "EUR",
     duration: "3 Stunden",
     durationMinutes: 180,
     rating: 4.9,
     maxGuests: 12,
-    image: new URL('../img/experience/experience-italy-01.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-italy-01.webp', import.meta.url).href,
     included: [
       "Führung durch das Weingut",
       "Weinverkostung",
@@ -176,14 +179,14 @@ export const experiences: Experience[] = [
     location: "Positano",
     country: "Italien",
     description:
-      "Entdecken Sie die spektakuläre Amalfiküste vom Wasser aus und schwimmen Sie in versteckten Buchten des Mittelmeers.",
+      "Entdecke die spektakuläre Amalfiküste vom Wasser aus und schwimme in versteckten Buchten des Mittelmeers.",
     price: 110,
     currency: "EUR",
     duration: "4 Stunden",
     durationMinutes: 240,
     rating: 4.9,
     maxGuests: 8,
-    image: new URL('../img/experience/experience-italy-02.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-italy-02.webp', import.meta.url).href,
     included: [
       "Bootsfahrt",
       "Skipper",
@@ -207,14 +210,14 @@ export const experiences: Experience[] = [
     location: "Rom",
     country: "Italien",
     description:
-      "Probieren Sie sich durch Roms kulinarische Klassiker und entdecken Sie dabei versteckte Gassen und historische Plätze.",
+      "Probiere dich durch Roms kulinarische Klassiker und entdecke dabei versteckte Gassen und historische Plätze.",
     price: 69,
     currency: "EUR",
     duration: "3,5 Stunden",
     durationMinutes: 210,
     rating: 4.8,
     maxGuests: 10,
-    image: new URL('../img/experience/experience-italy-03.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-italy-03.webp', import.meta.url).href,
     included: [
       "Lokaler Guide",
       "Mehrere Verkostungen",
@@ -237,14 +240,14 @@ export const experiences: Experience[] = [
     location: "Comer See",
     country: "Italien",
     description:
-      "Entdecken Sie die malerischen Orte und eleganten Villen rund um den Comer See bei einer entspannten privaten Bootsfahrt.",
+      "Entdecke die malerischen Orte und eleganten Villen rund um den Comer See bei einer entspannten privaten Bootsfahrt.",
     price: 95,
     currency: "EUR",
     duration: "3 Stunden",
     durationMinutes: 180,
     rating: 4.8,
     maxGuests: 6,
-    image: new URL('../img/experience/experience-italy-04.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-italy-04.webp', import.meta.url).href,
     included: [
       "Private Bootsfahrt",
       "Erfahrener Skipper",
@@ -270,14 +273,14 @@ export const experiences: Experience[] = [
     location: "Barcelona",
     country: "Spanien",
     description:
-      "Entdecken Sie Barcelona zu Fuß, probieren Sie traditionelle Tapas und erfahren Sie mehr über die außergewöhnliche Architektur der Stadt.",
+      "Entdecke Barcelona zu Fuß, probiere traditionelle Tapas und erfahre mehr über die außergewöhnliche Architektur der Stadt.",
     price: 65,
     currency: "EUR",
     duration: "3 Stunden",
     durationMinutes: 180,
     rating: 4.8,
     maxGuests: 10,
-    image: new URL('../img/experience/experience-spain-01.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-spain-01.webp', import.meta.url).href,
     included: [
       "Lokaler Guide",
       "Mehrere Tapas",
@@ -300,14 +303,14 @@ export const experiences: Experience[] = [
     location: "Mallorca",
     country: "Spanien",
     description:
-      "Verbringen Sie einen entspannten Tag auf dem Mittelmeer, entdecken Sie versteckte Buchten und springen Sie ins kristallklare Wasser.",
+      "Verbringe einen entspannten Tag auf dem Mittelmeer, entdecke versteckte Buchten und springe ins kristallklare Wasser.",
     price: 120,
     currency: "EUR",
     duration: "5 Stunden",
     durationMinutes: 300,
     rating: 4.9,
     maxGuests: 8,
-    image: new URL('../img/experience/experience-spain-02.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-spain-02.webp', import.meta.url).href,
     included: [
       "Segeltörn",
       "Skipper",
@@ -331,14 +334,14 @@ export const experiences: Experience[] = [
     location: "Sevilla",
     country: "Spanien",
     description:
-      "Erleben Sie die Leidenschaft des traditionellen Flamenco bei einer Live-Aufführung und genießen Sie dazu andalusische Spezialitäten.",
+      "Erlebe die Leidenschaft des traditionellen Flamenco bei einer Live-Aufführung und genieße dazu andalusische Spezialitäten.",
     price: 79,
     currency: "EUR",
     duration: "2,5 Stunden",
     durationMinutes: 150,
     rating: 4.9,
     maxGuests: 20,
-    image: new URL('../img/experience/experience-spain-03.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-spain-03.webp', import.meta.url).href,
     included: [
       "Flamenco-Aufführung",
       "Sitzplatzreservierung",
@@ -360,14 +363,14 @@ export const experiences: Experience[] = [
     location: "Costa Brava",
     country: "Spanien",
     description:
-      "Paddeln Sie entlang der spektakulären Küste, entdecken Sie versteckte Buchten und erkunden Sie kleine Meereshöhlen.",
+      "Paddele entlang der spektakulären Küste, entdecke versteckte Buchten und erkunde kleine Meereshöhlen.",
     price: 70,
     currency: "EUR",
     duration: "3 Stunden",
     durationMinutes: 180,
     rating: 4.8,
     maxGuests: 12,
-    image: new URL('../img/experience/experience-spain-04.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-spain-04.webp', import.meta.url).href,
     included: ["Kajak", "Paddel", "Schwimmweste", "Erfahrener Guide", "Wasser"],
     notIncluded: ["Hoteltransfer", "Mittagessen", "Wasserschuhe"],
     meetingPoint: "Strand von Tossa de Mar",
@@ -388,14 +391,14 @@ export const experiences: Experience[] = [
     location: "Kyoto",
     country: "Japan",
     description:
-      "Tauchen Sie ein in die japanische Teekultur und erleben Sie eine traditionelle Teezeremonie in einem ruhigen historischen Ambiente.",
+      "Tauche in die japanische Teekultur ein und erlebe eine traditionelle Teezeremonie in einem ruhigen historischen Ambiente.",
     price: 55,
     currency: "EUR",
     duration: "1,5 Stunden",
     durationMinutes: 90,
     rating: 4.9,
     maxGuests: 8,
-    image: new URL('../img/experience/experience-japan-01.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-japan-01.webp', import.meta.url).href,
     included: [
       "Traditionelle Teezeremonie",
       "Matcha-Tee",
@@ -418,14 +421,14 @@ export const experiences: Experience[] = [
     location: "Tokio",
     country: "Japan",
     description:
-      "Erleben Sie Tokio nach Sonnenuntergang und entdecken Sie leuchtende Straßen, versteckte Bars und typisch japanisches Street Food.",
+      "Erlebe Tokio nach Sonnenuntergang und entdecke leuchtende Straßen, versteckte Bars und typisch japanisches Street Food.",
     price: 59,
     currency: "EUR",
     duration: "3 Stunden",
     durationMinutes: 180,
     rating: 4.8,
     maxGuests: 10,
-    image: new URL('../img/experience/experience-japan-02.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-japan-02.webp', import.meta.url).href,
     included: [
       "Lokaler Guide",
       "Street-Food-Verkostung",
@@ -448,14 +451,14 @@ export const experiences: Experience[] = [
     location: "Hakone",
     country: "Japan",
     description:
-      "Entspannen Sie in einem traditionellen Onsen und entdecken Sie die natürliche Schönheit Hakones mit Blick auf den Fuji.",
+      "Entspanne in einem traditionellen Onsen und entdecke die natürliche Schönheit Hakones mit Blick auf den Fuji.",
     price: 95,
     currency: "EUR",
     duration: "5 Stunden",
     durationMinutes: 300,
     rating: 4.9,
     maxGuests: 8,
-    image: new URL('../img/experience/experience-japan-03.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-japan-03.webp', import.meta.url).href,
     included: [
       "Eintritt ins Onsen",
       "Lokaler Guide",
@@ -478,14 +481,14 @@ export const experiences: Experience[] = [
     location: "Okinawa",
     country: "Japan",
     description:
-      "Entdecken Sie die farbenprächtige Unterwasserwelt Okinawas bei einer geführten Schnorcheltour durch kristallklares Wasser.",
+      "Entdecke die farbenprächtige Unterwasserwelt Okinawas bei einer geführten Schnorcheltour durch kristallklares Wasser.",
     price: 85,
     currency: "EUR",
     duration: "3 Stunden",
     durationMinutes: 180,
     rating: 4.9,
     maxGuests: 10,
-    image: new URL('../img/experience/experience-japan-04.jpg', import.meta.url).href,
+    image: new URL('/img/experience/experience-japan-04.webp', import.meta.url).href,
     included: [
       "Schnorchelausrüstung",
       "Schwimmweste",
@@ -504,6 +507,11 @@ export const experiences: Experience[] = [
 
 export function getExperienceById(id: string): Experience | undefined {
   return experiences.find((experience) => experience.id === id);
+}
+
+export function getRandomExperience(): Experience {
+  const rdm = Math.floor(Math.random() * experiences.length);
+  return experiences[rdm];
 }
 
 export function getExperiencesByCategory(category: string): Experience[] {

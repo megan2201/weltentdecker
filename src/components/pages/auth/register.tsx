@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useUser } from "@/components/context/user-context";
-import heroImg from "@/assets/img/weltentdecker_register.jpg"
+import heroImg from "/img/weltentdecker_register.webp";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -30,39 +30,8 @@ export default function Register() {
   } = useUser();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const [newsletter, setNewsletter] = useState(true);
   const [loading, setLoading] = useState(false);
-
-  /*
-   * ==========================================================
-   * PASSWORD VALIDATION
-   * ==========================================================
-   */
-
-  const password = user.password;
-
-  const passwordRequirements = {
-    minLength: password.length >= 8,
-    hasNumber: /\d/.test(password),
-    hasUppercase: /[A-Z]/.test(password),
-    hasSpecialCharacter: /[^A-Za-z0-9]/.test(password),
-  };
-
-  const isPasswordValid =
-    passwordRequirements.minLength &&
-    passwordRequirements.hasNumber &&
-    passwordRequirements.hasUppercase &&
-    passwordRequirements.hasSpecialCharacter;
-
-  const passwordsMatch =
-    password.length > 0 &&
-    confirmPassword.length > 0 &&
-    password === confirmPassword;
-
-  const isFormValid = isPasswordValid && passwordsMatch && acceptTerms;
 
   /*
    * ==========================================================
@@ -73,14 +42,9 @@ export default function Register() {
   const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!isPasswordValid) {
+    if (user.password.length == 0) {
       return;
     }
-
-    if (!passwordsMatch) {
-      return;
-    }
-
     if (!acceptTerms) {
       return;
     }
@@ -89,7 +53,7 @@ export default function Register() {
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    setIsLoggedIn(true)
+    setIsLoggedIn(true);
     setLoading(false);
     navigate("/");
   };
@@ -301,7 +265,7 @@ export default function Register() {
                   <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
 
                   <Input
-                    value={password}
+                    value={user.password}
                     onChange={(e) => setPassword(e.target.value)}
                     id="password"
                     type={showPassword ? "text" : "password"}
@@ -327,103 +291,6 @@ export default function Register() {
                     )}
                   </button>
                 </div>
-
-                {/* Password requirements */}
-
-                <div className="mt-3 rounded-xl bg-gray-50 p-4">
-                  <p className="mb-3 text-xs font-semibold text-gray-700">
-                    Dein Passwort benötigt:
-                  </p>
-
-                  <div className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-2">
-                    <PasswordRequirement
-                      valid={passwordRequirements.minLength}
-                      text="Mindestens 8 Zeichen"
-                    />
-
-                    <PasswordRequirement
-                      valid={passwordRequirements.hasNumber}
-                      text="Mindestens eine Zahl"
-                    />
-
-                    <PasswordRequirement
-                      valid={passwordRequirements.hasUppercase}
-                      text="Einen Großbuchstaben"
-                    />
-
-                    <PasswordRequirement
-                      valid={passwordRequirements.hasSpecialCharacter}
-                      text="Ein Sonderzeichen"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* =================================================
-                  CONFIRM PASSWORD
-              ================================================== */}
-
-              <div>
-                <label
-                  htmlFor="confirmPassword"
-                  className="mb-2 block text-sm font-medium text-gray-800"
-                >
-                  Passwort wiederholen
-                </label>
-
-                <div className="relative">
-                  <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
-
-                  <Input
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    id="confirmPassword"
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Passwort wiederholen"
-                    autoComplete="new-password"
-                    className={`h-12 rounded-xl pl-12 pr-12 shadow-none focus-visible:ring-emerald-500/20 ${
-                      confirmPassword.length > 0 && !passwordsMatch
-                        ? "border-red-300 focus-visible:border-red-500"
-                        : "border-gray-200 focus-visible:border-emerald-500"
-                    }`}
-                    required
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-gray-700"
-                    aria-label={
-                      showConfirmPassword
-                        ? "Passwort verstecken"
-                        : "Passwort anzeigen"
-                    }
-                  >
-                    {showConfirmPassword ? (
-                      <Eye className="h-5 w-5" />
-                    ) : (
-                      <EyeOff className="h-5 w-5" />
-                    )}
-                  </button>
-                </div>
-
-                {confirmPassword.length > 0 && (
-                  <div
-                    className={`mt-2 flex items-center gap-2 text-xs ${
-                      passwordsMatch ? "text-emerald-600" : "text-red-500"
-                    }`}
-                  >
-                    {passwordsMatch ? (
-                      <Check className="h-4 w-4" />
-                    ) : (
-                      <X className="h-4 w-4" />
-                    )}
-
-                    {passwordsMatch
-                      ? "Passwörter stimmen überein"
-                      : "Passwörter stimmen nicht überein"}
-                  </div>
-                )}
               </div>
 
               {/* =================================================
@@ -456,31 +323,19 @@ export default function Register() {
                 </label>
               </div>
 
-              {/* Newsletter */}
-
-              <div className="flex items-start gap-3">
-                <Checkbox
-                  id="newsletter"
-                  checked={newsletter}
-                  onCheckedChange={(checked) => setNewsletter(checked === true)}
-                  className="mt-0.5"
-                />
-
-                <label
-                  htmlFor="newsletter"
-                  className="cursor-pointer text-sm leading-5 text-gray-500"
-                >
-                  Ich möchte gelegentlich Reiseinspirationen und besondere
-                  Angebote per E-Mail erhalten.
-                </label>
-              </div>
-
               {/* =================================================
                   SUBMIT
               ================================================== */}
               <Button
                 type="submit"
-                disabled={loading || !isFormValid}
+                disabled={
+                  loading ||
+                  !acceptTerms ||
+                  user.password.length == 0 ||
+                  user.firstName.length == 0 ||
+                  user.lastName.length == 0 ||
+                  user.email.length == 0
+                }
                 className="mt-2 h-12 w-full rounded-xl bg-emerald-600 text-base font-medium shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? "Konto wird erstellt..." : "Konto erstellen"}

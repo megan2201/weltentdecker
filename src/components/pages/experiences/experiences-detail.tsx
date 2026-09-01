@@ -2,7 +2,6 @@ import {
   ArrowRight,
   Check,
   ChevronLeft,
-  ChevronRight,
   Clock3,
   Languages,
   MapPin,
@@ -25,10 +24,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
+import { useEvaluation } from "@/components/context/evaluation-provider";
 
 export default function ExperiencesDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { currentTask } = useEvaluation();
   const experience = id ? getExperienceById(id) : undefined;
   const { trip, setDate, setGuests } = useTrip();
   const [isDateOpen, setIsDateOpen] = useState(false);
@@ -55,10 +56,10 @@ export default function ExperiencesDetail() {
     );
   }
 
-  const [selectedImage, setSelectedImage] = useState(0);
+  const disguisedAds = currentTask.darkPattern === "disguised-ads";
 
-  const canBook = trip.guests > 0 && trip.guests <= experience.maxGuests && trip.date;
-
+  const canBook =
+    trip.guests > 0 && trip.guests <= experience.maxGuests && trip.date;
   const total = experience.price * trip.guests;
 
   return (
@@ -91,6 +92,12 @@ export default function ExperiencesDetail() {
         <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
             <div className="mb-3 flex flex-wrap items-center gap-2">
+              {disguisedAds && experience.sponsored && (
+                <span className="rounded-full bg-gray-500 text-white px-3 py-1 text-xs">
+                  Gesponsert
+                </span>
+              )}
+              
               {experience.featured && (
                 <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
                   Beliebt
@@ -137,12 +144,12 @@ export default function ExperiencesDetail() {
         ====================================================== */}
 
         <div className="mt-8 overflow-hidden rounded-3xl">
-            <img
-              src={experience.image}
-              alt={experience.title}
-              className="h-90 w-full object-cover"
-            />
-          </div>
+          <img
+            src={experience.image}
+            alt={experience.title}
+            className="h-90 w-full object-cover"
+          />
+        </div>
 
         {/* =====================================================
             MAIN CONTENT + BOOKING

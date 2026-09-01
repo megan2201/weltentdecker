@@ -1,28 +1,21 @@
 import {
   Bath,
-  BedDouble,
   Birdhouse,
   Building,
   Coffee,
   CookingPot,
   Flame,
-  Home,
   Kayak,
   Landmark,
   MapPin,
   Mountain,
   Parasol,
-  ParkingCircle,
-  RockingChair,
   Ship,
-  Snowflake,
-  Sparkles,
   Sun,
   TrainFront,
   TreePine,
   Trees,
   Tv,
-  Waves,
   WavesHorizontal,
   WavesLadder,
   WavesVertical,
@@ -66,7 +59,7 @@ export const stays: Stay[] = [
     type: "Chalet",
     location: "Garmisch-Partenkirchen",
     country: "Deutschland",
-    countryImage: new URL('../img/country/germany.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/germany.webp", import.meta.url).href,
     description:
       "Gemütliches Alpen-Chalet mit atemberaubendem Bergblick, privater Sauna und direktem Zugang zu zahlreichen Wanderwegen.",
     pricePerNight: 185,
@@ -75,9 +68,9 @@ export const stays: Stay[] = [
     bedrooms: 3,
     bathrooms: 2,
     images: [
-      new URL('../img/stay/1_stay-germany-01.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-germany-01.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-germany-01.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-germany-01.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-01.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-01.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -88,13 +81,12 @@ export const stays: Stay[] = [
       {
         icon: WavesVertical,
         title: "Private Sauna",
-        description: "Entspannen Sie in Ihrer eigenen finnischen Sauna.",
+        description: "Entspanne dich in deiner eigenen finnischen Sauna.",
       },
       {
         icon: Mountain,
         title: "Bergblick",
-        description:
-          "Genießen Sie einen wunderschönen Panoramablick auf die Alpen.",
+        description: "Genieße einen wunderschönen Panoramablick auf die Alpen.",
       },
     ],
     facilities: [
@@ -104,7 +96,7 @@ export const stays: Stay[] = [
       "Terrasse",
       "Waschmaschine",
     ],
-    tags: ["Berge", "Natur", "Familie", "Luxus"],
+    tags: ["Berge", "Natur", "Familie"],
     featured: true,
   },
   {
@@ -113,7 +105,7 @@ export const stays: Stay[] = [
     type: "Loft",
     location: "Berlin",
     country: "Deutschland",
-    countryImage: new URL('../img/country/germany.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/germany.webp", import.meta.url).href,
     description:
       "Stilvolles Loft im industriellen Design im Herzen Berlins, umgeben von Cafés, Galerien und dem pulsierenden Nachtleben.",
     pricePerNight: 125,
@@ -122,9 +114,9 @@ export const stays: Stay[] = [
     bedrooms: 2,
     bathrooms: 1,
     images: [
-      new URL('../img/stay/1_stay-germany-02.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-germany-02.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-germany-02.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-germany-02.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-02.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-02.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -135,7 +127,7 @@ export const stays: Stay[] = [
       {
         icon: Coffee,
         title: "Kaffeestation",
-        description: "Genießen Sie jeden Morgen frisch zubereiteten Kaffee.",
+        description: "Genieße jeden Morgen frisch zubereiteten Kaffee.",
       },
       {
         icon: Tv,
@@ -150,7 +142,7 @@ export const stays: Stay[] = [
       "Klimaanlage",
       "Kontaktloser Check-in",
     ],
-    tags: ["Stadt", "Modern", "Paare", "Business"],
+    tags: ["Stadt", "Modern", "Paare"],
   },
   {
     id: "stay-germany-03",
@@ -158,7 +150,7 @@ export const stays: Stay[] = [
     type: "Ferienhaus",
     location: "Freiburg",
     country: "Deutschland",
-    countryImage: new URL('../img/country/germany.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/germany.webp", import.meta.url).href,
     description:
       "Ruhiges Ferienhaus mitten in der Natur, umgeben von den Wäldern und sanften Hügeln des Schwarzwalds.",
     pricePerNight: 145,
@@ -167,15 +159,15 @@ export const stays: Stay[] = [
     bedrooms: 3,
     bathrooms: 2,
     images: [
-      new URL('../img/stay/1_stay-germany-03.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-germany-03.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-germany-03.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-germany-03.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-03.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-03.webp", import.meta.url).href,
     ],
     amenities: [
       {
         icon: Trees,
         title: "Waldblick",
-        description: "Wachen Sie umgeben von ruhiger Natur und Wald auf.",
+        description: "Wache umgeben von ruhiger Natur und Wald auf.",
       },
       {
         icon: Flame,
@@ -186,7 +178,7 @@ export const stays: Stay[] = [
       {
         icon: Wifi,
         title: "Kostenloses WLAN",
-        description: "Bleiben Sie auch mitten in der Natur verbunden.",
+        description: "Bleibe auch mitten in der Natur verbunden.",
       },
     ],
     facilities: [
@@ -196,7 +188,7 @@ export const stays: Stay[] = [
       "Küche",
       "Essbereich im Freien",
     ],
-    tags: ["Natur", "Ruhe", "Familie", "Wandern"],
+    tags: ["Natur", "Ruhe", "Familie"],
   },
   {
     id: "stay-germany-04",
@@ -204,7 +196,7 @@ export const stays: Stay[] = [
     type: "Apartment",
     location: "Hamburg",
     country: "Deutschland",
-    countryImage: new URL('../img/country/germany.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/germany.webp", import.meta.url).href,
     description:
       "Helles und modernes Apartment nahe dem Hamburger Hafen, zahlreichen Restaurants und der historischen Innenstadt.",
     pricePerNight: 110,
@@ -213,9 +205,9 @@ export const stays: Stay[] = [
     bedrooms: 1,
     bathrooms: 1,
     images: [
-      new URL('../img/stay/1_stay-germany-04.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-germany-04.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-germany-04.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-germany-04.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-04.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-04.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -226,14 +218,13 @@ export const stays: Stay[] = [
       {
         icon: Ship,
         title: "Hafenblick",
-        description:
-          "Genießen Sie den Blick auf die Hamburger Wasserlandschaft.",
+        description: "Genieße den Blick auf die Hamburger Wasserlandschaft.",
       },
       {
         icon: CookingPot,
         title: "Voll ausgestattete Küche",
         description:
-          "Alles, was Sie für einen komfortablen Aufenthalt benötigen.",
+          "Alles, was du für einen komfortablen Aufenthalt benötigst.",
       },
     ],
     facilities: [
@@ -243,7 +234,7 @@ export const stays: Stay[] = [
       "Heizung",
       "Öffentliche Verkehrsmittel in der Nähe",
     ],
-    tags: ["Stadt", "Hafen", "Paare", "Wochenende"],
+    tags: ["Stadt", "Hafen", "Paare"],
   },
 
   // =========================
@@ -255,7 +246,7 @@ export const stays: Stay[] = [
     type: "Villa",
     location: "Toskana",
     country: "Italien",
-    countryImage: new URL('../img/country/italy.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/italy.webp", import.meta.url).href,
     description:
       "Elegante Villa umgeben von Weinbergen und Olivenhainen im Herzen der Toskana.",
     pricePerNight: 320,
@@ -264,15 +255,15 @@ export const stays: Stay[] = [
     bedrooms: 4,
     bathrooms: 3,
     images: [
-      new URL('../img/stay/1_stay-italy-01.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-italy-01.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-italy-01.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-italy-01.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-italy-01.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-italy-01.webp", import.meta.url).href,
     ],
     amenities: [
       {
         icon: WavesLadder,
         title: "Privater Pool",
-        description: "Entspannen Sie an Ihrem eigenen privaten Außenpool.",
+        description: "Entspanne dich an deinem eigenen privaten Außenpool.",
       },
       {
         icon: Wine,
@@ -294,7 +285,7 @@ export const stays: Stay[] = [
       "Parkplatz",
       "Voll ausgestattete Küche",
     ],
-    tags: ["Luxus", "Weinberge", "Familie", "Romantisch"],
+    tags: ["Luxus", "Weinberge", "Familie"],
     featured: true,
   },
   {
@@ -303,7 +294,7 @@ export const stays: Stay[] = [
     type: "Apartment",
     location: "Positano",
     country: "Italien",
-    countryImage: new URL('../img/country/italy.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/italy.webp", import.meta.url).href,
     description:
       "Romantisches Apartment hoch über der Amalfiküste mit atemberaubendem Blick auf das Mittelmeer.",
     pricePerNight: 245,
@@ -312,27 +303,26 @@ export const stays: Stay[] = [
     bedrooms: 1,
     bathrooms: 1,
     images: [
-      new URL('../img/stay/1_stay-italy-02.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-italy-02.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-italy-02.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-italy-02.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-italy-02.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-italy-02.webp", import.meta.url).href,
     ],
     amenities: [
       {
         icon: WavesHorizontal,
         title: "Meerblick",
         description:
-          "Wachen Sie mit einem traumhaften Blick auf das Mittelmeer auf.",
+          "Wache mit einem traumhaften Blick auf das Mittelmeer auf.",
       },
       {
         icon: Sun,
         title: "Privater Balkon",
-        description: "Genießen Sie Ihr Frühstück mit Blick auf die Küste.",
+        description: "Genieße dein Frühstück mit Blick auf die Küste.",
       },
       {
         icon: Wifi,
         title: "Kostenloses WLAN",
-        description:
-          "Bleiben Sie während Ihres Aufenthalts jederzeit verbunden.",
+        description: "Bleibe während deines Aufenthalts jederzeit verbunden.",
       },
     ],
     facilities: [
@@ -342,7 +332,7 @@ export const stays: Stay[] = [
       "Strandzugang",
       "Flughafentransfer",
     ],
-    tags: ["Meer", "Romantisch", "Paare", "Luxus"],
+    tags: ["Meer", "Romantisch", "Paare"],
     featured: true,
   },
   {
@@ -351,18 +341,18 @@ export const stays: Stay[] = [
     type: "Boutique-Apartment",
     location: "Rom",
     country: "Italien",
-    countryImage: new URL('../img/country/italy.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/italy.webp", import.meta.url).href,
     description:
-      "Charmante historische Unterkunft in zentraler Lage, von der aus Sie die berühmtesten Sehenswürdigkeiten Roms bequem zu Fuß erreichen.",
+      "Charmante historische Unterkunft in zentraler Lage, von der aus du die berühmtesten Sehenswürdigkeiten Roms bequem zu Fuß erreichen.",
     pricePerNight: 160,
     rating: 4.7,
     guests: 4,
     bedrooms: 2,
     bathrooms: 1,
     images: [
-      new URL('../img/stay/1_stay-italy-03.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-italy-03.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-italy-03.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-italy-03.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-italy-03.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-italy-03.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -373,7 +363,7 @@ export const stays: Stay[] = [
       {
         icon: Coffee,
         title: "Kaffeestation",
-        description: "Starten Sie Ihren Morgen mit italienischem Kaffee.",
+        description: "Starte dein Morgen mit italienischem Kaffee.",
       },
       {
         icon: MapPin,
@@ -388,7 +378,7 @@ export const stays: Stay[] = [
       "Waschmaschine",
       "Kontaktloser Check-in",
     ],
-    tags: ["Historisch", "Stadt", "Kultur", "Paare"],
+    tags: ["Historisch", "Stadt", "Kultur"],
   },
   {
     id: "stay-italy-04",
@@ -396,7 +386,7 @@ export const stays: Stay[] = [
     type: "Gästehaus",
     location: "Comer See",
     country: "Italien",
-    countryImage: new URL('../img/country/italy.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/italy.webp", import.meta.url).href,
     description:
       "Ruhiges Gartenhaus nahe dem Comer See – ideal für erholsame Tage inmitten der italienischen Landschaft.",
     pricePerNight: 195,
@@ -405,9 +395,9 @@ export const stays: Stay[] = [
     bedrooms: 2,
     bathrooms: 2,
     images: [
-      new URL('../img/stay/1_stay-italy-04.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-italy-04.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-italy-04.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-italy-04.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-italy-04.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-italy-04.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -434,7 +424,7 @@ export const stays: Stay[] = [
       "Essbereich im Freien",
       "Fahrradstellplatz",
     ],
-    tags: ["See", "Natur", "Erholung", "Familie"],
+    tags: ["See", "Natur", "Erholung"],
   },
 
   // =========================
@@ -446,7 +436,7 @@ export const stays: Stay[] = [
     type: "Loft",
     location: "Barcelona",
     country: "Spanien",
-    countryImage: new URL('../img/country/spain.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/spain.webp", import.meta.url).href,
     description:
       "Helles und modernes Loft in Strandnähe, umgeben von Restaurants und dem lebendigen Stadtleben Barcelonas.",
     pricePerNight: 155,
@@ -455,9 +445,9 @@ export const stays: Stay[] = [
     bedrooms: 2,
     bathrooms: 1,
     images: [
-      new URL('../img/stay/1_stay-spain-01.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-spain-01.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-spain-01.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-spain-01.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-spain-01.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-spain-01.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -473,11 +463,11 @@ export const stays: Stay[] = [
       {
         icon: Sun,
         title: "Sonniger Balkon",
-        description: "Entspannen Sie bei viel natürlichem Licht im Freien.",
+        description: "Entspanne dich bei viel natürlichem Licht im Freien.",
       },
     ],
     facilities: ["Balkon", "Küche", "Klimaanlage", "Aufzug", "Strandzugang"],
-    tags: ["Strand", "Stadt", "Modern", "Paare"],
+    tags: ["Strand", "Stadt", "Modern"],
     featured: true,
   },
   {
@@ -486,7 +476,7 @@ export const stays: Stay[] = [
     type: "Finca",
     location: "Mallorca",
     country: "Spanien",
-    countryImage: new URL('../img/country/spain.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/spain.webp", import.meta.url).href,
     description:
       "Traditionelle mallorquinische Finca umgeben von Olivenbäumen mit privatem Pool und großzügigem Garten.",
     pricePerNight: 275,
@@ -495,20 +485,20 @@ export const stays: Stay[] = [
     bedrooms: 4,
     bathrooms: 3,
     images: [
-      new URL('../img/stay/1_stay-spain-02.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-spain-02.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-spain-02.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-spain-02.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-spain-02.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-spain-02.webp", import.meta.url).href,
     ],
     amenities: [
       {
         icon: WavesLadder,
         title: "Privater Pool",
-        description: "Erfrischen Sie sich in Ihrem eigenen Außenpool.",
+        description: "Erfrische dich in deinem eigenen Außenpool.",
       },
       {
         icon: TreePine,
         title: "Olivenhain",
-        description: "Genießen Sie die ruhige mediterrane Landschaft.",
+        description: "Genieße die ruhige mediterrane Landschaft.",
       },
       {
         icon: Sun,
@@ -518,7 +508,7 @@ export const stays: Stay[] = [
       },
     ],
     facilities: ["Privater Pool", "Garten", "Grill", "Parkplatz", "Außenküche"],
-    tags: ["Insel", "Pool", "Natur", "Familie"],
+    tags: ["Insel", "Pool", "Natur"],
     featured: true,
   },
   {
@@ -527,7 +517,7 @@ export const stays: Stay[] = [
     type: "Stadthaus",
     location: "Sevilla",
     country: "Spanien",
-    countryImage: new URL('../img/country/spain.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/spain.webp", import.meta.url).href,
     description:
       "Traditionelles andalusisches Stadthaus mit wunderschönem privatem Innenhof im Herzen Sevillas.",
     pricePerNight: 135,
@@ -536,9 +526,9 @@ export const stays: Stay[] = [
     bedrooms: 3,
     bathrooms: 2,
     images: [
-      new URL('../img/stay/1_stay-spain-03.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-spain-03.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-spain-03.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-spain-03.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-spain-03.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-spain-03.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -565,7 +555,7 @@ export const stays: Stay[] = [
       "Waschmaschine",
       "Zentrale Lage",
     ],
-    tags: ["Historisch", "Kultur", "Stadt", "Familie"],
+    tags: ["Historisch", "Kultur", "Stadt"],
   },
   {
     id: "stay-spain-04",
@@ -573,7 +563,7 @@ export const stays: Stay[] = [
     type: "Villa",
     location: "Costa Brava",
     country: "Spanien",
-    countryImage: new URL('../img/country/spain.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/spain.webp", import.meta.url).href,
     description:
       "Moderne Küstenvilla mit spektakulärem Blick auf das Mittelmeer, großzügiger Terrasse und privatem Pool.",
     pricePerNight: 295,
@@ -582,9 +572,9 @@ export const stays: Stay[] = [
     bedrooms: 4,
     bathrooms: 3,
     images: [
-      new URL('../img/stay/1_stay-spain-04.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-spain-04.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-spain-04.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-spain-04.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-spain-04.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-spain-04.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -610,7 +600,7 @@ export const stays: Stay[] = [
       "Küche",
       "Außendusche",
     ],
-    tags: ["Meer", "Luxus", "Pool", "Familie"],
+    tags: ["Meer", "Luxus", "Pool"],
   },
 
   // =========================
@@ -622,7 +612,7 @@ export const stays: Stay[] = [
     type: "Machiya",
     location: "Kyoto",
     country: "Japan",
-    countryImage: new URL('../img/country/japan.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/japan.webp", import.meta.url).href,
     description:
       "Liebevoll restauriertes traditionelles Stadthaus in Kyoto, das japanische Architektur mit modernem Komfort verbindet.",
     pricePerNight: 210,
@@ -631,9 +621,9 @@ export const stays: Stay[] = [
     bedrooms: 2,
     bathrooms: 1,
     images: [
-      new URL('../img/stay/1_stay-japan-01.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-japan-01.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-japan-01.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-japan-01.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-japan-01.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-japan-01.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -646,7 +636,7 @@ export const stays: Stay[] = [
         icon: Bath,
         title: "Japanisches Bad",
         description:
-          "Entspannen Sie in einem traditionellen tiefen Badebecken.",
+          "Entspanne dich in einem traditionellen tiefen Badebecken.",
       },
       {
         icon: Wifi,
@@ -661,7 +651,7 @@ export const stays: Stay[] = [
       "Waschmaschine",
       "Klimaanlage",
     ],
-    tags: ["Traditionell", "Kultur", "Romantisch", "Einzigartig"],
+    tags: ["Traditionell", "Kultur", "Romantisch"],
     featured: true,
   },
   {
@@ -670,7 +660,7 @@ export const stays: Stay[] = [
     type: "Apartment",
     location: "Tokio",
     country: "Japan",
-    countryImage: new URL('../img/country/japan.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/japan.webp", import.meta.url).href,
     description:
       "Modernes Apartment in einem Hochhaus mit beeindruckendem Blick über die Skyline Tokios und zentraler Lage.",
     pricePerNight: 175,
@@ -679,15 +669,15 @@ export const stays: Stay[] = [
     bedrooms: 1,
     bathrooms: 1,
     images: [
-      new URL('../img/stay/1_stay-japan-02.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-japan-02.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-japan-02.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-japan-02.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-japan-02.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-japan-02.webp", import.meta.url).href,
     ],
     amenities: [
       {
         icon: Building,
         title: "Skyline-Blick",
-        description: "Genießen Sie einen spektakulären Blick über Tokio.",
+        description: "Genieße einen spektakulären Blick über Tokio.",
       },
       {
         icon: Wifi,
@@ -707,7 +697,7 @@ export const stays: Stay[] = [
       "Arbeitsplatz",
       "Waschmaschine",
     ],
-    tags: ["Stadt", "Modern", "Business", "Paare"],
+    tags: ["Stadt", "Modern", "Business"],
   },
   {
     id: "stay-japan-03",
@@ -715,7 +705,7 @@ export const stays: Stay[] = [
     type: "Ryokan",
     location: "Hakone",
     country: "Japan",
-    countryImage: new URL('../img/country/japan.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/japan.webp", import.meta.url).href,
     description:
       "Ruhiges traditionelles Ryokan inmitten der Berge mit authentischen Zimmern und entspannendem Thermalbad.",
     pricePerNight: 260,
@@ -724,16 +714,16 @@ export const stays: Stay[] = [
     bedrooms: 2,
     bathrooms: 2,
     images: [
-      new URL('../img/stay/1_stay-japan-03.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-japan-03.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-japan-03.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-japan-03.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-japan-03.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-japan-03.webp", import.meta.url).href,
     ],
     amenities: [
       {
         icon: Bath,
         title: "Thermalbad",
         description:
-          "Entspannen Sie in einem traditionellen japanischen Onsen.",
+          "Entspanne dich in einem traditionellen japanischen Onsen.",
       },
       {
         icon: Mountain,
@@ -743,8 +733,7 @@ export const stays: Stay[] = [
       {
         icon: Coffee,
         title: "Teeraum",
-        description:
-          "Erleben Sie eine traditionelle japanische Tee-Atmosphäre.",
+        description: "Erlebe eine traditionelle japanische Tee-Atmosphäre.",
       },
     ],
     facilities: [
@@ -754,7 +743,7 @@ export const stays: Stay[] = [
       "Teeraum",
       "Kostenloser Parkplatz",
     ],
-    tags: ["Onsen", "Traditionell", "Natur", "Erholung"],
+    tags: ["Onsen", "Traditionell", "Natur"],
     featured: true,
   },
   {
@@ -763,7 +752,7 @@ export const stays: Stay[] = [
     type: "Villa",
     location: "Okinawa",
     country: "Japan",
-    countryImage: new URL('../img/country/japan.jpg', import.meta.url).href,
+    countryImage: new URL("/img/country/japan.webp", import.meta.url).href,
     description:
       "Moderne tropische Villa in Strandnähe – perfekt für eine entspannte Auszeit auf der Insel Okinawa.",
     pricePerNight: 230,
@@ -772,9 +761,9 @@ export const stays: Stay[] = [
     bedrooms: 3,
     bathrooms: 2,
     images: [
-      new URL('../img/stay/1_stay-japan-04.jpg', import.meta.url).href,
-      new URL('../img/stay/2_stay-japan-04.jpg', import.meta.url).href,
-      new URL('../img/stay/3_stay-japan-04.jpg', import.meta.url).href,
+      new URL("/img/stay/1_stay-japan-04.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-japan-04.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-japan-04.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -800,12 +789,21 @@ export const stays: Stay[] = [
       "Kostenloser Parkplatz",
       "Außendusche",
     ],
-    tags: ["Strand", "Insel", "Pool", "Familie"],
+    tags: ["Strand", "Insel", "Pool"],
   },
 ];
 
 export function getStayById(id: string): Stay | undefined {
   return stays.find((stay) => stay.id === id);
+}
+
+export function getRandomStays(): Stay[] {
+  const rdm = Math.floor(Math.random() * stays.length);
+  var rdm2 = rdm;
+  while (rdm2 === rdm) {
+    rdm2 = Math.floor(Math.random() * stays.length);
+  }
+  return [stays[rdm], stays[rdm2]];
 }
 
 export function getStayTypes(): string[] {

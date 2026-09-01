@@ -1,7 +1,7 @@
 import {
   Sparkles
 } from "lucide-react"
-import inspoImg from "@/assets/img/weltentdecker_inspiration.jpg"
+import inspoImg from "/img/weltentdecker_inspiration.webp"
 
 export default function HomeInspiration() {
     return (

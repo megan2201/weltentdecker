@@ -8,6 +8,7 @@ import {
   Lock,
   ShieldCheck,
   Star,
+  X,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -48,11 +49,18 @@ export default function StaysBooking() {
   const [cardNumber, setCardNumber] = useState("4242 4242 4242 4242");
   const [expiry, setExpiry] = useState("10 / 26");
   const [cvc, setCvc] = useState("123");
-
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const [isSneakingModalOpen, setIsSneakingModalOpen] = useState(false);
+  const [includeCityTour, setIncludeCityTour] = useState(true);
+  const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false);
+  const [newsletterChoice, setNewsletterChoice] = useState<
+    "subscribe" | "decline" | null
+  >(null);
 
-  const cityTrip =
-    currentTask.darkPattern === "sneaking-into-basket" ? 80 : 0;
+  const confirmShaming = currentTask.darkPattern === "confirmshaming";
+  const cityTourActivated =
+    currentTask.darkPattern === "sneaking-into-basket" && includeCityTour;
+  const cityTripPrice = cityTourActivated ? 80 : 0;
 
   const nights =
     trip.checkIn && trip.checkOut
@@ -66,7 +74,7 @@ export default function StaysBooking() {
       : 0;
 
   const accommodationPrice = stay.pricePerNight * nights;
-  const total = accommodationPrice + cityTrip * trip.guests;
+  const total = accommodationPrice + cityTripPrice * trip.guests;
 
   function handleGuestSubmit(event: SyntheticEvent) {
     event.preventDefault();
@@ -106,8 +114,10 @@ export default function StaysBooking() {
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     setLoading(false);
-
     setStep(3);
+    if (confirmShaming) {
+      setIsNewsletterModalOpen(true);
+    }
   }
 
   if (!trip.checkIn || !trip.checkOut || nights <= 0) {
@@ -483,10 +493,19 @@ export default function StaysBooking() {
                     <span>{accommodationPrice} €</span>
                   </div>
 
-                  <div className="flex justify-between">
-                    <span>Stadtführung durch {stay.location}</span>
-                    <span>{trip.guests} × {cityTrip} €</span>
-                  </div>
+                  {cityTourActivated && (
+                    <div className="flex justify-between gap-4">
+                      <span
+                        onClick={() => setIsSneakingModalOpen(true)}
+                        className="cursor-pointer hover:underline"
+                      >
+                        Stadtführung durch {stay.location}
+                      </span>
+                      <span className="whitespace-nowrap shrink-0">
+                        {trip.guests} × {cityTripPrice} €
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <Separator className="my-6" />
@@ -495,14 +514,6 @@ export default function StaysBooking() {
                   <span className="font-semibold">Gesamt</span>
 
                   <span className="text-xl font-semibold">{total} €</span>
-                </div>
-
-                <div className="mt-6 flex gap-3 rounded-2xl bg-gray-50 p-4">
-                  <Check className="h-5 w-5 shrink-0 text-emerald-600" />
-
-                  <p className="text-xs leading-5 text-gray-500">
-                    Kostenlose Stornierung bis 7 Tage vor Anreise.
-                  </p>
                 </div>
               </div>
             </aside>
@@ -608,6 +619,143 @@ export default function StaysBooking() {
           </div>
         )}
       </div>
+
+      {/* PopUp / Modal für Newsletter */}
+      {isNewsletterModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="w-full max-w-md rounded-3xl bg-white p-6 shadow-xl animate-in zoom-in-95 duration-200">
+            <div className="flex items-start justify-between">
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900">
+                  Spare bei deiner nächsten Reise
+                </h3>
+
+                <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                  Erhalte exklusive Angebote und Rabatte per E-Mail.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsNewsletterModalOpen(false)}
+                className="rounded-full p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="mt-6 space-y-3">
+              {/* Newsletter abonnieren */}
+              <label
+                className={`flex cursor-pointer items-center gap-3 rounded-2xl border p-4 transition-colors ${
+                  newsletterChoice === "subscribe"
+                    ? "border-emerald-600 bg-emerald-50"
+                    : "border-gray-200 hover:bg-gray-50"
+                }`}
+              >
+                <Checkbox
+                  checked={newsletterChoice === "subscribe"}
+                  onCheckedChange={(checked) => {
+                    setNewsletterChoice(checked === true ? "subscribe" : null);
+                  }}
+                />
+
+                <p className="font-medium text-gray-900">
+                  Ja, Angebote erhalten
+                </p>
+              </label>
+
+              {/* Kein Newsletter */}
+              <label
+                className={`flex cursor-pointer items-center gap-3 rounded-2xl border p-4 transition-colors ${
+                  newsletterChoice === "decline"
+                    ? "border-gray-400 bg-gray-50"
+                    : "border-gray-200 hover:bg-gray-50"
+                }`}
+              >
+                <Checkbox
+                  checked={newsletterChoice === "decline"}
+                  onCheckedChange={(checked) => {
+                    setNewsletterChoice(checked === true ? "decline" : null);
+                  }}
+                />
+
+                <p className="font-medium text-gray-900">
+                  Nein, ich möchte lieber mehr zahlen
+                </p>
+              </label>
+            </div>
+
+            <Button
+              type="button"
+              disabled={newsletterChoice === null}
+              className="mt-6 h-12 w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
+              onClick={() => {
+                if (!newsletterChoice) return;
+
+                if (newsletterChoice === "subscribe") {
+                  // Hier später Newsletter-Anmeldung durchführen
+                  console.log("Newsletter abonnieren");
+                } else {
+                  console.log("Newsletter abgelehnt");
+                }
+
+                setIsNewsletterModalOpen(false);
+              }}
+            >
+              Auswahl speichern
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* PopUp / Modal für die Stadtführung */}
+      {isSneakingModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="w-full max-w-md rounded-3xl bg-white p-6 shadow-xl animate-in zoom-in-95 duration-200">
+            <div className="flex items-start justify-between">
+              <h3 className="text-xl font-semibold text-gray-900">
+                Stadtführung durch {stay.location}
+              </h3>
+
+              <button
+                type="button"
+                onClick={() => setIsSneakingModalOpen(false)}
+                className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <p className="mt-3 text-sm leading-relaxed text-gray-600">
+              Möchtest du die Stadtführung durch {stay.location} von deiner
+              Buchung entfernen?
+            </p>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                className="rounded-xl border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+                onClick={() => {
+                  setIncludeCityTour(false);
+                  setIsSneakingModalOpen(false);
+                }}
+              >
+                Stadtführung abwählen
+              </Button>
+
+              <Button
+                type="button"
+                className="rounded-xl bg-emerald-600 hover:bg-emerald-700"
+                onClick={() => setIsSneakingModalOpen(false)}
+              >
+                Behalten
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

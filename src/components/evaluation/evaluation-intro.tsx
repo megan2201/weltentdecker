@@ -2,12 +2,7 @@ import {
   CheckCircle2,
   Clock3,
   MousePointer2,
-  ShieldCheck,
-  Video,
-  Brain,
-  FileCheck2,
   Info,
-  ChevronDown,
   IdCard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -253,13 +248,6 @@ export default function EvaluationIntro() {
                 Einige Werte und Eingabefelder können bereits vorausgefüllt
                 sein. Lassen Sie sich davon nicht beirren. Dies dient dazu,
                 Ihnen unnötige Eingaben zu ersparen.
-              </ImportantPoint>
-
-              <ImportantPoint>
-                Bitte beachten Sie: Die Reiseplattform ist ein Prototyp. Daher
-                sind einige sichtbare Elemente noch nicht funktionsfähig oder
-                nicht anklickbar. Das ist normal und kein Fehler. Nicht
-                funktionsfähige Elemente sind nicht Bestandteil der Aufgaben.
               </ImportantPoint>
             </div>
           </section>

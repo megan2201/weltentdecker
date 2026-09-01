@@ -1,10 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
   ArrowUpDown,
   CalendarDays,
   Clock3,
-  Heart,
   MapPin,
   Search,
   SlidersHorizontal,
@@ -40,6 +39,7 @@ import {
   getExperienceCategoryCount,
   getExperienceTags,
 } from "@/assets/data/experiences";
+import { useEvaluation } from "../context/evaluation-provider";
 
 type SortOption =
   | "Empfohlen"
@@ -49,7 +49,7 @@ type SortOption =
 
 export default function Experiences() {
   const { trip, setDate, setGuests } = useTrip();
-  const [favorites, setFavorites] = useState<string[]>([]);
+  const { currentTask, changeNagging } = useEvaluation();
   const [search, setSearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [isDateOpen, setIsDateOpen] = useState(false);
@@ -57,6 +57,15 @@ export default function Experiences() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [sort, setSort] = useState<SortOption>("Empfohlen");
+
+  const disguisedAds = currentTask.darkPattern === "disguised-ads";
+
+  useEffect(() => {
+    // Wird einmalig nach dem ersten Rendern ausgeführt
+    if (currentTask.darkPattern === "nagging") {
+      changeNagging(true);
+    }
+  }, []);
 
   const filteredExperiences = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
@@ -152,14 +161,6 @@ export default function Experiences() {
       current.includes(tag)
         ? current.filter((item) => item !== tag)
         : [...current, tag],
-    );
-  }
-
-  function toggleFavorite(id: string) {
-    setFavorites((current) =>
-      current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id],
     );
   }
 
@@ -458,24 +459,17 @@ export default function Experiences() {
                         />
                       </Link>
 
-                      {/* Favorite */}
-                      <button
-                        onClick={() => toggleFavorite(experience.id)}
-                        className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition hover:scale-105"
-                      >
-                        <Heart
-                          className={`h-5 w-5 ${
-                            favorites.includes(experience.id)
-                              ? "fill-red-500 text-red-500"
-                              : "text-gray-700"
-                          }`}
-                        />
-                      </button>
-
                       {/* Featured */}
                       {experience.featured && (
                         <div className="absolute left-3 top-3 rounded-full bg-white px-3 py-1.5 text-xs font-semibold shadow-sm">
                           Beliebt
+                        </div>
+                      )}
+
+                      {/* Sponsored */}
+                      {disguisedAds && experience.sponsored && (
+                        <div className="absolute right-3 bottom-3 rounded-full bg-gray-600 px-3 py-1.5 text-xs text-white shadow-sm">
+                          Gesponsert
                         </div>
                       )}
                     </div>

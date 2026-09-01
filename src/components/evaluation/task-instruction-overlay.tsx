@@ -53,7 +53,7 @@ export default function TaskInstructionOverlay() {
     return (
       <button
         onClick={() => setIsMinimized(false)}
-        className="fixed bottom-6 right-6 z-[90] flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-white shadow-xl transition hover:scale-105 hover:bg-emerald-700"
+        className="fixed bottom-6 right-6 z-90 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-white shadow-xl transition hover:scale-105 hover:bg-emerald-700"
         aria-label="Aufgabe öffnen"
       >
         <Maximize2 className="h-5 w-5" />
@@ -109,7 +109,7 @@ function DraggablePanel({
     <div
       ref={setNodeRef}
       style={style}
-      className="fixed z-[90] w-[340px] overflow-hidden rounded-2xl border bg-white shadow-2xl"
+      className="fixed z-90 w-[340px] overflow-hidden rounded-2xl border bg-white shadow-2xl"
     >
       {/* Drag Handle */}
       <div

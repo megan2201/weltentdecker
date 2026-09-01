@@ -1,17 +1,37 @@
 import { useState } from "react";
 import { Eye, EyeOff, ArrowLeft, Mail, Lock } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import heroImg from "@/assets/img/weltentdecker-hero.jpg"
+import heroImg from "/img/weltentdecker-hero.webp"
+import { useUser } from "@/components/context/user-context";
 
 export default function Login() {
-  const [emailInput, setEmailInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
+  const {user, setEmail, setPassword, setIsLoggedIn} = useUser()
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (user.password.length == 0) {
+      return;
+    }
+    if (user.email.length == 0) {
+      return;
+    }
+
+    setLoading(true);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    setIsLoggedIn(true);
+    setLoading(false);
+    navigate("/");
+  };
 
   return (
     <main className="min-h-screen bg-white">
@@ -93,16 +113,7 @@ export default function Login() {
             {/* Login form */}
             <form
               className="mt-10 space-y-5"
-              onSubmit={async (event) => {
-                setLoading(true);
-                setError(false);
-
-                event.preventDefault();
-                await new Promise((resolve) => setTimeout(resolve, 1500));
-
-                setError(true);
-                setLoading(false);
-              }}
+              onSubmit={handleSubmit}
             >
               {/* Email */}
               <div>
@@ -117,8 +128,8 @@ export default function Login() {
                   <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
 
                   <Input
-                    value={emailInput}
-                    onChange={(e) => setEmailInput(e.target.value)}
+                    value={user.email}
+                    onChange={(e) => setEmail(e.target.value)}
                     id="email"
                     type="email"
                     placeholder="name@example.com"
@@ -143,8 +154,8 @@ export default function Login() {
                   <Lock className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
 
                   <Input
-                    value={passwordInput}
-                    onChange={(e) => setPasswordInput(e.target.value)}
+                    value={user.password}
+                    onChange={(e) => setPassword(e.target.value)}
                     id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Dein Passwort"
@@ -181,7 +192,7 @@ export default function Login() {
               {/* Submit */}
               <Button
                 type="submit"
-                disabled={loading}
+                disabled={loading || user.email.length == 0 || user.password.length == 0}
                 className="h-12 w-full mt-5 rounded-xl bg-emerald-600 text-base font-medium shadow-lg shadow-emerald-600/20 hover:bg-emerald-700"
               >
                 {loading ? "Wird angemeldet..." : "Anmelden"}

@@ -5,7 +5,6 @@ import {
   Bath,
   BedDouble,
   CalendarDays,
-  Heart,
   MapPin,
   Search,
   SlidersHorizontal,
@@ -52,7 +51,6 @@ type SortOption =
 export default function Stays() {
   const { trip, setCheckIn, setCheckOut, setGuests } = useTrip();
   const [searchParams] = useSearchParams();
-  const [favorites, setFavorites] = useState<string[]>([]);
   const [search, setSearch] = useState(searchParams.get("q") || "");
   const [searchInput, setSearchInput] = useState(searchParams.get("q") || "");
   const [isCheckInOpen, setIsCheckInOpen] = useState(false);
@@ -165,14 +163,6 @@ export default function Stays() {
       current.includes(facility)
         ? current.filter((item) => item !== facility)
         : [...current, facility],
-    );
-  }
-
-  function toggleFavorite(id: string) {
-    setFavorites((current) =>
-      current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id],
     );
   }
 
@@ -512,20 +502,6 @@ export default function Stays() {
                         className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
                       />
                     </Link>
-
-                    {/* Favorite */}
-                    <button
-                      onClick={() => toggleFavorite(stay.id)}
-                      className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur transition hover:scale-105"
-                    >
-                      <Heart
-                        className={`h-5 w-5 ${
-                          favorites.includes(stay.id)
-                            ? "fill-red-500 text-red-500"
-                            : "text-gray-700"
-                        }`}
-                      />
-                    </button>
 
                     {/* Badge */}
                     {stay.featured && (

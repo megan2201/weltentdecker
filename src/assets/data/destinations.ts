@@ -35,7 +35,10 @@ export const destinations: Destination[] = [
       "Im Sommer laden zahlreiche Wanderwege, Bergseen und Almen zu aktiven Tagen in den Bergen ein. Im Winter verwandelt sich die Region in ein beliebtes Ziel für Skifahrer, Snowboarder und Winterwanderer.",
       "Neben der beeindruckenden Landschaft überzeugt Garmisch-Partenkirchen mit traditioneller bayerischer Architektur, gemütlichen Gasthäusern und einer entspannten Atmosphäre.",
     ],
-    heroImage: new URL('../img/destination/garmisch-partenkirchen.jpg', import.meta.url).href,
+    heroImage: new URL(
+      "/img/destination/garmisch-partenkirchen.webp",
+      import.meta.url,
+    ).href,
     bestTime: "Mai – Oktober",
     temperature: "15 – 25 °C",
     seaTemperature: "–",
@@ -60,10 +63,6 @@ export const destinations: Destination[] = [
         name: "Mittenwald",
         distance: "25 km",
       },
-      {
-        name: "München",
-        distance: "90 km",
-      },
     ],
   },
 
@@ -80,7 +79,7 @@ export const destinations: Destination[] = [
       "Vom Brandenburger Tor über die Museumsinsel bis zur East Side Gallery gibt es unzählige Orte zu entdecken. Gleichzeitig laden Viertel wie Kreuzberg, Friedrichshain und Prenzlauer Berg zum Bummeln, Essen und Ausgehen ein.",
       "Dank des gut ausgebauten öffentlichen Verkehrsnetzes lässt sich Berlin unkompliziert erkunden. Ob Kultururlaub, Wochenendtrip oder längerer Aufenthalt – die deutsche Hauptstadt bietet für jeden etwas.",
     ],
-    heroImage: new URL('../img/destination/berlin.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/berlin.webp", import.meta.url).href,
     bestTime: "April – Oktober",
     temperature: "15 – 25 °C",
     seaTemperature: "–",
@@ -105,10 +104,6 @@ export const destinations: Destination[] = [
         name: "Spreewald",
         distance: "90 km",
       },
-      {
-        name: "Leipzig",
-        distance: "190 km",
-      },
     ],
   },
 
@@ -125,7 +120,7 @@ export const destinations: Destination[] = [
       "Die Region eignet sich hervorragend für Wanderungen, Fahrradtouren und entspannte Ausflüge in den Schwarzwald. Gleichzeitig bietet die Stadt zahlreiche Cafés, Restaurants und kleine Geschäfte.",
       "Dank des milden Klimas gehört Freiburg zu den wärmsten Städten Deutschlands und ist zu jeder Jahreszeit ein attraktives Reiseziel.",
     ],
-    heroImage: new URL('../img/destination/freiburg.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/freiburg.webp", import.meta.url).href,
     bestTime: "April – Oktober",
     temperature: "16 – 27 °C",
     seaTemperature: "–",
@@ -150,10 +145,6 @@ export const destinations: Destination[] = [
         name: "Straßburg",
         distance: "90 km",
       },
-      {
-        name: "Basel",
-        distance: "75 km",
-      },
     ],
   },
 
@@ -170,7 +161,7 @@ export const destinations: Destination[] = [
       "Neben bekannten Sehenswürdigkeiten wie der Elbphilharmonie und der Speicherstadt warten zahlreiche Restaurants, Bars, Museen und Einkaufsmöglichkeiten darauf, entdeckt zu werden.",
       "Auch die Umgebung Hamburgs lohnt sich für Ausflüge. Die Nordseeküste, Lübeck und das Alte Land sind bequem erreichbar.",
     ],
-    heroImage: new URL('../img/destination/hamburg.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/hamburg.webp", import.meta.url).href,
     bestTime: "Mai – September",
     temperature: "15 – 23 °C",
     seaTemperature: "16 – 19 °C",
@@ -195,10 +186,6 @@ export const destinations: Destination[] = [
         name: "Altes Land",
         distance: "30 km",
       },
-      {
-        name: "Nordseeküste",
-        distance: "100 km",
-      },
     ],
   },
 
@@ -218,7 +205,7 @@ export const destinations: Destination[] = [
       "Florenz, Siena und San Gimignano bieten Kunst, Geschichte und beeindruckende Architektur. Außerhalb der Städte laden kleine Dörfer und Weingüter zum Entdecken und Entspannen ein.",
       "Die Kombination aus Landschaft, Kultur und hervorragender Küche macht die Toskana ideal für einen romantischen Urlaub, eine Reise mit Freunden oder einen entspannten Familienaufenthalt.",
     ],
-    heroImage: new URL('../img/destination/toskana.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/toskana.webp", import.meta.url).href,
     bestTime: "April – Oktober",
     temperature: "18 – 30 °C",
     seaTemperature: "20 – 25 °C",
@@ -240,10 +227,6 @@ export const destinations: Destination[] = [
         distance: "35 km",
       },
       {
-        name: "Pisa",
-        distance: "150 km",
-      },
-      {
         name: "Lucca",
         distance: "140 km",
       },
@@ -263,7 +246,7 @@ export const destinations: Destination[] = [
       "Die engen Gassen laden zum Bummeln ein, während kleine Restaurants und Cafés traditionelle italienische Küche servieren. Rund um Positano befinden sich zahlreiche kleine Buchten und Strände.",
       "Die Amalfiküste lässt sich außerdem hervorragend mit dem Boot oder entlang der berühmten Küstenstraße erkunden.",
     ],
-    heroImage: new URL('../img/destination/positano.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/positano.webp", import.meta.url).href,
     bestTime: "Mai – September",
     temperature: "22 – 31 °C",
     seaTemperature: "22 – 27 °C",
@@ -288,10 +271,6 @@ export const destinations: Destination[] = [
         name: "Sorrent",
         distance: "18 km",
       },
-      {
-        name: "Neapel",
-        distance: "60 km",
-      },
     ],
   },
 
@@ -308,7 +287,7 @@ export const destinations: Destination[] = [
       "Das Kolosseum, das Forum Romanum und der Vatikan gehören zu den bekanntesten Sehenswürdigkeiten. Gleichzeitig bietet Rom unzählige kleine Gassen, traditionelle Restaurants und gemütliche Plätze.",
       "Wer Rom besucht, sollte genügend Zeit einplanen, um die Stadt auch abseits der großen Sehenswürdigkeiten zu entdecken.",
     ],
-    heroImage: new URL('../img/destination/rom.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/rom.webp", import.meta.url).href,
     bestTime: "April – Juni & September – Oktober",
     temperature: "18 – 30 °C",
     seaTemperature: "21 – 26 °C",
@@ -333,10 +312,6 @@ export const destinations: Destination[] = [
         name: "Ostia",
         distance: "30 km",
       },
-      {
-        name: "Neapel",
-        distance: "225 km",
-      },
     ],
   },
 
@@ -353,7 +328,7 @@ export const destinations: Destination[] = [
       "Orte wie Como, Bellagio und Varenna laden zu Spaziergängen und entspannten Tagen am Wasser ein. Mit dem Boot lassen sich die verschiedenen Orte besonders schön erkunden.",
       "Die Region eignet sich sowohl für einen romantischen Urlaub zu zweit als auch für erholsame Tage mit der Familie.",
     ],
-    heroImage: new URL('../img/destination/comer-see.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/comer-see.webp", import.meta.url).href,
     bestTime: "Mai – September",
     temperature: "20 – 29 °C",
     seaTemperature: "–",
@@ -378,10 +353,6 @@ export const destinations: Destination[] = [
         name: "Bergamo",
         distance: "80 km",
       },
-      {
-        name: "St. Moritz",
-        distance: "120 km",
-      },
     ],
   },
 
@@ -401,7 +372,7 @@ export const destinations: Destination[] = [
       "Die Werke Antoni Gaudís, darunter die Sagrada Família und der Park Güell, gehören zu den absoluten Höhepunkten. Gleichzeitig laden die Altstadt und das Gotische Viertel zum Erkunden ein.",
       "Nach einem Tag voller Sightseeing kann man am Strand entspannen oder den Abend in einem der zahlreichen Restaurants und Bars ausklingen lassen.",
     ],
-    heroImage: new URL('../img/destination/barcelona.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/barcelona.webp", import.meta.url).href,
     bestTime: "Mai – Juni & September – Oktober",
     temperature: "21 – 29 °C",
     seaTemperature: "21 – 25 °C",
@@ -423,10 +394,6 @@ export const destinations: Destination[] = [
         distance: "40 km",
       },
       {
-        name: "Girona",
-        distance: "100 km",
-      },
-      {
         name: "Costa Brava",
         distance: "80 km",
       },
@@ -446,7 +413,7 @@ export const destinations: Destination[] = [
       "Die Serra de Tramuntana eignet sich hervorragend zum Wandern und Radfahren, während zahlreiche Buchten und Strände zum Schwimmen und Entspannen einladen.",
       "Palma bietet zusätzlich Kultur, Shopping und ein lebendiges Nachtleben und macht Mallorca damit zu einem vielseitigen Reiseziel für nahezu jede Art von Urlaub.",
     ],
-    heroImage: new URL('../img/destination/mallorca.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/mallorca.webp", import.meta.url).href,
     bestTime: "Mai – Oktober",
     temperature: "22 – 31 °C",
     seaTemperature: "22 – 27 °C",
@@ -471,10 +438,6 @@ export const destinations: Destination[] = [
         name: "Alcúdia",
         distance: "55 km",
       },
-      {
-        name: "Cap de Formentor",
-        distance: "75 km",
-      },
     ],
   },
 
@@ -491,7 +454,7 @@ export const destinations: Destination[] = [
       "Die Kathedrale, der Alcázar und die Plaza de España gehören zu den wichtigsten Sehenswürdigkeiten. In den traditionellen Vierteln lässt sich außerdem die Geschichte des Flamenco hautnah erleben.",
       "Besonders am Abend erwacht Sevilla zum Leben. Kleine Tapas-Bars, Restaurants und Plätze laden dazu ein, die andalusische Küche und Lebensart zu genießen.",
     ],
-    heroImage: new URL('../img/destination/sevilla.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/sevilla.webp", import.meta.url).href,
     bestTime: "März – Mai & Oktober",
     temperature: "20 – 32 °C",
     seaTemperature: "19 – 24 °C",
@@ -516,10 +479,6 @@ export const destinations: Destination[] = [
         name: "Ronda",
         distance: "130 km",
       },
-      {
-        name: "Málaga",
-        distance: "205 km",
-      },
     ],
   },
 
@@ -536,7 +495,8 @@ export const destinations: Destination[] = [
       "Neben beliebten Badeorten gibt es zahlreiche kleinere Küstendörfer, die ihren ursprünglichen Charme bewahrt haben. Wanderwege entlang der Küste bieten immer wieder spektakuläre Ausblicke.",
       "Auch kulturell hat die Region einiges zu bieten. Girona, historische Dörfer und das Erbe Salvador Dalís machen die Costa Brava zu einem abwechslungsreichen Urlaubsziel.",
     ],
-    heroImage: new URL('../img/destination/costa-brava.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/costa-brava.webp", import.meta.url)
+      .href,
     bestTime: "Mai – September",
     temperature: "22 – 30 °C",
     seaTemperature: "21 – 25 °C",
@@ -561,10 +521,6 @@ export const destinations: Destination[] = [
         name: "Figueres",
         distance: "70 km",
       },
-      {
-        name: "Cadaqués",
-        distance: "90 km",
-      },
     ],
   },
 
@@ -584,7 +540,7 @@ export const destinations: Destination[] = [
       "Besonders im Frühling zur Kirschblüte und im Herbst mit seinen farbenprächtigen Wäldern zeigt sich Kyoto von seiner schönsten Seite. Ruhige Gärten und historische Viertel laden dazu ein, die japanische Kultur zu erleben.",
       "Neben den bekannten Sehenswürdigkeiten lohnt es sich, kleinere Gassen und traditionelle Teehäuser zu entdecken und die besondere Ruhe der Stadt auf sich wirken zu lassen.",
     ],
-    heroImage: new URL('../img/destination/kyoto.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/kyoto.webp", import.meta.url).href,
     bestTime: "März – Mai & Oktober – November",
     temperature: "15 – 28 °C",
     seaTemperature: "–",
@@ -609,10 +565,6 @@ export const destinations: Destination[] = [
         name: "Biwasee",
         distance: "70 km",
       },
-      {
-        name: "Himeji",
-        distance: "130 km",
-      },
     ],
   },
 
@@ -629,7 +581,7 @@ export const destinations: Destination[] = [
       "In Stadtteilen wie Shibuya, Shinjuku und Ginza warten Shopping, Restaurants und Unterhaltung. Gleichzeitig bieten Orte wie Asakusa und der Meiji-Schrein einen Einblick in die traditionelle Seite Japans.",
       "Tokio ist außerdem ein idealer Ausgangspunkt für Ausflüge zu den Bergen, Seen und historischen Orten der umliegenden Region.",
     ],
-    heroImage: new URL('../img/destination/tokio.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/tokio.webp", import.meta.url).href,
     bestTime: "März – Mai & Oktober – November",
     temperature: "15 – 28 °C",
     seaTemperature: "18 – 25 °C",
@@ -654,10 +606,6 @@ export const destinations: Destination[] = [
         name: "Hakone",
         distance: "100 km",
       },
-      {
-        name: "Fuji",
-        distance: "115 km",
-      },
     ],
   },
 
@@ -674,7 +622,7 @@ export const destinations: Destination[] = [
       "Die abwechslungsreiche Landschaft bietet Seen, Berge und Wälder. Bei gutem Wetter eröffnet sich außerdem ein beeindruckender Blick auf den Fuji.",
       "Eine Reise nach Hakone eignet sich ideal, um nach einem Aufenthalt in Tokio zur Ruhe zu kommen und die traditionelle japanische Gastfreundschaft zu erleben.",
     ],
-    heroImage: new URL('../img/destination/hakone.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/hakone.webp", import.meta.url).href,
     bestTime: "März – Mai & Oktober – November",
     temperature: "10 – 25 °C",
     seaTemperature: "–",
@@ -696,10 +644,6 @@ export const destinations: Destination[] = [
         distance: "45 km",
       },
       {
-        name: "Kamakura",
-        distance: "70 km",
-      },
-      {
         name: "Yokohama",
         distance: "75 km",
       },
@@ -719,7 +663,7 @@ export const destinations: Destination[] = [
       "Die Region eignet sich hervorragend zum Schwimmen, Schnorcheln und Tauchen. Gleichzeitig besitzt Okinawa eine eigene Kultur, Küche und Geschichte, die sich deutlich vom japanischen Festland unterscheidet.",
       "Wer Ruhe und Natur sucht, findet auf den kleineren Inseln besonders abgeschiedene Strände und eine entspannte Atmosphäre.",
     ],
-    heroImage: new URL('../img/destination/okinawa.jpg', import.meta.url).href,
+    heroImage: new URL("/img/destination/okinawa.webp", import.meta.url).href,
     bestTime: "April – Oktober",
     temperature: "24 – 32 °C",
     seaTemperature: "24 – 29 °C",
@@ -741,13 +685,24 @@ export const destinations: Destination[] = [
         distance: "40 km",
       },
       {
-        name: "Ishigaki",
-        distance: "400 km",
-      },
-      {
         name: "Miyakojima",
         distance: "300 km",
       },
     ],
   },
 ];
+
+export function getDestinationImage(name: string): string {
+  return (
+    destinations.find((destination) => destination.name === name)?.heroImage ?? ""
+  );
+}
+
+export function getDestinationsNearby(name: string): {
+  name: string;
+  distance: string;
+}[] {
+  return (
+    destinations.find((destination) => destination.name === name)?.nearby ?? []
+  );
+}

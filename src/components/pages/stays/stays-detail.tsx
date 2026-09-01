@@ -19,8 +19,12 @@ import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getStayById } from "@/assets/data/stays";
-import Home from "@/components/pages/home";
 import { useTrip } from "@/components/context/trip-context";
+import NotFound from "../not-found";
+import {
+  getDestinationImage,
+  getDestinationsNearby,
+} from "@/assets/data/destinations";
 
 function calculateNights(checkIn?: Date, checkOut?: Date) {
   if (!checkIn || !checkOut) return 0;
@@ -42,8 +46,11 @@ export default function StaysDetail() {
 
   const stay = id ? getStayById(id) : undefined;
   if (!stay) {
-    return <Home />;
+    return <NotFound />;
   }
+
+  const destinationImg = getDestinationImage(stay.location);
+  const destinationsNearby = getDestinationsNearby(stay.location);
 
   const { trip, setCheckIn, setCheckOut, setGuests } = useTrip();
   const [selectedImage, setSelectedImage] = useState(0);
@@ -84,9 +91,11 @@ export default function StaysDetail() {
         <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
             <div className="mb-3 flex items-center gap-2">
-              <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
-                Beliebt
-              </span>
+              {stay.featured && (
+                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                  Beliebt
+                </span>
+              )}
 
               <span className="flex items-center gap-1 text-sm font-medium">
                 <Star className="h-4 w-4 fill-current" />
@@ -106,7 +115,7 @@ export default function StaysDetail() {
 
           <div className="hidden items-center gap-2 md:flex">
             {stay.tags.map((tag) => (
-              <span className="rounded-full bg-gray-100 px-3 py-2 text-sm">
+              <span key={tag} className="rounded-full bg-gray-100 px-3 py-2 text-sm">
                 {tag}
               </span>
             ))}
@@ -258,10 +267,6 @@ export default function StaysDetail() {
                   </div>
                 ))}
               </div>
-
-              <Button variant="outline" className="mt-8 rounded-xl">
-                Alle Ausstattungsmerkmale anzeigen
-              </Button>
             </section>
 
             <Separator className="my-10" />
@@ -277,8 +282,8 @@ export default function StaysDetail() {
 
               <div className="relative mt-6 h-[360px] overflow-hidden rounded-3xl bg-gray-200">
                 <img
-                  src="https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?auto=format&fit=crop&w=1400&q=85"
-                  alt="Amalfiküste"
+                  src={destinationImg}
+                  alt={stay.location}
                   className="h-full w-full object-cover"
                 />
 
@@ -288,28 +293,18 @@ export default function StaysDetail() {
 
                 <div className="absolute bottom-4 left-4 rounded-xl bg-white px-4 py-3 shadow-lg">
                   <p className="text-sm font-semibold">{stay.name}</p>
-
-                  <p className="mt-1 text-xs text-gray-500">
-                    84011 Amalfi, Italien
-                  </p>
                 </div>
               </div>
 
               <div className="mt-6 grid gap-4 text-sm sm:grid-cols-3">
-                <div className="rounded-xl bg-gray-50 p-4">
-                  <p className="font-medium">Amalfi Zentrum</p>
-                  <p className="mt-1 text-gray-500">8 Min. mit dem Auto</p>
-                </div>
-
-                <div className="rounded-xl bg-gray-50 p-4">
-                  <p className="font-medium">Strand</p>
-                  <p className="mt-1 text-gray-500">5 Min. zu Fuß</p>
-                </div>
-
-                <div className="rounded-xl bg-gray-50 p-4">
-                  <p className="font-medium">Flughafen Neapel</p>
-                  <p className="mt-1 text-gray-500">1 Std. 20 Min.</p>
-                </div>
+                {destinationsNearby.map((destinationNearby) => (
+                  <div key={destinationNearby.name} className="rounded-xl bg-gray-50 p-4">
+                    <p className="font-medium">{destinationNearby.name}</p>
+                    <p className="mt-1 text-gray-500">
+                      {destinationNearby.distance}
+                    </p>
+                  </div>
+                ))}
               </div>
             </section>
           </div>
@@ -484,11 +479,6 @@ export default function StaysDetail() {
                   {trip.guests === 1 ? "Gast" : "Gäste"}
                 </p>
               )}
-
-              <div className="mt-5 flex items-center justify-center gap-2 text-xs text-gray-400">
-                <Check className="h-3.5 w-3.5 text-emerald-600" />
-                Kostenlose Stornierung
-              </div>
             </div>
           </aside>
         </div>

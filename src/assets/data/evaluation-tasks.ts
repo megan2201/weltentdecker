@@ -1,5 +1,5 @@
 export type DarkPattern =
-  | "immortal-accounts"
+  | "disguised-ads"
   | "nagging"
   | "sneaking-into-basket"
   | "confirmshaming";
@@ -25,13 +25,20 @@ export const evaluationTasks: EvaluationTask[] = [
     id: "find-hotel",
     title: "Finde eine Unterkunft",
     description: "Wähle eine Unterkunft mit mindestens 4 Sternen.",
-    darkPattern: "immortal-accounts",
+    darkPattern: "disguised-ads",
   },
   {
     id: "prepare-booking",
     title: "Bereite eine Buchung vor",
     description:
       "Gehe bis zur Buchungsübersicht, ohne die Buchung abzuschließen.",
-    darkPattern: "immortal-accounts",
+    darkPattern: "confirmshaming",
+  },
+  {
+    id: "last-task",
+    title: "Bereite eine Buchung vor",
+    description:
+      "Gehe bis zur Buchungsübersicht, ohne die Buchung abzuschließen.",
+    darkPattern: "nagging",
   },
 ];

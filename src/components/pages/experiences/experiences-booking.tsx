@@ -1,4 +1,4 @@
-import { useState, type SyntheticEvent } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   ArrowLeft,
@@ -24,6 +24,7 @@ import { useTrip } from "@/components/context/trip-context";
 import { getExperienceById, type Experience } from "@/assets/data/experiences";
 import { useUser } from "@/components/context/user-context";
 import NotFound from "../not-found";
+import { useEvaluation } from "@/components/context/evaluation-provider";
 
 function formatDate(date?: Date) {
   if (!date) return "—";
@@ -38,8 +39,8 @@ function formatDate(date?: Date) {
 export default function ExperiencesBooking() {
   const navigate = useNavigate();
   const { trip } = useTrip();
-  const { user } = useUser();
-  const { addExperienceBooking } = useUser();
+  const { user, addExperienceBooking } = useUser();
+  const { currentTask, changeNagging } = useEvaluation();
   const { id } = useParams();
 
   const experience = id ? getExperienceById(id) : undefined;
@@ -58,6 +59,13 @@ export default function ExperiencesBooking() {
   const [cvc, setCvc] = useState("123");
   const [acceptTerms, setAcceptTerms] = useState(false);
 
+  useEffect(() => {
+    // Wird einmalig nach dem ersten Rendern ausgeführt
+    if (currentTask.darkPattern === "nagging") {
+      changeNagging(true);
+    }
+  }, []);
+
   /*
    * Für Erlebnisse:
    * Preis = Preis pro Person × Anzahl Teilnehmer
@@ -68,12 +76,7 @@ export default function ExperiencesBooking() {
    * Optional kann später noch eine Servicegebühr
    * aus deiner API kommen.
    */
-  const serviceFee = Math.round(experiencePrice * 0.05);
-
-  const total = experiencePrice + serviceFee;
-
   const validGuests = trip.guests >= 1 && trip.guests <= experience.maxGuests;
-
   const validDate = Boolean(trip.date);
 
   function handleGuestSubmit(event: SyntheticEvent) {
@@ -105,13 +108,17 @@ export default function ExperiencesBooking() {
       experience: experience,
       date: date,
       guests: guests,
-      totalPrice: total,
+      totalPrice: experiencePrice,
     });
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     setLoading(false);
     setStep(3);
+
+    if (currentTask.darkPattern === "nagging") {
+      changeNagging(true);
+    }
   }
 
   /*
@@ -289,25 +296,6 @@ export default function ExperiencesBooking() {
                       />
                     </div>
 
-                    {/* Datenschutz */}
-
-                    <div className="mt-8 rounded-2xl bg-emerald-50 p-4">
-                      <div className="flex gap-3">
-                        <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-600" />
-
-                        <div>
-                          <p className="text-sm font-medium">
-                            Deine Daten sind geschützt
-                          </p>
-
-                          <p className="mt-1 text-xs leading-5 text-gray-500">
-                            Wir verwenden deine Daten ausschließlich zur
-                            Bearbeitung deiner Buchung.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
                     <Button
                       type="submit"
                       className="mt-8 h-13 w-full rounded-xl bg-emerald-600 hover:bg-emerald-700"
@@ -445,7 +433,7 @@ export default function ExperiencesBooking() {
                     >
                       {loading
                         ? "Zahlung wird verarbeitet..."
-                        : `Jetzt ${total} € bezahlen`}
+                        : `Jetzt ${experiencePrice} € bezahlen`}
 
                       {!loading && <Lock className="ml-2 h-4 w-4" />}
                     </Button>
@@ -468,7 +456,7 @@ export default function ExperiencesBooking() {
 
                 <div className="flex gap-4">
                   <img
-                    src={experience.images[0]}
+                    src={experience.image}
                     alt={experience.title}
                     className="h-24 w-24 rounded-2xl object-cover"
                   />
@@ -485,10 +473,6 @@ export default function ExperiencesBooking() {
                       <Star className="h-4 w-4 fill-current" />
 
                       {experience.rating}
-
-                      <span className="text-gray-400">
-                        · {experience.reviews}
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -497,7 +481,7 @@ export default function ExperiencesBooking() {
 
                 {/* Reise */}
 
-                <h3 className="font-semibold">Deine Reise</h3>
+                <h3 className="font-semibold">Dein Erlebnis</h3>
 
                 <div className="mt-5 space-y-4 text-sm">
                   {/* Datum */}
@@ -559,12 +543,6 @@ export default function ExperiencesBooking() {
 
                     <span>{experiencePrice} €</span>
                   </div>
-
-                  <div className="flex justify-between">
-                    <span>Servicegebühr</span>
-
-                    <span>{serviceFee} €</span>
-                  </div>
                 </div>
 
                 <Separator className="my-6" />
@@ -572,17 +550,9 @@ export default function ExperiencesBooking() {
                 <div className="flex justify-between">
                   <span className="font-semibold">Gesamt</span>
 
-                  <span className="text-xl font-semibold">{total} €</span>
-                </div>
-
-                {/* Sicherheit */}
-
-                <div className="mt-6 flex gap-3 rounded-2xl bg-gray-50 p-4">
-                  <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-600" />
-
-                  <p className="text-xs leading-5 text-gray-500">
-                    Sichere Buchung und verschlüsselte Zahlung.
-                  </p>
+                  <span className="text-xl font-semibold">
+                    {experiencePrice} €
+                  </span>
                 </div>
               </div>
             </aside>
@@ -615,7 +585,7 @@ export default function ExperiencesBooking() {
             <div className="mt-10 rounded-3xl border bg-white p-6 text-left shadow-sm">
               <div className="flex gap-4">
                 <img
-                  src={experience.images[0]}
+                  src={experience.image}
                   alt={experience.title}
                   className="h-24 w-24 rounded-2xl object-cover"
                 />
@@ -663,7 +633,9 @@ export default function ExperiencesBooking() {
               <div className="flex items-center justify-between">
                 <span className="font-semibold">Bezahlt</span>
 
-                <span className="text-xl font-semibold">{total} €</span>
+                <span className="text-xl font-semibold">
+                  {experiencePrice} €
+                </span>
               </div>
             </div>
 

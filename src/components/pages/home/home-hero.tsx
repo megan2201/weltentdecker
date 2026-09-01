@@ -13,7 +13,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { useTrip } from "@/components/context/trip-context";
 import { useNavigate } from "react-router-dom";
 import { useEvaluation } from "@/components/context/evaluation-provider";
-import heroImg from "@/assets/img/weltentdecker-hero.jpg"
+import heroImg from "/img/weltentdecker-hero.webp"
 
 export default function HomeHero() {
   const navigate = useNavigate();
@@ -228,12 +228,6 @@ export default function HomeHero() {
                 </Button>
               </div>
             </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/75">
-            <span>✓ Bestpreis-Garantie</span>
-            <span>✓ Kostenlose Stornierung</span>
-            <span>✓ 24/7 Support</span>
           </div>
         </div>
       </section>

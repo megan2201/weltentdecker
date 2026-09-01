@@ -7,7 +7,7 @@ export default function Footer() {
         className="border-t bg-[#fafafa] px-6 py-14 lg:px-8"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-12 md:grid-cols-4">
+          <div className="grid gap-12 md:grid-cols-3">
             <div className="md:col-span-2">
               <Link
                 to="/"
@@ -27,7 +27,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <div>
+            <div className="text-right">
               <h3 className="font-semibold">Entdecken</h3>
 
               <div className="mt-4 space-y-3 text-sm text-gray-500">
@@ -40,28 +40,6 @@ export default function Footer() {
                 <Link to="/experiences" className="block hover:text-gray-900">
                   Erlebnisse
                 </Link>
-                <Link to="/inspirations" className="block hover:text-gray-900">
-                  Reiseinspiration
-                </Link>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-semibold">Über weltentdecker</h3>
-
-              <div className="mt-4 space-y-3 text-sm text-gray-500">
-                <a href="#" className="block hover:text-gray-900">
-                  Über uns
-                </a>
-                <a href="#" className="block hover:text-gray-900">
-                  Kontakt
-                </a>
-                <a href="#" className="block hover:text-gray-900">
-                  Hilfe & FAQ
-                </a>
-                <a href="#" className="block hover:text-gray-900">
-                  Datenschutz
-                </a>
               </div>
             </div>
           </div>

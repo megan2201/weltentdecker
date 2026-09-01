@@ -3,11 +3,8 @@ import {
   Check,
   ChevronRight,
   Clock3,
-  Heart,
   MapPin,
   Navigation,
-  Share2,
-  Sparkles,
   Star,
   Sun,
   Waves,
@@ -30,7 +27,6 @@ import {
   getMinPriceOfStaysAtDestination,
   getStaysAtDestination,
 } from "@/assets/data/stays";
-import { getExperiencesAtDestination } from "@/assets/data/experiences";
 
 export default function DestinationDetail() {
   const navigate = useNavigate();
@@ -96,24 +92,6 @@ export default function DestinationDetail() {
               <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl">
                 {destination.description}
               </p>
-            </div>
-
-            <div className="flex gap-3">
-              <Button
-                size="icon"
-                variant="outline"
-                className="h-12 w-12 rounded-full border-white/30 bg-white/10 text-white backdrop-blur hover:bg-white hover:text-gray-900"
-              >
-                <Heart className="h-5 w-5" />
-              </Button>
-
-              <Button
-                size="icon"
-                variant="outline"
-                className="h-12 w-12 rounded-full border-white/30 bg-white/10 text-white backdrop-blur hover:bg-white hover:text-gray-900"
-              >
-                <Share2 className="h-5 w-5" />
-              </Button>
             </div>
           </div>
         </div>
@@ -372,17 +350,13 @@ export default function DestinationDetail() {
 
           <div className="mt-10 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
             {getStaysAtDestination(destination.name).map((stay) => (
-              <Link to={"/destinations/" + 5} key={stay.name} className="group">
+              <Link to={"/stays/" + stay.id} key={stay.name} className="group">
                 <div className="relative overflow-hidden rounded-3xl">
                   <img
                     src={stay.images[0]}
                     alt={stay.name}
                     className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105"
                   />
-
-                  <button className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/90">
-                    <Heart className="h-5 w-5" />
-                  </button>
                 </div>
 
                 <div className="mt-5">
@@ -400,70 +374,14 @@ export default function DestinationDetail() {
                   </div>
 
                   <div className="mt-4 flex items-baseline gap-1">
-                    <span className="font-semibold">{stay.pricePerNight}</span>
+                    <span className="font-semibold">
+                      {stay.pricePerNight} €
+                    </span>
 
                     <span className="text-sm text-gray-500">/ Nacht</span>
                   </div>
                 </div>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          EXPERIENCES
-      ====================================================== */}
-      <section className="bg-gray-950 py-20 text-white lg:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-400">
-                Erlebnisse
-              </p>
-
-              <h2 className="mt-3 text-4xl font-semibold tracking-tight">
-                Mach mehr aus deiner Reise.
-              </h2>
-            </div>
-
-            <Button
-              variant="ghost"
-              className="text-white hover:bg-white/10 hover:text-white"
-            >
-              Alle Erlebnisse
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {getExperiencesAtDestination(destination.name).map((experience) => (
-              <a
-                href="#"
-                key={experience.title}
-                className="group overflow-hidden rounded-3xl bg-white/5"
-              >
-                <div className="overflow-hidden">
-                  <img
-                    src={experience.images[0]}
-                    alt={experience.title}
-                    className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105"
-                  />
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold">{experience.title}</h3>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <Clock3 className="h-4 w-4" />
-                      {experience.duration}
-                    </div>
-
-                    <span className="font-semibold">{experience.price}</span>
-                  </div>
-                </div>
-              </a>
             ))}
           </div>
         </div>
@@ -560,42 +478,6 @@ export default function DestinationDetail() {
                 {destination.region}, {destination.country}
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =====================================================
-          FINAL CTA
-      ====================================================== */}
-      <section className="px-6 pb-20 lg:px-8 lg:pb-28">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-emerald-600 px-6 py-16 text-center text-white sm:px-12 lg:py-20">
-          <Sparkles className="mx-auto h-8 w-8 text-emerald-200" />
-
-          <h2 className="mx-auto mt-5 max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
-            Bereit für {destination.name}?
-          </h2>
-
-          <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-emerald-50">
-            Finde deine Unterkunft, plane deine Erlebnisse und mach{" "}
-            {destination.name} zu deinem nächsten Lieblingsort.
-          </p>
-
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button
-              size="lg"
-              className="h-13 rounded-xl bg-white px-7 text-gray-900 hover:bg-gray-100"
-            >
-              Unterkünfte ansehen
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-
-            <Button
-              size="lg"
-              variant="outline"
-              className="h-13 rounded-xl border-white/30 bg-transparent px-7 text-white hover:bg-white/10 hover:text-white"
-            >
-              Reise planen
-            </Button>
           </div>
         </div>
       </section>

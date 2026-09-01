@@ -70,16 +70,18 @@ type EvaluationContextType = {
   tasks: EvaluationTask[];
   currentTaskIndex: number;
   currentTask: EvaluationTask;
+  naggingActivated: boolean;
   countdown: number;
   sessionId: string | null;
   sessionToken: string | null;
+  changeNagging: (activate: boolean) => void;
   verifyEvaluationCode: (code: string) => Promise<boolean>;
   startPreQuestionnaire: () => void;
   startPreSam: () => void;
   startEvaluation: () => void;
   startTask: () => Promise<void>;
   completeTask: () => Promise<void>;
-  nextTask: () => void
+  nextTask: () => void;
   submitAnswer: (
     questionId: string,
     answer: string,
@@ -104,9 +106,14 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
   const [sessionToken, setSessionToken] = useState<string | null>(
     initialState.sessionToken,
   );
+  const [naggingActivated, setNaggingActivated] = useState(false);
 
   const currentTask = evaluationTasks[currentTaskIndex];
   const supabase = createClient();
+
+  const changeNagging = (activate: boolean) => {
+    setNaggingActivated(activate)
+  };
 
   /*
    * Evaluation-Code überprüfen
@@ -150,14 +157,14 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
     }
   };
 
-   /*
+  /*
    * Pre Questionnaire starten
    */
   const startPreQuestionnaire = () => {
     setPhase("pre-questionnaire");
   };
 
-    /*
+  /*
    * Pre Questionnaire starten
    */
   const startPreSam = () => {
@@ -207,12 +214,6 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
        * wechseln wir in die Task-Phase.
        */
       setPhase("task");
-
-      console.log("Task gestartet:", {
-        taskId: currentTask.id,
-        startedAt: data.startedAt,
-        taskSessionId: data.taskSessionId,
-      });
     } catch (error) {
       console.error("Task konnte nicht gestartet werden:", error);
     }
@@ -248,13 +249,6 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
 
         return;
       }
-
-      console.log("Task abgeschlossen:", {
-        taskId: data.taskId,
-        startedAt: data.startedAt,
-        completedAt: data.completedAt,
-        durationSeconds: data.durationSeconds,
-      });
 
       /*
        * Erst nachdem der Server den
@@ -321,7 +315,7 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
     const isLastTask = currentTaskIndex >= evaluationTasks.length - 1;
 
     if (isLastTask) {
-      setPhase("debriefing")
+      setPhase("debriefing");
       return;
     }
 
@@ -368,8 +362,6 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
         return false;
       }
 
-      console.log("Antwort gespeichert:", data.answer);
-
       return true;
     } catch (error) {
       console.error("Antwort konnte nicht gespeichert werden:", error);
@@ -404,8 +396,6 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
         return false;
       }
 
-      console.log("Evaluation abgeschlossen:", data.session);
-
       /*
        * Erst nach erfolgreicher
        * Serverbestätigung die
@@ -429,6 +419,7 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
         tasks: evaluationTasks,
         currentTaskIndex,
         currentTask,
+        naggingActivated: naggingActivated,
         countdown,
         sessionId,
         sessionToken,
@@ -437,6 +428,7 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
         startPreSam: startPreSam,
         startEvaluation,
         startTask,
+        changeNagging,
         completeTask,
         nextTask,
         submitAnswer,

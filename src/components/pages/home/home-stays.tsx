@@ -1,6 +1,6 @@
 import { stays } from "@/assets/data/stays";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Heart, MapPin, Star } from "lucide-react";
+import { ArrowRight, MapPin, Star } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function HomeStays() {
@@ -41,10 +41,6 @@ export default function HomeStays() {
                 alt={stay.name}
                 className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
               />
-
-              <button className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-sm backdrop-blur">
-                <Heart className="h-5 w-5" />
-              </button>
             </div>
 
             <div className="mt-5">

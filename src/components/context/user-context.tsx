@@ -46,15 +46,14 @@ type UserContextType = {
   addStayBooking: (value: stayBooking) => void;
   addExperienceBooking: (value: ExperienceBooking) => void;
   updateUser: (values: Partial<User>) => void;
-  logout: () => void;
 };
 
 const defaultUser: User = {
-  isLoggedIn: false,
+  isLoggedIn: true,
   firstName: "Lars",
   lastName: "Weber",
   email: "lars.weber@example.de",
-  password: "",
+  password: "password-example",
   stayBookings: [],
   experienceBookings: [],
 };
@@ -69,11 +68,11 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
       const parsed: User = JSON.parse(saved);
       return {
-        isLoggedIn: parsed.isLoggedIn ?? false,
-        firstName: parsed.firstName ?? "",
-        lastName: parsed.lastName ?? "",
-        email: parsed.email ?? "",
-        password: parsed.password ?? "",
+        isLoggedIn: parsed.isLoggedIn ?? true,
+        firstName: parsed.firstName ?? "Lars",
+        lastName: parsed.lastName ?? "Weber",
+        email: parsed.email ?? "lars.weber@example.de",
+        password: parsed.password ?? "password-example",
         stayBookings: Array.isArray(parsed.stayBookings)
           ? parsed.stayBookings.map((b: any) => ({
               ...b,
@@ -96,7 +95,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (isEvaluationFinished()) {
-      logout()
+      localStorage.removeItem("weltentdecker-user");
       return;
     }
     
@@ -144,11 +143,6 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }));
   }
 
-  function logout() {
-    setUser(defaultUser);
-    localStorage.removeItem("weltentdecker-user");
-  }
-
   return (
     <UserContext.Provider
       value={{
@@ -161,7 +155,6 @@ export function UserProvider({ children }: { children: ReactNode }) {
         addStayBooking,
         addExperienceBooking,
         updateUser,
-        logout,
       }}
     >
       {children}
