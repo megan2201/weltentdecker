@@ -32,6 +32,7 @@ export type EvaluationPhase =
 type SavedEvaluationState = {
   phase: EvaluationPhase;
   currentTaskIndex: number;
+  taskOrder: string[];
   countdown: number;
   sessionId: string | null;
   sessionToken: string | null;
@@ -47,6 +48,7 @@ function getInitialEvaluationState(): SavedEvaluationState {
       return {
         phase: parsed.phase ?? "access",
         currentTaskIndex: parsed.currentTaskIndex ?? 0,
+        taskOrder: parsed.taskOrder ?? createTaskOrder(),
         countdown: parsed.countdown ?? 3,
         sessionId: parsed.sessionId ?? null,
         sessionToken: parsed.sessionToken ?? null,
@@ -59,6 +61,7 @@ function getInitialEvaluationState(): SavedEvaluationState {
   return {
     phase: "access",
     currentTaskIndex: 0,
+    taskOrder: createTaskOrder(),
     countdown: 3,
     sessionId: null,
     sessionToken: null,
@@ -99,6 +102,7 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(
     initialState.currentTaskIndex,
   );
+  const [taskOrder] = useState<string[]>(initialState.taskOrder);
   const [countdown, setCountdown] = useState(initialState.countdown);
   const [sessionId, setSessionId] = useState<string | null>(
     initialState.sessionId,
@@ -108,11 +112,17 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
   );
   const [naggingActivated, setNaggingActivated] = useState(false);
 
-  const currentTask = evaluationTasks[currentTaskIndex];
+  const currentTask = evaluationTasks.find(
+    (task) => task.id === taskOrder[currentTaskIndex],
+  );
+  if (!currentTask) {
+    throw new Error("Aktuelle Aufgabe konnte nicht gefunden werden.");
+  }
+
   const supabase = createClient();
 
   const changeNagging = (activate: boolean) => {
-    setNaggingActivated(activate)
+    setNaggingActivated(activate);
   };
 
   /*
@@ -300,13 +310,14 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
     const state: SavedEvaluationState = {
       phase,
       currentTaskIndex,
+      taskOrder,
       countdown,
       sessionId,
       sessionToken,
     };
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [phase, currentTaskIndex, countdown, sessionId, sessionToken]);
+  }, [phase, currentTaskIndex, taskOrder, countdown, sessionId, sessionToken]);
 
   /*
    * Nächste Aufgabe
@@ -403,6 +414,7 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
        */
       setPhase("finished");
       localStorage.clear();
+      sessionStorage.clear();
       markEvaluationFinished();
 
       return true;
@@ -448,4 +460,20 @@ export function useEvaluation() {
   }
 
   return context;
+}
+
+function createTaskOrder(): string[] {
+  return shuffleTasks(evaluationTasks).map((task) => task.id);
+}
+
+function shuffleTasks(tasks: EvaluationTask[]): EvaluationTask[] {
+  const shuffled = [...tasks];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
 }

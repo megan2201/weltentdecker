@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { getExperienceById } from "@/assets/data/experiences";
@@ -29,7 +29,7 @@ import { useEvaluation } from "@/components/context/evaluation-provider";
 export default function ExperiencesDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { currentTask } = useEvaluation();
+  const { currentTask, completeTask } = useEvaluation();
   const experience = id ? getExperienceById(id) : undefined;
   const { trip, setDate, setGuests } = useTrip();
   const [isDateOpen, setIsDateOpen] = useState(false);
@@ -57,6 +57,12 @@ export default function ExperiencesDetail() {
   }
 
   const disguisedAds = currentTask.darkPattern === "disguised-ads";
+
+  useEffect(() => {
+    if (disguisedAds && experience.location === "Freiburg") {
+      completeTask()
+    }
+  }, []);
 
   const canBook =
     trip.guests > 0 && trip.guests <= experience.maxGuests && trip.date;
@@ -92,12 +98,6 @@ export default function ExperiencesDetail() {
         <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
             <div className="mb-3 flex flex-wrap items-center gap-2">
-              {disguisedAds && experience.sponsored && (
-                <span className="rounded-full bg-gray-500 text-white px-3 py-1 text-xs">
-                  Gesponsert
-                </span>
-              )}
-              
               {experience.featured && (
                 <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
                   Beliebt
@@ -114,6 +114,11 @@ export default function ExperiencesDetail() {
                 <Star className="h-4 w-4 fill-current" />
                 {experience.rating}
               </span>
+
+              {/* Sponsored */}
+              {disguisedAds && experience.sponsored && (
+                <div className="text-gray-500 text-xs italic">· Gesponsert</div>
+              )}
             </div>
 
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">

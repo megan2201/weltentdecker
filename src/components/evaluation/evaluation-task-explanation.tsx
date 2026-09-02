@@ -1,21 +1,28 @@
-import { ArrowRight, Target } from "lucide-react";
+import { ArrowRight, Target, Music2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEvaluation } from "../context/evaluation-provider";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function EvaluationTaskExplanation() {
+  const navigate = useNavigate()
   const { currentTask, currentTaskIndex, tasks, startTask } = useEvaluation();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Ab Aufgabe 3 soll Musik gehört werden
+  const shouldListenToMusic = currentTaskIndex >= 2;
 
   // Verhindert das Scrollen der Hauptseite im Hintergrund
   useEffect(() => {
     document.body.style.overflow = "hidden";
+
     return () => {
       document.body.style.overflow = "unset";
     };
   }, []);
 
   const handleSubmit = async () => {
+    navigate("/")
     setIsSubmitting(true);
     await startTask();
     setIsSubmitting(false);
@@ -39,7 +46,7 @@ export default function EvaluationTaskExplanation() {
             {currentTask.title}
           </h1>
 
-          {/* Aufgabe */}
+          {/* Szenario */}
           {currentTask.scenario && (
             <div className="mx-auto mt-6 max-w-xl rounded-2xl border border-emerald-100 bg-emerald-50 p-5 text-left">
               <p className="text-xs font-semibold uppercase tracking-wider text-emerald-700">
@@ -52,15 +59,37 @@ export default function EvaluationTaskExplanation() {
             </div>
           )}
 
+          {/* Aufgabe */}
           <div className="mx-auto mt-4 max-w-xl rounded-2xl bg-gray-50 p-6 text-left">
             <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
-              Deine Aufgabe
+              Ihre Aufgabe
             </p>
 
             <p className="mt-3 text-lg leading-8 text-gray-700">
               {currentTask.description}
             </p>
           </div>
+
+          {/* Musikhinweis ab Aufgabe 3 */}
+          {shouldListenToMusic && (
+            <div className="mx-auto mt-4 flex max-w-xl items-start gap-4 rounded-2xl border border-violet-100 bg-violet-50 p-5 text-left">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-100">
+                <Music2 className="h-5 w-5 text-violet-600" />
+              </div>
+
+              <div>
+                <p className="text-m font-semibold text-violet-900">
+                  Bitte hören Sie während der Aufgabe Musik
+                </p>
+
+                <p className="mt-1 text-m leading-6 text-violet-800">
+                  Wählen Sie Ihre Lieblingsmusik oder Musik, die Sie gerne
+                  hören, und lassen Sie sie während der Bearbeitung dieser
+                  Aufgabe laufen.
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Start */}
           <Button

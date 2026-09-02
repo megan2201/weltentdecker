@@ -33,7 +33,7 @@ export default function StaysBooking() {
   const navigate = useNavigate();
   const { trip } = useTrip();
   const { user } = useUser();
-  const { currentTask } = useEvaluation();
+  const { currentTask, completeTask } = useEvaluation();
   const { addStayBooking } = useUser();
   const { id } = useParams();
   const stay = id ? getStayById(id) : undefined;
@@ -115,8 +115,11 @@ export default function StaysBooking() {
 
     setLoading(false);
     setStep(3);
-    if (confirmShaming) {
+    if (confirmShaming && stay.location === "Berlin") {
       setIsNewsletterModalOpen(true);
+    }
+    if (currentTask.darkPattern === "sneaking-into-basket" && stay.location === "Hamburg") {
+      completeTask()
     }
   }
 
@@ -692,15 +695,8 @@ export default function StaysBooking() {
               className="mt-6 h-12 w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
               onClick={() => {
                 if (!newsletterChoice) return;
-
-                if (newsletterChoice === "subscribe") {
-                  // Hier später Newsletter-Anmeldung durchführen
-                  console.log("Newsletter abonnieren");
-                } else {
-                  console.log("Newsletter abgelehnt");
-                }
-
                 setIsNewsletterModalOpen(false);
+                completeTask()
               }}
             >
               Auswahl speichern

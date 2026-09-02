@@ -117,6 +117,7 @@ export default function ExperiencesBooking() {
 
     if (currentTask.darkPattern === "nagging") {
       changeNagging(true);
+      sessionStorage.setItem("last-nagging", "true")
     }
   }
 

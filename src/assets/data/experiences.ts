@@ -42,7 +42,10 @@ export const experiences: Experience[] = [
     durationMinutes: 360,
     rating: 4.9,
     maxGuests: 8,
-    image: new URL('/img/experience/experience-germany-01.webp', import.meta.url).href,
+    image: new URL(
+      "/img/experience/experience-germany-01.webp",
+      import.meta.url,
+    ).href,
     included: [
       "Erfahrener Bergführer",
       "Geführte Wanderung",
@@ -54,7 +57,6 @@ export const experiences: Experience[] = [
     languages: ["Deutsch", "Englisch"],
     tags: ["Berge", "Wandern", "Natur", "Abenteuer"],
     featured: true,
-    sponsored: true,
     instantBooking: true,
   },
 
@@ -73,19 +75,131 @@ export const experiences: Experience[] = [
     durationMinutes: 150,
     rating: 4.8,
     maxGuests: 12,
-    image: new URL('/img/experience/experience-germany-02.webp', import.meta.url).href,
+    image: new URL(
+      "/img/experience/experience-germany-02.webp",
+      import.meta.url,
+    ).href,
     included: ["Lokaler Guide", "Geführter Rundgang", "Kleine Überraschung"],
     notIncluded: ["Getränke", "Persönliche Ausgaben"],
     meetingPoint: "U-Bahnhof Kottbusser Tor",
     languages: ["Deutsch", "Englisch"],
     tags: ["Street-Art", "Kultur", "Stadt", "Kunst"],
     featured: true,
-    sponsored: true,
     instantBooking: true,
   },
 
   {
     id: "experience-germany-03",
+    title: "Berliner Geschichte & Sehenswürdigkeiten",
+    type: "Stadtführung",
+    category: "Kultur & Geschichte",
+    location: "Berlin",
+    country: "Deutschland",
+    description:
+      "Begib dich auf eine spannende Reise durch die Geschichte Berlins und entdecke berühmte Orte wie das Brandenburger Tor, den Reichstag und die Berliner Mauer.",
+    price: 39,
+    currency: "EUR",
+    duration: "3 Stunden",
+    durationMinutes: 180,
+    rating: 4.9,
+    maxGuests: 15,
+    image: new URL(
+      "/img/experience/experience-germany-03.webp",
+      import.meta.url,
+    ).href,
+    included: [
+      "Lokaler Guide",
+      "Geführter Stadtrundgang",
+      "Historische Hintergrundinformationen",
+      "Kleine Pause",
+    ],
+    notIncluded: [
+      "ÖPNV-Tickets",
+      "Eintritt zu Sehenswürdigkeiten",
+      "Persönliche Ausgaben",
+    ],
+    meetingPoint: "Brandenburger Tor",
+    languages: ["Deutsch", "Englisch"],
+    tags: [
+      "Berlin",
+      "Geschichte",
+      "Brandenburger Tor",
+      "Kultur",
+      "Sightseeing",
+    ],
+    featured: true,
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-germany-04",
+    title: "Berliner Food-Tour durch Kreuzberg",
+    type: "Food-Tour",
+    category: "Essen & Kultur",
+    location: "Berlin",
+    country: "Deutschland",
+    description:
+      "Entdecke die kulinarische Vielfalt Kreuzbergs und probiere internationale Spezialitäten, Berliner Klassiker und lokale Geheimtipps.",
+    price: 65,
+    currency: "EUR",
+    duration: "3 Stunden",
+    durationMinutes: 180,
+    rating: 4.8,
+    maxGuests: 10,
+    image: new URL(
+      "/img/experience/experience-germany-04.webp",
+      import.meta.url,
+    ).href,
+    included: [
+      "Lokaler Food-Guide",
+      "Mehrere Verkostungen",
+      "Berliner Spezialität",
+      "Internationale Snacks",
+      "Getränk",
+    ],
+    notIncluded: ["Weitere Getränke", "Persönliche Ausgaben"],
+    meetingPoint: "Kottbusser Tor",
+    languages: ["Deutsch", "Englisch"],
+    tags: ["Berlin", "Food", "Kreuzberg", "Street Food", "Kulinarik"],
+    featured: true,
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-germany-5",
+    title: "Spree-Bootstour durch Berlin",
+    type: "Bootstour",
+    category: "Sightseeing & Erholung",
+    location: "Berlin",
+    country: "Deutschland",
+    description:
+      "Erlebe Berlin vom Wasser aus und gleite entspannt über die Spree vorbei an historischen Gebäuden, modernen Wahrzeichen und berühmten Sehenswürdigkeiten.",
+    price: 45,
+    currency: "EUR",
+    duration: "2 Stunden",
+    durationMinutes: 120,
+    rating: 4.8,
+    maxGuests: 20,
+    image: new URL(
+      "/img/experience/experience-germany-05.webp",
+      import.meta.url,
+    ).href,
+    included: [
+      "Bootsfahrt auf der Spree",
+      "Audiokommentar",
+      "Sitzplatz an Bord",
+      "Getränk",
+    ],
+    notIncluded: ["Weitere Getränke", "Snacks", "Persönliche Ausgaben"],
+    meetingPoint: "Anleger Friedrichstraße",
+    languages: ["Deutsch", "Englisch"],
+    tags: ["Berlin", "Spree", "Boot", "Sightseeing", "Stadt"],
+    featured: true,
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-germany-06",
     title: "Schwarzwald-Wanderung mit regionaler Verkostung",
     type: "Naturerlebnis",
     category: "Natur & Genuss",
@@ -99,7 +213,10 @@ export const experiences: Experience[] = [
     durationMinutes: 240,
     rating: 4.8,
     maxGuests: 10,
-    image: new URL('/img/experience/experience-germany-03.webp', import.meta.url).href,
+    image: new URL(
+      "/img/experience/experience-germany-06.webp",
+      import.meta.url,
+    ).href,
     included: [
       "Lokaler Guide",
       "Geführte Wanderung",
@@ -114,7 +231,100 @@ export const experiences: Experience[] = [
   },
 
   {
-    id: "experience-germany-04",
+    id: "experience-germany-07",
+    title: "Historische Altstadt-Tour durch Freiburg",
+    type: "Stadtführung",
+    category: "Kultur & Geschichte",
+    location: "Freiburg",
+    country: "Deutschland",
+    description:
+      "Entdecke die historische Freiburger Altstadt mit ihren verwinkelten Gassen, den berühmten Bächle und beeindruckenden Sehenswürdigkeiten.",
+    price: 32,
+    currency: "EUR",
+    duration: "2 Stunden",
+    durationMinutes: 120,
+    rating: 4.8,
+    maxGuests: 12,
+    image: new URL('/img/experience/experience-germany-07.webp', import.meta.url).href,
+    included: [
+      "Lokaler Guide",
+      "Geführter Rundgang",
+      "Historische Geschichten",
+      "Kleine regionale Überraschung",
+    ],
+    notIncluded: ["Getränke", "Eintritt zu Sehenswürdigkeiten", "Persönliche Ausgaben"],
+    meetingPoint: "Rathausplatz Freiburg",
+    languages: ["Deutsch", "Englisch"],
+    tags: ["Freiburg", "Altstadt", "Geschichte", "Kultur"],
+    sponsored: true,
+    featured: true,
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-germany-08",
+    title: "Freiburger Weinwanderung mit Verkostung",
+    type: "Weinwanderung",
+    category: "Natur & Genuss",
+    location: "Freiburg",
+    country: "Deutschland",
+    description:
+      "Wandere durch die Weinberge rund um Freiburg und genieße eine Auswahl regionaler Weine mit spannenden Einblicken in den badischen Weinbau.",
+    price: 69,
+    currency: "EUR",
+    duration: "3 Stunden",
+    durationMinutes: 180,
+    rating: 4.9,
+    maxGuests: 10,
+    image: new URL('/img/experience/experience-germany-08.webp', import.meta.url).href,
+    included: [
+      "Lokaler Guide",
+      "Geführte Weinwanderung",
+      "Weinverkostung",
+      "Regionale Snacks",
+      "Wasser",
+    ],
+    notIncluded: ["An- und Abreise", "Zusätzliche Getränke", "Persönliche Ausgaben"],
+    meetingPoint: "Freiburg-Wiehre",
+    languages: ["Deutsch", "Englisch"],
+    tags: ["Wein", "Weinberge", "Genuss", "Natur", "Freiburg"],
+    sponsored: true,
+    featured: true,
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-germany-09",
+    title: "Schauinsland-Abenteuer mit Panorama",
+    type: "Naturerlebnis",
+    category: "Natur & Abenteuer",
+    location: "Freiburg",
+    country: "Deutschland",
+    description:
+      "Erkunde die Höhen des Schauinslands bei einer geführten Wanderung mit spektakulären Ausblicken über den Schwarzwald und die Rheinebene.",
+    price: 64,
+    currency: "EUR",
+    duration: "4,5 Stunden",
+    durationMinutes: 270,
+    rating: 4.8,
+    maxGuests: 8,
+    image: new URL('/img/experience/experience-germany-09.webp', import.meta.url).href,
+    included: [
+      "Erfahrener Wanderführer",
+      "Geführte Wanderung",
+      "Panoramastopps",
+      "Kleine Erfrischung",
+    ],
+    notIncluded: ["Seilbahnticket", "An- und Abreise", "Mittagessen"],
+    meetingPoint: "Talstation Schauinslandbahn",
+    languages: ["Deutsch", "Englisch"],
+    tags: ["Schwarzwald", "Wandern", "Schauinsland", "Panorama", "Natur"],
+    featured: true,
+    instantBooking: true,
+  },
+
+  {
+    id: "experience-germany-10",
     title: "Hamburger Hafen bei Sonnenuntergang",
     type: "Hafenrundfahrt",
     category: "Sightseeing",
@@ -128,7 +338,10 @@ export const experiences: Experience[] = [
     durationMinutes: 120,
     rating: 4.7,
     maxGuests: 20,
-    image: new URL('/img/experience/experience-germany-04.webp', import.meta.url).href,
+    image: new URL(
+      "/img/experience/experience-germany-10.webp",
+      import.meta.url,
+    ).href,
     included: ["Hafenrundfahrt", "Audiokommentar", "Getränk an Bord"],
     notIncluded: ["Weitere Getränke", "Persönliche Ausgaben"],
     meetingPoint: "Landungsbrücken, Brücke 3",
@@ -156,7 +369,8 @@ export const experiences: Experience[] = [
     durationMinutes: 180,
     rating: 4.9,
     maxGuests: 12,
-    image: new URL('/img/experience/experience-italy-01.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-italy-01.webp", import.meta.url)
+      .href,
     included: [
       "Führung durch das Weingut",
       "Weinverkostung",
@@ -186,7 +400,8 @@ export const experiences: Experience[] = [
     durationMinutes: 240,
     rating: 4.9,
     maxGuests: 8,
-    image: new URL('/img/experience/experience-italy-02.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-italy-02.webp", import.meta.url)
+      .href,
     included: [
       "Bootsfahrt",
       "Skipper",
@@ -217,7 +432,8 @@ export const experiences: Experience[] = [
     durationMinutes: 210,
     rating: 4.8,
     maxGuests: 10,
-    image: new URL('/img/experience/experience-italy-03.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-italy-03.webp", import.meta.url)
+      .href,
     included: [
       "Lokaler Guide",
       "Mehrere Verkostungen",
@@ -247,7 +463,8 @@ export const experiences: Experience[] = [
     durationMinutes: 180,
     rating: 4.8,
     maxGuests: 6,
-    image: new URL('/img/experience/experience-italy-04.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-italy-04.webp", import.meta.url)
+      .href,
     included: [
       "Private Bootsfahrt",
       "Erfahrener Skipper",
@@ -280,7 +497,8 @@ export const experiences: Experience[] = [
     durationMinutes: 180,
     rating: 4.8,
     maxGuests: 10,
-    image: new URL('/img/experience/experience-spain-01.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-spain-01.webp", import.meta.url)
+      .href,
     included: [
       "Lokaler Guide",
       "Mehrere Tapas",
@@ -310,7 +528,8 @@ export const experiences: Experience[] = [
     durationMinutes: 300,
     rating: 4.9,
     maxGuests: 8,
-    image: new URL('/img/experience/experience-spain-02.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-spain-02.webp", import.meta.url)
+      .href,
     included: [
       "Segeltörn",
       "Skipper",
@@ -341,7 +560,8 @@ export const experiences: Experience[] = [
     durationMinutes: 150,
     rating: 4.9,
     maxGuests: 20,
-    image: new URL('/img/experience/experience-spain-03.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-spain-03.webp", import.meta.url)
+      .href,
     included: [
       "Flamenco-Aufführung",
       "Sitzplatzreservierung",
@@ -370,7 +590,8 @@ export const experiences: Experience[] = [
     durationMinutes: 180,
     rating: 4.8,
     maxGuests: 12,
-    image: new URL('/img/experience/experience-spain-04.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-spain-04.webp", import.meta.url)
+      .href,
     included: ["Kajak", "Paddel", "Schwimmweste", "Erfahrener Guide", "Wasser"],
     notIncluded: ["Hoteltransfer", "Mittagessen", "Wasserschuhe"],
     meetingPoint: "Strand von Tossa de Mar",
@@ -398,7 +619,8 @@ export const experiences: Experience[] = [
     durationMinutes: 90,
     rating: 4.9,
     maxGuests: 8,
-    image: new URL('/img/experience/experience-japan-01.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-japan-01.webp", import.meta.url)
+      .href,
     included: [
       "Traditionelle Teezeremonie",
       "Matcha-Tee",
@@ -428,7 +650,8 @@ export const experiences: Experience[] = [
     durationMinutes: 180,
     rating: 4.8,
     maxGuests: 10,
-    image: new URL('/img/experience/experience-japan-02.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-japan-02.webp", import.meta.url)
+      .href,
     included: [
       "Lokaler Guide",
       "Street-Food-Verkostung",
@@ -458,7 +681,8 @@ export const experiences: Experience[] = [
     durationMinutes: 300,
     rating: 4.9,
     maxGuests: 8,
-    image: new URL('/img/experience/experience-japan-03.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-japan-03.webp", import.meta.url)
+      .href,
     included: [
       "Eintritt ins Onsen",
       "Lokaler Guide",
@@ -488,7 +712,8 @@ export const experiences: Experience[] = [
     durationMinutes: 180,
     rating: 4.9,
     maxGuests: 10,
-    image: new URL('/img/experience/experience-japan-04.webp', import.meta.url).href,
+    image: new URL("/img/experience/experience-japan-04.webp", import.meta.url)
+      .href,
     included: [
       "Schnorchelausrüstung",
       "Schwimmweste",

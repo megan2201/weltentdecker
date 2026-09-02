@@ -231,16 +231,17 @@ export default function EvaluationIntro() {
               <ImportantPoint>
                 Bitte führen Sie die Evaluation an einem ruhigen und ungestörten
                 Ort durch. Bei zwei Aufgaben werden Sie gebeten, Ihre
-                Lieblingsmusik abzuspielen.
+                Lieblingsmusik oder Musik, die Sie gerne hören, abzuspielen.
               </ImportantPoint>
 
               <ImportantPoint>
-                Bitte geben Sie keine privaten oder sensiblen Daten ein,
-                insbesondere keine echten Passwörter.
+                Bitte geben Sie keine privaten oder sensiblen Daten ein.
               </ImportantPoint>
 
               <ImportantPoint>
-                Die Aufgabenbeschreibung kann während der Aufgabe auf- und zugeklappt sowie
+                Sie müssen sich die Aufgabenstellung nicht merken oder
+                aufschreiben. Die Aufgabenstellung ist während der
+                Aufgabenbearbeitung sichtbar und kann auf- und zugeklappt sowie
                 verschoben werden.
               </ImportantPoint>
 

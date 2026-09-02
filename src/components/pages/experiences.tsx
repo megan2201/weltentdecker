@@ -465,13 +465,6 @@ export default function Experiences() {
                           Beliebt
                         </div>
                       )}
-
-                      {/* Sponsored */}
-                      {disguisedAds && experience.sponsored && (
-                        <div className="absolute right-3 bottom-3 rounded-full bg-gray-600 px-3 py-1.5 text-xs text-white shadow-sm">
-                          Gesponsert
-                        </div>
-                      )}
                     </div>
 
                     {/* Content */}
@@ -484,10 +477,19 @@ export default function Experiences() {
                             </h3>
                           </Link>
 
-                          <p className="mt-1 flex items-center gap-1 text-sm text-gray-500">
-                            <MapPin className="h-3.5 w-3.5" />
-                            {experience.location}
-                          </p>
+                          <div className="flex items-center gap-2 mt-1 text-gray-500">
+                            <p className="mt-1 flex items-center gap-1 text-sm">
+                              <MapPin className="h-3.5 w-3.5" />
+                              {experience.location}
+                            </p>
+
+                            {/* Sponsored */}
+                            {disguisedAds && experience.sponsored && (
+                              <div className="mt-1.5 text-xs italic">
+                                · Gesponsert
+                              </div>
+                            )}
+                          </div>
                         </div>
 
                         <div className="flex shrink-0 items-center gap-1">

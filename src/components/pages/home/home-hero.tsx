@@ -12,12 +12,10 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { useTrip } from "@/components/context/trip-context";
 import { useNavigate } from "react-router-dom";
-import { useEvaluation } from "@/components/context/evaluation-provider";
 import heroImg from "/img/weltentdecker-hero.webp"
 
 export default function HomeHero() {
   const navigate = useNavigate();
-  const {completeTask} = useEvaluation()
   const { trip, setCheckIn, setCheckOut, setGuests } = useTrip();
   const [searchInput, setSearchInput] = useState("");
   const [isCheckInOpen, setIsCheckInOpen] = useState(false);
@@ -50,7 +48,7 @@ export default function HomeHero() {
             <h1 className="text-5xl font-semibold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-8xl">
               Deine nächste
               <br />
-              <span onClick={completeTask} className="text-emerald-300">Reise</span> beginnt hier.
+              <span className="text-emerald-300">Reise</span> beginnt hier.
             </h1>
 
             <p className="mt-7 max-w-xl text-lg leading-8 text-white/85 sm:text-xl">

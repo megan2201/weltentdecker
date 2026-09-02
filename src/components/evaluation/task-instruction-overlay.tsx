@@ -7,14 +7,12 @@ import {
   useSensors,
   type DragEndEvent,
 } from "@dnd-kit/core";
-import { GripVertical, Maximize2, Minimize2 } from "lucide-react";
+import { GripVertical, Maximize2, Minimize2, Music2 } from "lucide-react";
 import { useEvaluation } from "../context/evaluation-provider";
 
 export default function TaskInstructionOverlay() {
   const { currentTask, currentTaskIndex, tasks } = useEvaluation();
-
   const [isMinimized, setIsMinimized] = useState(false);
-
   const [position, setPosition] = useState({
     x: 24,
     y: 24,
@@ -96,6 +94,8 @@ function DraggablePanel({
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: "evaluation-task",
   });
+  // Ab Aufgabe 3 soll Musik gehört werden
+  const shouldListenToMusic = currentTaskIndex >= 2;
 
   const style = {
     left: position.x,
@@ -145,10 +145,12 @@ function DraggablePanel({
           {currentTask.description}
         </p>
 
-        <div className="mt-5 flex items-center gap-2 rounded-xl bg-emerald-50 px-3 py-2.5 text-xs text-emerald-700">
-          <span className="h-2 w-2 rounded-full bg-emerald-500" />
-          Bearbeite die Aufgabe auf der Webseite.
-        </div>
+        {shouldListenToMusic && (
+          <div className="mt-5 flex items-center gap-3 rounded-xl bg-violet-50 px-3 py-2.5 text-xs text-violet-900">
+            <Music2 className="h-5 w-5 text-violet-600" />
+            Bitte hören Sie während der Aufgabenbearbeitung Ihre Lieblingsmusik
+          </div>
+        )}
       </div>
     </div>
   );

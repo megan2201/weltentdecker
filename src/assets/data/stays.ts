@@ -146,6 +146,152 @@ export const stays: Stay[] = [
   },
   {
     id: "stay-germany-03",
+    name: "Designer-Apartment in Kreuzberg",
+    type: "Apartment",
+    location: "Berlin",
+    country: "Deutschland",
+    countryImage: new URL("/img/country/germany.webp", import.meta.url).href,
+    description:
+      "Modernes Designer-Apartment im Herzen Kreuzbergs, umgeben von Cafés, Restaurants, Galerien und dem Berliner Nachtleben.",
+    pricePerNight: 145,
+    rating: 4.8,
+    guests: 4,
+    bedrooms: 2,
+    bathrooms: 1,
+    images: [
+      new URL("/img/stay/1_stay-germany-03.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-03.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-03.webp", import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Wifi,
+        title: "Highspeed-WLAN",
+        description:
+          "Schnelles Internet für Streaming, Arbeiten und Entertainment.",
+      },
+      {
+        icon: Coffee,
+        title: "Kaffeestation",
+        description:
+          "Starte entspannt mit frisch zubereitetem Kaffee in den Tag.",
+      },
+      {
+        icon: MapPin,
+        title: "Zentrale Lage",
+        description:
+          "Viele Restaurants, Bars und Sehenswürdigkeiten befinden sich in der Nähe.",
+      },
+    ],
+    facilities: [
+      "Balkon",
+      "Voll ausgestattete Küche",
+      "Klimaanlage",
+      "Aufzug",
+      "Kontaktloser Check-in",
+    ],
+    tags: ["Berlin", "Kreuzberg", "Modern", "Stadt"],
+    featured: true,
+  },
+
+  {
+    id: "stay-germany-04",
+    name: "Berliner Altbau am Prenzlauer Berg",
+    type: "Altbau-Apartment",
+    location: "Berlin",
+    country: "Deutschland",
+    countryImage: new URL("/img/country/germany.webp", import.meta.url).href,
+    description:
+      "Charmantes Altbau-Apartment mit hohen Decken und klassischem Berliner Flair in einer ruhigen Straße im Prenzlauer Berg.",
+    pricePerNight: 120,
+    rating: 4.7,
+    guests: 4,
+    bedrooms: 2,
+    bathrooms: 1,
+    images: [
+      new URL("/img/stay/1_stay-germany-04.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-04.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-04.webp", import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Building,
+        title: "Berliner Altbau",
+        description:
+          "Hohe Decken, große Fenster und charakteristische Altbaudetails.",
+      },
+      {
+        icon: Coffee,
+        title: "Gemütliche Küche",
+        description:
+          "Kompakte und gut ausgestattete Küche für entspannte Mahlzeiten.",
+      },
+      {
+        icon: Wifi,
+        title: "Kostenloses WLAN",
+        description: "Zuverlässiges WLAN im gesamten Apartment.",
+      },
+    ],
+    facilities: [
+      "Küche",
+      "Waschmaschine",
+      "Heizung",
+      "Arbeitsplatz",
+      "Öffentliche Verkehrsmittel in der Nähe",
+    ],
+    tags: ["Altbau", "Berlin", "Paare", "Kultur"],
+  },
+
+  {
+    id: "stay-germany-05",
+    name: "Spree-Loft mit Dachterrasse",
+    type: "Loft",
+    location: "Berlin",
+    country: "Deutschland",
+    countryImage: new URL("/img/country/germany.webp", import.meta.url).href,
+    description:
+      "Großzügiges Loft mit moderner Einrichtung und privater Dachterrasse – perfekt für einen besonderen Aufenthalt mitten in Berlin.",
+    pricePerNight: 195,
+    rating: 4.9,
+    guests: 5,
+    bedrooms: 2,
+    bathrooms: 2,
+    images: [
+      new URL("/img/stay/1_stay-germany-05.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-05.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-05.webp", import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Sun,
+        title: "Private Dachterrasse",
+        description:
+          "Genieße sonnige Stunden und entspannte Abende über den Dächern Berlins.",
+      },
+      {
+        icon: WavesHorizontal,
+        title: "Nähe zur Spree",
+        description:
+          "Die Spree und zahlreiche Ausgeh- und Kulturangebote befinden sich in der Nähe.",
+      },
+      {
+        icon: Wifi,
+        title: "Highspeed-WLAN",
+        description: "Schnelles WLAN für Arbeit, Streaming und Unterhaltung.",
+      },
+    ],
+    facilities: [
+      "Dachterrasse",
+      "Voll ausgestattete Küche",
+      "Klimaanlage",
+      "Aufzug",
+      "Privater Parkplatz",
+    ],
+    tags: ["Berlin", "Loft", "Modern", "Luxus"],
+    featured: true,
+  },
+  {
+    id: "stay-germany-06",
     name: "Rückzugsort im Schwarzwald",
     type: "Ferienhaus",
     location: "Freiburg",
@@ -159,9 +305,9 @@ export const stays: Stay[] = [
     bedrooms: 3,
     bathrooms: 2,
     images: [
-      new URL("/img/stay/1_stay-germany-03.webp", import.meta.url).href,
-      new URL("/img/stay/2_stay-germany-03.webp", import.meta.url).href,
-      new URL("/img/stay/3_stay-germany-03.webp", import.meta.url).href,
+      new URL("/img/stay/1_stay-germany-06.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-06.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-06.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -191,7 +337,7 @@ export const stays: Stay[] = [
     tags: ["Natur", "Ruhe", "Familie"],
   },
   {
-    id: "stay-germany-04",
+    id: "stay-germany-07",
     name: "Hafenblick Apartment",
     type: "Apartment",
     location: "Hamburg",
@@ -205,9 +351,9 @@ export const stays: Stay[] = [
     bedrooms: 1,
     bathrooms: 1,
     images: [
-      new URL("/img/stay/1_stay-germany-04.webp", import.meta.url).href,
-      new URL("/img/stay/2_stay-germany-04.webp", import.meta.url).href,
-      new URL("/img/stay/3_stay-germany-04.webp", import.meta.url).href,
+      new URL("/img/stay/1_stay-germany-07.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-07.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-07.webp", import.meta.url).href,
     ],
     amenities: [
       {
@@ -235,6 +381,150 @@ export const stays: Stay[] = [
       "Öffentliche Verkehrsmittel in der Nähe",
     ],
     tags: ["Stadt", "Hafen", "Paare"],
+  },
+  {
+    id: "stay-germany-08",
+    name: "Elbblick Penthouse Hamburg",
+    type: "Penthouse",
+    location: "Hamburg",
+    country: "Deutschland",
+    countryImage: new URL("/img/country/germany.webp", import.meta.url).href,
+    description:
+      "Elegantes Penthouse mit großzügiger Dachterrasse und beeindruckendem Blick über die Elbe – ideal für einen stilvollen Aufenthalt in Hamburg.",
+    pricePerNight: 210,
+    rating: 4.9,
+    guests: 4,
+    bedrooms: 2,
+    bathrooms: 2,
+    images: [
+      new URL("/img/stay/1_stay-germany-08.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-08.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-08.webp", import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: WavesHorizontal,
+        title: "Elbblick",
+        description:
+          "Genieße einen beeindruckenden Blick auf die Elbe und den Hamburger Hafen.",
+      },
+      {
+        icon: Sun,
+        title: "Dachterrasse",
+        description:
+          "Großzügige private Terrasse für entspannte Stunden über den Dächern Hamburgs.",
+      },
+      {
+        icon: Wifi,
+        title: "Highspeed-WLAN",
+        description: "Schnelles und zuverlässiges WLAN im gesamten Penthouse.",
+      },
+    ],
+    facilities: [
+      "Private Dachterrasse",
+      "Voll ausgestattete Küche",
+      "Aufzug",
+      "Klimaanlage",
+      "Privater Parkplatz",
+    ],
+    tags: ["Luxus", "Hafen", "Modern", "Paare"],
+    featured: true,
+  },
+
+  {
+    id: "stay-germany-09",
+    name: "Speicherstadt Boutique-Apartment",
+    type: "Boutique-Apartment",
+    location: "Hamburg",
+    country: "Deutschland",
+    countryImage: new URL("/img/country/germany.webp", import.meta.url).href,
+    description:
+      "Stilvolles Boutique-Apartment in zentraler Lage nahe der Speicherstadt, Elbphilharmonie und Hamburger Innenstadt.",
+    pricePerNight: 135,
+    rating: 4.8,
+    guests: 3,
+    bedrooms: 1,
+    bathrooms: 1,
+    images: [
+      new URL("/img/stay/1_stay-germany-09.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-09.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-09.webp", import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Landmark,
+        title: "Nähe zur Speicherstadt",
+        description:
+          "Viele Hamburger Sehenswürdigkeiten sind bequem zu Fuß erreichbar.",
+      },
+      {
+        icon: Coffee,
+        title: "Kaffeestation",
+        description:
+          "Genieße morgens frisch zubereiteten Kaffee in deiner Unterkunft.",
+      },
+      {
+        icon: Wifi,
+        title: "Kostenloses WLAN",
+        description:
+          "Schnelles Internet zum Arbeiten, Streamen und Entspannen.",
+      },
+    ],
+    facilities: [
+      "Küche",
+      "Klimaanlage",
+      "Aufzug",
+      "Waschmaschine",
+      "Kontaktloser Check-in",
+    ],
+    tags: ["Stadt", "Kultur", "Modern", "Paare"],
+  },
+
+  {
+    id: "stay-germany-10",
+    name: "Hanseatisches Stadthaus an der Alster",
+    type: "Stadthaus",
+    location: "Hamburg",
+    country: "Deutschland",
+    countryImage: new URL("/img/country/germany.webp", import.meta.url).href,
+    description:
+      "Charmantes hanseatisches Stadthaus in ruhiger Lage nahe der Alster mit privatem Garten und viel Platz für Familien.",
+    pricePerNight: 175,
+    rating: 4.8,
+    guests: 6,
+    bedrooms: 3,
+    bathrooms: 2,
+    images: [
+      new URL("/img/stay/1_stay-germany-10.webp", import.meta.url).href,
+      new URL("/img/stay/2_stay-germany-10.webp", import.meta.url).href,
+      new URL("/img/stay/3_stay-germany-10.webp", import.meta.url).href,
+    ],
+    amenities: [
+      {
+        icon: Trees,
+        title: "Privater Garten",
+        description: "Ruhiger Garten zum Frühstücken, Spielen und Entspannen.",
+      },
+      {
+        icon: WavesHorizontal,
+        title: "Nähe zur Alster",
+        description:
+          "Die Außenalster und ihre Spazierwege sind schnell erreichbar.",
+      },
+      {
+        icon: Wifi,
+        title: "Kostenloses WLAN",
+        description: "Zuverlässiges WLAN im gesamten Stadthaus.",
+      },
+    ],
+    facilities: [
+      "Privater Garten",
+      "Terrasse",
+      "Voll ausgestattete Küche",
+      "Waschmaschine",
+      "Kostenloser Parkplatz",
+    ],
+    tags: ["Alster", "Familie", "Ruhe", "Stadt"],
   },
 
   // =========================

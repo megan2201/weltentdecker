@@ -12,7 +12,7 @@ import NaggingOverlay from "./nagging-overlay";
 import TaskInstructionOverlay from "./task-instruction-overlay";
 
 export default function EvaluationManager() {
-  const { phase, naggingActivated, changeNagging, currentTask } =
+  const { phase, naggingActivated, changeNagging, currentTask, completeTask } =
     useEvaluation();
   const [showNagging, setShowNagging] = useState(false);
   const nagging = currentTask.darkPattern === "nagging";
@@ -51,6 +51,10 @@ export default function EvaluationManager() {
               onLater={() => {
                 setShowNagging(false);
                 changeNagging(false);
+
+                if (sessionStorage.getItem("last-nagging") === "true") {
+                  completeTask()
+                }
               }}
             />
           )}
