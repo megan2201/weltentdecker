@@ -11,7 +11,7 @@ export default function EvaluationFinished() {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[100] flex justify-center bg-white px-6">
+    <div className="fixed inset-0 z-[100] flex justify-center bg-white px-6 overflow-y-auto">
       <div className="my-auto max-w-xl text-center">
         <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100">
           <CheckCircle2 className="h-10 w-10 text-emerald-600" />

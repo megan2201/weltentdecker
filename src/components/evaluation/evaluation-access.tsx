@@ -34,7 +34,7 @@ export default function EvaluationAccess() {
   };
 
   return (
-    <div className="fixed inset-0 z-[300] flex min-h-screen justify-center bg-gray-50 px-6">
+    <div className="fixed inset-0 z-[300] flex min-h-screen justify-center bg-gray-50 px-6 overflow-y-auto">
       <div className="my-auto w-full max-w-md">
         <div className="rounded-3xl border bg-white p-8 shadow-xl">
           {/* Icon */}

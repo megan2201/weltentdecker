@@ -30,7 +30,7 @@ export default function EvaluationTaskExplanation() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex justify-center bg-white px-6">
+    <div className="fixed inset-0 z-[100] flex justify-center bg-white px-6 overflow-y-auto">
       <div className="my-auto w-full max-w-2xl">
         {/* Fortschritt */}
         <div className="text-center">
