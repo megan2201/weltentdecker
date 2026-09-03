@@ -109,10 +109,10 @@ export default function EvaluationIntro() {
                   <p>
                     wir laden Sie herzlich ein, an einem Usability-Test
                     teilzunehmen. In dieser Evaluation untersuchen wir, wie
-                    Nutzerinnen und Nutzer ein Online-Reiseportal wahrnehmen und
-                    bedienen. Ziel ist es, die Benutzerfreundlichkeit des
-                    Portals zu bewerten und mögliche Verbesserungspotenziale zu
-                    identifizieren.
+                    Nutzerinnen und Nutzer eine Online-Reiseplattform wahrnehmen
+                    und bedienen. Ziel ist es, die Benutzerfreundlichkeit der
+                    Plattform mithilfe der Messung emotionaler Reaktionen zu
+                    bewerten.
                   </p>
                 </div>
               </div>
@@ -143,7 +143,7 @@ export default function EvaluationIntro() {
               <InfoCard
                 icon={<Clock3 className="h-5 w-5" />}
                 title="Dauer"
-                description="Die Evaluation dauert etwa 20 Minuten."
+                description="Die Evaluation dauert etwa 10-15 Minuten."
               />
 
               <InfoCard
@@ -170,7 +170,7 @@ export default function EvaluationIntro() {
               <Step
                 number="1"
                 title="Vorab-Fragebogen"
-                description="Zu Beginn beantworten Sie einige kurze Fragen zu Ihrer Person und Ihren Erfahrungen mit Online-Reiseportalen."
+                description="Zu Beginn beantworten Sie zwei Fragen zu Ihrer Person und Ihren Erfahrungen mit Online-Reiseplattformen. Danach folgen zwei weitere kurze Fragen."
               />
 
               <Step
@@ -202,8 +202,7 @@ export default function EvaluationIntro() {
             <div className="mt-5 space-y-4 text-sm leading-6 text-slate-600">
               <PrivacyPoint>
                 Alle gespeicherten Daten werden so bearbeitet, dass kein
-                Rückschluss auf Ihre Person möglich ist. Personenbezogene Daten
-                werden entfernt oder pseudonymisiert.
+                Rückschluss auf Ihre Person möglich ist.
               </PrivacyPoint>
 
               <PrivacyPoint>

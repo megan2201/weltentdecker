@@ -49,7 +49,7 @@ export default function EvaluationAccess() {
             </h1>
 
             <p className="mt-2 text-sm leading-6 text-gray-500">
-              Bitte gib den Evaluationscode ein, den du erhalten hast.
+              Bitte geben Sie den Evaluationscode ein, den Sie erhalten haben.
             </p>
           </div>
 

@@ -50,7 +50,7 @@ export default function EvaluationPreQuestionnaire() {
           </p>
 
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-gray-900">
-            Erzähle uns kurz etwas über dich
+            Erzählen Sie uns kurz etwas über sich
           </h2>
 
           <p className="mx-auto mt-3 max-w-xl text-gray-500">
@@ -61,7 +61,7 @@ export default function EvaluationPreQuestionnaire() {
 
         <div className="mt-10 space-y-10">
           {/* Alter */}
-          <Question title="Wie alt bist du?">
+          <Question title="Wie alt sind Sie?">
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {[
                 "Unter 18",
@@ -82,7 +82,7 @@ export default function EvaluationPreQuestionnaire() {
           </Question>
 
           {/* Erfahrung */}
-          <Question title="Wie viel Erfahrung hast du mit Online-Reisebuchungen?">
+          <Question title="Wie viel Erfahrung haben Sie mit Online-Reisebuchungen?">
             <div className="space-y-3">
               {[
                 {
