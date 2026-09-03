@@ -60,7 +60,7 @@ export default function ExperiencesBooking() {
 
   useEffect(() => {
     // Wird einmalig nach dem ersten Rendern ausgeführt
-    if (currentTask.darkPattern === "nagging") {
+    if (currentTask?.darkPattern === "nagging") {
       changeNagging(true);
     }
   }, []);
@@ -115,9 +115,9 @@ export default function ExperiencesBooking() {
     setLoading(false);
     setStep(3);
 
-    if (currentTask.darkPattern === "nagging") {
+    if (currentTask?.darkPattern === "nagging") {
       changeNagging(true);
-      sessionStorage.setItem("last-nagging", "true")
+      localStorage.setItem("last-nagging", "true")
     }
   }
 

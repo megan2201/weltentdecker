@@ -53,14 +53,15 @@ Deno.serve(async (req) => {
     const sessionToken =
       typeof body.sessionToken === "string" ? body.sessionToken : "";
     const taskId = typeof body.taskId === "string" ? body.taskId : "";
+    const taskIndex = typeof body.taskIndex === "number" ? body.taskIndex : 0;
 
     /*
      * Request validieren
      */
-    if (!sessionId || !sessionToken || !taskId) {
+    if (!sessionId || !sessionToken || !taskId || !Number.isInteger(taskIndex)) {
       return jsonResponse(
         {
-          error: "sessionId, sessionToken and taskId are required",
+          error: "sessionId, sessionToken, taskId and taskIndex are required",
         },
         400,
       );
@@ -183,6 +184,7 @@ Deno.serve(async (req) => {
       .insert({
         session_id: sessionId,
         task_id: taskId,
+        task_index: taskIndex,
       })
       .select("id, started_at")
       .single();
@@ -206,6 +208,7 @@ Deno.serve(async (req) => {
       .from("evaluation_sessions")
       .update({
         current_task_id: taskId,
+        current_task_index: taskIndex
       })
       .eq("id", sessionId);
 

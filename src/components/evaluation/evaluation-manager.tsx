@@ -15,7 +15,7 @@ export default function EvaluationManager() {
   const { phase, naggingActivated, changeNagging, currentTask, completeTask } =
     useEvaluation();
   const [showNagging, setShowNagging] = useState(false);
-  const nagging = currentTask.darkPattern === "nagging";
+  const nagging = currentTask?.darkPattern === "nagging";
 
   useEffect(() => {
     if (!nagging || phase !== "task" || !naggingActivated) {
@@ -52,8 +52,9 @@ export default function EvaluationManager() {
                 setShowNagging(false);
                 changeNagging(false);
 
-                if (sessionStorage.getItem("last-nagging") === "true") {
-                  completeTask()
+                if (localStorage.getItem("last-nagging") === "true") {
+                  completeTask();
+                  localStorage.removeItem("last-nagging");
                 }
               }}
             />

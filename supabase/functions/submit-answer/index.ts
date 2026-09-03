@@ -145,64 +145,6 @@ Deno.serve(async (req) => {
     }
 
     /*
-     * Prüfen, ob diese Frage bereits
-     * beantwortet wurde.
-     */
-    const { data: existingAnswer, error: existingAnswerError } = await supabase
-      .from("evaluation_answers")
-      .select("id, answer, created_at")
-      .eq("session_id", sessionId)
-      .eq("question_id", questionId)
-      .maybeSingle();
-
-    if (existingAnswerError) {
-      console.error("Could not check existing answer:", existingAnswerError);
-
-      return jsonResponse(
-        {
-          error: "Could not check existing answer",
-        },
-        500,
-      );
-    }
-
-    /*
-     * Bereits vorhandene Antwort
-     *
-     * Wir überschreiben sie hier,
-     * damit der Benutzer seine Antwort
-     * ändern kann.
-     */
-    if (existingAnswer) {
-      const { data: updatedAnswer, error: updateError } = await supabase
-        .from("evaluation_answers")
-        .update({
-          answer,
-          task_id: taskId,
-        })
-        .eq("id", existingAnswer.id)
-        .select("id, question_id, task_id, answer, created_at")
-        .single();
-
-      if (updateError) {
-        console.error("Could not update answer:", updateError);
-
-        return jsonResponse(
-          {
-            error: "Could not update answer",
-          },
-          500,
-        );
-      }
-
-      return jsonResponse({
-        success: true,
-        updated: true,
-        answer: updatedAnswer,
-      });
-    }
-
-    /*
      * Neue Antwort speichern
      */
     const { data: savedAnswer, error: insertError } = await supabase
@@ -233,7 +175,6 @@ Deno.serve(async (req) => {
      */
     return jsonResponse({
       success: true,
-      updated: false,
       answer: savedAnswer,
     });
   } catch (error) {

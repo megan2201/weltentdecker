@@ -56,7 +56,7 @@ export default function ExperiencesDetail() {
     );
   }
 
-  const disguisedAds = currentTask.darkPattern === "disguised-ads";
+  const disguisedAds = currentTask?.darkPattern === "disguised-ads";
 
   useEffect(() => {
     if (disguisedAds && experience.location === "Freiburg") {

@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { useEvaluation } from "../context/evaluation-provider";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
 export default function EvaluationTaskExplanation() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { currentTask, currentTaskIndex, tasks, startTask } = useEvaluation();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -22,7 +23,7 @@ export default function EvaluationTaskExplanation() {
   }, []);
 
   const handleSubmit = async () => {
-    navigate("/")
+    navigate("/");
     setIsSubmitting(true);
     await startTask();
     setIsSubmitting(false);
@@ -43,18 +44,18 @@ export default function EvaluationTaskExplanation() {
 
           {/* Titel */}
           <h1 className="mt-7 text-4xl font-semibold tracking-tight text-gray-950">
-            {currentTask.title}
+            {currentTask?.title}
           </h1>
 
           {/* Szenario */}
-          {currentTask.scenario && (
+          {currentTask?.scenario && (
             <div className="mx-auto mt-6 max-w-xl rounded-2xl border border-emerald-100 bg-emerald-50 p-5 text-left">
               <p className="text-xs font-semibold uppercase tracking-wider text-emerald-700">
                 Szenario
               </p>
 
               <p className="mt-2 text-base leading-7 text-gray-700">
-                {currentTask.scenario}
+                <ReactMarkdown>{currentTask.scenario}</ReactMarkdown>
               </p>
             </div>
           )}
@@ -66,7 +67,7 @@ export default function EvaluationTaskExplanation() {
             </p>
 
             <p className="mt-3 text-lg leading-8 text-gray-700">
-              {currentTask.description}
+              <ReactMarkdown>{currentTask?.description}</ReactMarkdown>
             </p>
           </div>
 

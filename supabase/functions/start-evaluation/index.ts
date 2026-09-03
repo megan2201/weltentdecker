@@ -1,4 +1,5 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
+import { TASK_ORDERS } from "./task-orders.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -113,6 +114,44 @@ Deno.serve(async (req) => {
     );
 
     /*
+     * Nächste Sequenznummer atomar aus der Datenbank holen.
+     *
+     * Die Datenbank sorgt dafür, dass bei mehreren
+     * gleichzeitig gestarteten Evaluationen keine
+     * Sequenznummer doppelt vergeben wird.
+     */
+    const { data: sequenceNumber, error: sequenceError } = await supabase.rpc(
+      "get_next_sequence_number",
+    );
+
+    if (sequenceError || sequenceNumber === null) {
+      console.error("Could not get sequence number:", sequenceError);
+
+      return jsonResponse(
+        {
+          error: "Could not assign evaluation sequence",
+        },
+        500,
+      );
+    }
+
+    /*
+     * Zur Sequenznummer die statische Reihenfolge holen.
+     */
+    const taskOrder = TASK_ORDERS[sequenceNumber];
+
+    if (!taskOrder) {
+      console.error("Invalid sequence number:", sequenceNumber);
+
+      return jsonResponse(
+        {
+          error: "Invalid evaluation sequence",
+        },
+        500,
+      );
+    }
+
+    /*
      * Session-ID erzeugen
      */
     const sessionId = crypto.randomUUID();
@@ -144,6 +183,8 @@ Deno.serve(async (req) => {
       id: sessionId,
       session_token_hash: sessionTokenHash,
       current_task_id: null,
+      current_task_index: null,
+      sequence_number: sequenceNumber,
       status: "in_progress",
     });
 
@@ -165,6 +206,8 @@ Deno.serve(async (req) => {
     return jsonResponse({
       sessionId,
       sessionToken,
+      sequenceNumber,
+      taskOrder,
     });
   } catch (error) {
     console.error("Unexpected error:", error);

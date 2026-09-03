@@ -58,11 +58,11 @@ export default function Experiences() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [sort, setSort] = useState<SortOption>("Empfohlen");
 
-  const disguisedAds = currentTask.darkPattern === "disguised-ads";
+  const disguisedAds = currentTask?.darkPattern === "disguised-ads";
 
   useEffect(() => {
     // Wird einmalig nach dem ersten Rendern ausgeführt
-    if (currentTask.darkPattern === "nagging") {
+    if (currentTask?.darkPattern === "nagging") {
       changeNagging(true);
     }
   }, []);

@@ -23,14 +23,20 @@ export default function EvaluationSam({ mode = "post" }: EvaluationSamProps) {
   const isPreSam = mode === "pre";
 
   // Auslesen aller SVGs im Ordner
-  const valenceImgsRecord = import.meta.glob<string>("../../assets/img/valence/*.svg", {
-    eager: true,
-    import: "default",
-  });
-  const arousalImgsRecord = import.meta.glob<string>("../../assets/img/arousal/*.svg", {
-    eager: true,
-    import: "default",
-  });
+  const valenceImgsRecord = import.meta.glob<string>(
+    "../../assets/img/valence/*.svg",
+    {
+      eager: true,
+      import: "default",
+    },
+  );
+  const arousalImgsRecord = import.meta.glob<string>(
+    "../../assets/img/arousal/*.svg",
+    {
+      eager: true,
+      import: "default",
+    },
+  );
 
   const valenceImgs: string[] = Object.values(valenceImgsRecord);
   const arousalImgs: string[] = Object.values(arousalImgsRecord);
@@ -55,12 +61,12 @@ export default function EvaluationSam({ mode = "post" }: EvaluationSamProps) {
       submitAnswer(
         isPreSam ? "pre-valence" : "valence",
         valence.toString(),
-        currentTask.id,
+        isPreSam ? "pre-sam" : currentTask ? currentTask.id : "pre-sam",
       ),
       submitAnswer(
         isPreSam ? "pre-arousal" : "arousal",
         arousal.toString(),
-        currentTask.id,
+        isPreSam ? "pre-sam" : currentTask ? currentTask.id : "pre-sam",
       ),
     ]);
 

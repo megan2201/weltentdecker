@@ -9,6 +9,7 @@ import {
 } from "@dnd-kit/core";
 import { GripVertical, Maximize2, Minimize2, Music2 } from "lucide-react";
 import { useEvaluation } from "../context/evaluation-provider";
+import ReactMarkdown from "react-markdown";
 
 export default function TaskInstructionOverlay() {
   const { currentTask, currentTaskIndex, tasks } = useEvaluation();
@@ -63,7 +64,7 @@ export default function TaskInstructionOverlay() {
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <DraggablePanel
         position={position}
-        currentTask={currentTask}
+        currentTask={currentTask!}
         currentTaskIndex={currentTaskIndex}
         totalTasks={tasks.length}
         onMinimize={() => setIsMinimized(true)}
@@ -138,11 +139,11 @@ function DraggablePanel({
       {/* Task */}
       <div className="p-5">
         <h2 className="text-lg font-semibold text-gray-900">
-          {currentTask.title}
+          {currentTask?.title}
         </h2>
 
         <p className="mt-2 text-sm leading-6 text-gray-600">
-          {currentTask.description}
+          <ReactMarkdown>{currentTask?.description}</ReactMarkdown>
         </p>
 
         {shouldListenToMusic && (

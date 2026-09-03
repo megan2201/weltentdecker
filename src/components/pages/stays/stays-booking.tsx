@@ -57,9 +57,9 @@ export default function StaysBooking() {
     "subscribe" | "decline" | null
   >(null);
 
-  const confirmShaming = currentTask.darkPattern === "confirmshaming";
+  const confirmShaming = currentTask?.darkPattern === "confirmshaming";
   const cityTourActivated =
-    currentTask.darkPattern === "sneaking-into-basket" && includeCityTour;
+    currentTask?.darkPattern === "sneaking-into-basket" && includeCityTour;
   const cityTripPrice = cityTourActivated ? 80 : 0;
 
   const nights =
@@ -118,8 +118,11 @@ export default function StaysBooking() {
     if (confirmShaming && stay.location === "Berlin") {
       setIsNewsletterModalOpen(true);
     }
-    if (currentTask.darkPattern === "sneaking-into-basket" && stay.location === "Hamburg") {
-      completeTask()
+    if (
+      currentTask?.darkPattern === "sneaking-into-basket" &&
+      stay.location === "Hamburg"
+    ) {
+      completeTask();
     }
   }
 
@@ -265,23 +268,6 @@ export default function StaysBooking() {
                         className="mt-2 h-12 rounded-xl"
                         required
                       />
-                    </div>
-
-                    <div className="mt-8 rounded-2xl bg-emerald-50 p-4">
-                      <div className="flex gap-3">
-                        <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-600" />
-
-                        <div>
-                          <p className="text-sm font-medium">
-                            Deine Daten sind geschützt
-                          </p>
-
-                          <p className="mt-1 text-xs leading-5 text-gray-500">
-                            Wir verwenden deine Daten ausschließlich zur
-                            Bearbeitung deiner Buchung.
-                          </p>
-                        </div>
-                      </div>
                     </div>
 
                     <Button
@@ -696,7 +682,7 @@ export default function StaysBooking() {
               onClick={() => {
                 if (!newsletterChoice) return;
                 setIsNewsletterModalOpen(false);
-                completeTask()
+                completeTask();
               }}
             >
               Auswahl speichern
