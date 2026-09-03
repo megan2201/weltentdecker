@@ -6,7 +6,6 @@ import {
   Check,
   CreditCard,
   Lock,
-  ShieldCheck,
   Star,
   X,
 } from "lucide-react";
