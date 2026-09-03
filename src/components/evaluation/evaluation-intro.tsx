@@ -86,6 +86,9 @@ export default function EvaluationIntro() {
                 <p className="mt-1 font-medium text-slate-900">
                   Megan Diekmann
                 </p>
+                <p className="text-sm text-slate-500">
+                  megan.diekmann@hs-osnabrueck.de
+                </p>
               </div>
 
               <div>

@@ -1,10 +1,4 @@
-import {
-  Info,
-  ShoppingBasket,
-  Megaphone,
-  Bell,
-  HeartOff,
-} from "lucide-react";
+import { Info, ShoppingBasket, Megaphone, Bell, HeartOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEvaluation } from "../context/evaluation-provider";
 import { useEffect, useState } from "react";
@@ -113,14 +107,15 @@ export default function EvaluationDebriefing() {
 
             <div className="mt-6 space-y-4 text-m leading-7 text-slate-600">
               <p>
-                Als Dark Patterns werden Gestaltungsmuster in digitalen Benutzeroberflächen
-                bezeichnet, die darauf ausgelegt sein können, Nutzerinnen und
-                Nutzer in ihrer Entscheidung oder ihrem Verhalten zu
-                beeinflussen. Sie können beispielsweise dazu führen, dass eine
-                Person etwas auswählt, kauft, abonniert oder akzeptiert, die sie
-                unter einer anderen Gestaltung möglicherweise nicht gewählt oder
-                vorgenommen hätte. In dieser Evaluation wurden vier
-                unterschiedliche Dark Patterns betrachtet.
+                Als Dark Patterns werden Gestaltungsmuster in digitalen
+                Benutzeroberflächen bezeichnet, die darauf ausgelegt sein
+                können, Nutzerinnen und Nutzer in ihrer Entscheidung oder ihrem
+                Verhalten zu beeinflussen. Sie können beispielsweise dazu
+                führen, dass eine Person etwas auswählt, kauft, abonniert oder
+                akzeptiert, die sie unter einer anderen Gestaltung
+                möglicherweise nicht gewählt oder vorgenommen hätte. In dieser
+                Evaluation wurden vier unterschiedliche Dark Patterns
+                betrachtet.
               </p>
             </div>
           </section>
@@ -175,8 +170,8 @@ export default function EvaluationDebriefing() {
                   Sollten Sie nach Kenntnis des tatsächlichen
                   Untersuchungszwecks Ihre Teilnahme bzw. die Verwendung Ihrer
                   erhobenen Daten nicht wünschen, können Sie sich unter Angabe
-                  Ihrer Teilnehmenden-ID ({sessionId}) an die Verantwortlichen
-                  wenden.
+                  Ihrer Teilnehmenden-ID ({sessionId}) per E-Mail
+                  (megan.diekmann@hs-osnabrueck.de) an mich wenden.
                 </p>
               </div>
             </div>
