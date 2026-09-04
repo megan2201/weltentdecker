@@ -622,14 +622,6 @@ export default function StaysBooking() {
                   Erhalte exklusive Angebote und Rabatte per E-Mail.
                 </p>
               </div>
-
-              <button
-                type="button"
-                onClick={() => setIsNewsletterModalOpen(false)}
-                className="rounded-full p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
-              >
-                <X className="h-5 w-5" />
-              </button>
             </div>
 
             <div className="mt-6 space-y-3">
