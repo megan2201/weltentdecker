@@ -106,7 +106,7 @@ export default function EvaluationSam({ mode = "post" }: EvaluationSamProps) {
 
         <div className="mt-10 space-y-10">
           {/* Valenz */}
-          <Question title="Wie angenehm oder unangenehm fühlen Sie sich gerade?">
+          <Question title="Wie unangenehm oder angenehm fühlen Sie sich gerade?">
             <SamRating
               value={valence}
               onChange={setValence}

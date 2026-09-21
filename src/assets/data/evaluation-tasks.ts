@@ -44,7 +44,7 @@ export const evaluationTasks: EvaluationTask[] = [
       "Sie sind Lars Weber und planen vom 15. Oktober 2026 bis zum 18.10.2026 einen Urlaub in Berlin. Am 16.10.206 möchten Sie dort ein **Erlebnis** buchen.",
     title: "Buchen Sie ein Erlebnis",
     description:
-      "Buchen Sie ein **Erlebnis** in Berlin für den 16. Oktober 2026 für eine Person",
+      "**Buchen** Sie ein **Erlebnis** in Berlin für den 16. Oktober 2026 für eine Person.",
     darkPattern: "nagging",
   },
 ];
